@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Sing Up | 
+{% endblock %}
+
+{% block content %}
+  <form method="post" class="form-box">
+    {% csrf_token %}
+    <section class="form-title">
+      <h2>Sing Up</h2>
+      <p>Create a new account to get started.</p>
+    </section>
+    <div>
+      <p>{{ form.first_name.label }}</p>
+      {{ form.first_name }}
+      {% if form.first_name.errors %}
+        {{ form.first_name.errors }}
+      {% endif %}
+    </div>
+    <div>
+      <p>{{ form.email.label }}</p>
+      {{ form.email }}
+      {% if form.email.errors %}
+        {{ form.email.errors }}
+      {% endif %}
+    </div>
+    <div>
+      <p>{{ form.password.label }}</p>
+      {{ form.password }}
+      {% if form.password.errors %}
+        {{ form.password.errors }}
+      {% endif %}
+    </div>
+    <div>
+      <p>{{ form.repeat_password.label }}</p>
+      {{ form.repeat_password }}
+      {% if form.repeat_password.errors %}
+        {{ form.repeat_password.errors }}
+      {% endif %}
+    </div>
+    <button type="submit" class="form-button">Sign up</button>
+  </form>
+{% endblock %}
