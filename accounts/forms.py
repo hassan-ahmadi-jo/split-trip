@@ -63,3 +63,16 @@ class SignUpForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class EmailActivationForm(forms.Form):
+    verification_code = forms.CharField(
+        label='Verification code:',
+        max_length=20,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter the verification code'
+        }),
+        error_messages={
+            'required': 'This field is required.'
+        }
+    )
