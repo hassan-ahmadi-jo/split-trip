@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, nostrum?</p>
+{% block title %}
+  Login |
+{% endblock %}
 
-<form action="">
-    <input type="text">
-</form>
+{% block content %}
+  <form method="post" class="form-box">
+    {% csrf_token %}
+    <section class="form-title">
+      <h2>Login</h2>
+      <p>Please log in to use the site.</p>
+    </section>
+    <div>
+      <p>{{ form.username.label }}</p>
+      {{ form.username }}
+      {% if form.username.errors %}
+        {{ form.username.errors }}
+      {% endif %}
+    </div>
+    <div>
+      <p>{{ form.password.label }}</p>
+      {{ form.password }}
+      {% if form.password.errors %}
+        {{ form.password.errors }}
+      {% endif %}
+    </div>
+    <button type="submit" class="form-button">Login</button>
+  </form>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from . import models
 
 class SignUpForm(forms.ModelForm):
@@ -75,4 +76,24 @@ class EmailActivationForm(forms.Form):
         error_messages={
             'required': 'This field is required.'
         }
+    )
+
+class UserLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        max_length=150,
+        label='Email',
+        widget=forms.EmailInput(attrs={
+            "autofocus": True,
+            'class': 'form-control',
+            'placeholder': 'Email',
+            }))
+    password = forms.CharField(
+        max_length=150,
+        label="Password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            "autocomplete": "current-password",
+            'class': 'form-control',
+            'placeholder': 'Password',
+            }),
     )

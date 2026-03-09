@@ -125,3 +125,8 @@ STATICFILES_DIRS = [
 # User
 
 AUTH_USER_MODEL = 'accounts.User'
+
+
+# Logout Redirect Url
+LOGOUT_REDIRECT_URL = "login"
+

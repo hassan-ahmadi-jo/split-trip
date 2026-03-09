@@ -5,7 +5,9 @@ from django.urls import reverse_lazy
 from django.http import HttpRequest
 from django.contrib.auth import login
 from django.utils import timezone
+from django.contrib.auth.views import LoginView
 from . import forms, models
+
 
 # Create your views here.
 
@@ -27,11 +29,11 @@ class EmailActivationView(View):
     def get(self, request):
         # todo: check if email is active ore not
         # todo: check if user is login or not
-        form = forms.ActiveEmailForm
+        form = forms.EmailActivationForm
         return render(request, 'accounts/email_activation_page.html', {'form': form})
     def post(self, request:HttpRequest):
         # todo: check if email is active ore not
-        form = forms.ActiveEmailForm(request.POST)
+        form = forms.EmailActivationForm(request.POST)
         if form.is_valid():
             verification_code = form.cleaned_data.get('verification_code')
             user = request.user
@@ -42,7 +44,15 @@ class EmailActivationView(View):
                 # todo: redirect to home page
             else:
                 form.add_error('verification_code', 'The verification code is incorrect')
-        return render(request, 'accounts/active_email_page.html', {'form': form})
+        return render(request, 'accounts/email_activation_page.html', {'form': form})
+
+class UserLoginView(LoginView):
+    template_name = 'accounts/login_page.html'
+    form_class = forms.UserLoginForm
+    # todo:
+    # next_page = 'home'
+    next_page = 'email_activation_page'
+
 
 # users = models.User.objects.all()
 # for user in users:
