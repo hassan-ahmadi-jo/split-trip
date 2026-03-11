@@ -1,30 +1,46 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Login |
+Login |
 {% endblock %}
 
 {% block content %}
-  <form method="post" class="form-box">
-    {% csrf_token %}
-    <section class="form-title">
-      <h2>Login</h2>
-      <p>Please log in to use the site.</p>
-    </section>
-    <div>
-      <p>{{ form.username.label }}</p>
-      {{ form.username }}
-      {% if form.username.errors %}
-        {{ form.username.errors }}
-      {% endif %}
-    </div>
-    <div>
-      <p>{{ form.password.label }}</p>
-      {{ form.password }}
-      {% if form.password.errors %}
-        {{ form.password.errors }}
-      {% endif %}
-    </div>
-    <button type="submit" class="form-button">Login</button>
-  </form>
+<form method="post" class="form-box">
+  {% csrf_token %}
+  <section class="form-title">
+    <h2>Login</h2>
+    <p>Please log in to use the site.</p>
+  </section>
+  <div>
+    <p>{{ form.username.label }}</p>
+    {{ form.username }}
+    {% if form.username.errors %}
+    {{ form.username.errors }}
+    {% endif %}
+  </div>
+  <div>
+    <p>{{ form.password.label }}</p>
+    {{ form.password }}
+    {% if form.password.errors %}
+    {{ form.password.errors }}
+    {% endif %}
+  </div>
+  <button type="submit" class="form-button">Login</button>
+  <!-- <section class="w-full flex justify-between px-2 mt-10">
+    <a href="{% url 'password_reset' %}">Reset Password</a>
+    <a href="{% url 'sign_up_page' %}">Sign up</a>
+  </section> -->
+  <footer class="!justify-between">
+    <a href="{% url 'password_reset' %}">
+      Forgot password?
+    </a>
+
+    <p>
+      Don't have an account?
+      <a href="{% url 'sign_up_page' %}" class="text-cyan-500">
+        Sign up
+      </a>
+    </p>
+  </footer>
+</form>
 {% endblock %}

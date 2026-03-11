@@ -38,3 +38,11 @@
 .form-title p{
     @apply text-gray-300 text-sm;
 }
+
+.form-box footer{
+    @apply w-full text-sm text-gray-400 mt-8 flex justify-center;
+}
+
+.form-box footer a{
+    @apply hover:text-cyan-400 transition;
+}

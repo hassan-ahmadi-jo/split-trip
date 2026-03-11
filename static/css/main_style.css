@@ -15,6 +15,7 @@
     --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-gray-700: oklch(37.3% 0.034 259.733);
     --color-gray-900: oklch(21% 0.034 264.665);
@@ -196,23 +197,44 @@
   .m-auto {
     margin: auto;
   }
+  .mt-10 {
+    margin-top: calc(var(--spacing) * 10);
+  }
   .block {
     display: block;
+  }
+  .flex {
+    display: flex;
   }
   .\!w-35 {
     width: calc(var(--spacing) * 35) !important;
   }
+  .w-full {
+    width: 100%;
+  }
   .max-w-\[1680px\] {
     max-width: 1680px;
   }
+  .\!justify-between {
+    justify-content: space-between !important;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
   .bg-gray-900 {
     background-color: var(--color-gray-900);
+  }
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
   }
   .px-5 {
     padding-inline: calc(var(--spacing) * 5);
   }
   .text-center {
     text-align: center;
+  }
+  .text-cyan-500 {
+    color: var(--color-cyan-500);
   }
   .text-gray-50 {
     color: var(--color-gray-50);
@@ -315,6 +337,25 @@
   font-size: var(--text-sm);
   line-height: var(--tw-leading, var(--text-sm--line-height));
   color: var(--color-gray-300);
+}
+.form-box footer {
+  margin-top: calc(var(--spacing) * 8);
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
+  color: var(--color-gray-400);
+}
+.form-box footer a {
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+  &:hover {
+    @media (hover: hover) {
+      color: var(--color-cyan-400);
+    }
+  }
 }
 @property --tw-border-style {
   syntax: "*";
