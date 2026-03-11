@@ -9,7 +9,8 @@
     {% csrf_token %}
     <section class="form-title">
       <h2>Active Email</h2>
-      <p>Enter the verification code sent to your email.</p>
+      <p>Enter the verification code sent to your email:</p>
+      <p>{{user.email}}</p>
     </section>
     <div>
       <p>{{ form.verification_code.label }}</p>

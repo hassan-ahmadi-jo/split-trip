@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm
 from . import models
 
 class SignUpForm(forms.ModelForm):
@@ -97,3 +97,30 @@ class UserLoginForm(AuthenticationForm):
             'placeholder': 'Password',
             }),
     )
+
+class PasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        label="Email address",
+        max_length=254,
+        widget=forms.EmailInput(attrs={
+            "autocomplete": "email",
+            'class': 'form-control',
+            'placeholder': 'Enter your email address',
+            }),
+    )
+
+class PasswordResetConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label='Password:',
+        widget=forms.PasswordInput(
+                attrs={
+                'class': 'form-control',
+                'placeholder': 'New password'
+            }))
+    new_password2 = forms.CharField(
+        label='Repeat the password:',
+        widget=forms.PasswordInput(
+                attrs={
+                'class': 'form-control',
+                'placeholder': 'Repeat new password'
+            }))

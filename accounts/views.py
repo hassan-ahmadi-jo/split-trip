@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.http import HttpRequest
 from django.contrib.auth import login
 from datetime import datetime, timedelta
-from django.contrib.auth.views import LoginView
+from django.contrib.auth import views as auth_views
 from . import forms, models
 
 
@@ -86,12 +86,29 @@ class EmailActivationView(View):
                 form.add_error('verification_code', f'Too many attempts. Please try again in {minutes} minutes.')
         return render(request, 'accounts/email_activation_page.html', {'form': form})
 
-class UserLoginView(LoginView):
+class UserLoginView(auth_views.LoginView):
     template_name = 'accounts/login_page.html'
     form_class = forms.UserLoginForm
     # todo:
     # next_page = 'home'
     next_page = 'email_activation_page'
+
+class PasswordResetView(auth_views.PasswordResetView):
+    # todo: user login
+    template_name = 'accounts/password_reset.html'
+    email_template_name = "registration/password_reset_email.text"
+    form_class = forms.PasswordResetForm
+
+class PasswordResetDoneView(auth_views.PasswordResetDoneView):
+    template_name = 'accounts/password_reset_done.html'
+
+class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    template_name = "accounts/password_reset_confirm.html"
+    form_class = forms.PasswordResetConfirmForm
+
+class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
+    template_name = "accounts/password_reset_complete.html"
+
 
 # users = models.User.objects.all()
 # for user in users:
