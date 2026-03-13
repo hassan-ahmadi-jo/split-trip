@@ -47,3 +47,16 @@ class CreateEventForm(forms.ModelForm):
                 can_edit_event_info = True
                 )
         return event
+    
+class CreateJoinRequestForm(forms.Form):
+    event_code = forms.CharField(
+        label='Event code:',
+        max_length=20,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter the event code'
+        }),
+        error_messages={
+            'required': 'This field is required.'
+        }
+    )

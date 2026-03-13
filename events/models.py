@@ -37,3 +37,16 @@ class EventMembership(models.Model):
                 name='unique_user_event_membership'
             )
         ]
+
+class EventJoinRequest(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE,related_name='join_requests' ,verbose_name='Event')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='join_requests' ,verbose_name='User')
+    requested_at = models.DateTimeField(auto_now_add=True, verbose_name='requested at')
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'event'],
+                name='unique_user_event_join_request'
+            )
+        ]

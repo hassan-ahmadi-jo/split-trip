@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views import View
+from django.http import HttpRequest
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from . import forms
+from datetime import datetime, timedelta
+from . import forms, models
+from accounts.views import calculate_retry_available_at
 
 # Create your views here.
 
@@ -14,6 +18,8 @@ class HomeView(LoginRequiredMixin, TemplateView):
         user = self.request.user
         memberships = user.memberships.all()
         context_data['memberships'] = memberships.order_by('-joined_at')[:6]
+        join_requests = user.join_requests.all()
+        context_data['join_requests'] = join_requests.order_by('-requested_at')[:6]
         return context_data
     
 class CreateEventView(LoginRequiredMixin, CreateView):
@@ -31,7 +37,69 @@ class CreateEventView(LoginRequiredMixin, CreateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+class CreateJoinRequestView(LoginRequiredMixin, View):
+    def get(self, request):
+        template_name = 'events/create_join_request.html'
+        form = forms.CreateJoinRequestForm()
+        return render(request, template_name, {'form':form})
+    def post(self, request:HttpRequest):
+        form = forms.CreateJoinRequestForm(request.POST)
+        template_name = 'events/create_join_request.html'
 
+        if not form.is_valid():
+            return render(request, template_name, {'form':form})
+        
+        event_code = form.cleaned_data.get('event_code')
+        user = request.user
+        now = datetime.now()
+        
+        if user.memberships.filter(event__code=event_code).exists():
+            form.add_error('event_code', 'You are already a member of this event.')
+            return render(request, template_name, {'form':form})
+        
+        if user.join_requests.filter(event__code=event_code).exists():
+            form.add_error('event_code', 'You’ve already sent a request to join this event.')
+            return render(request, template_name, {'form':form})
+
+
+        # Check for existing session data for the event code retry delay.
+        retry_ts = request.session.get('retry_available_at')
+        failed_attempts = request.session.get('request_failed_attempts')
+        if retry_ts is not None and failed_attempts is not None:
+            retry_available_at = datetime.fromtimestamp(retry_ts)
+            
+        else:
+            self.request.session['request_failed_attempts'] = 0
+            self.request.session['retry_available_at'] = (now - timedelta(minutes=1)).timestamp() # minutes
+            retry_available_at = now - timedelta(minutes=1)
+
+        if retry_available_at < now:
+            retry_available_at = calculate_retry_available_at(request.session.get('request_failed_attempts'))
+
+            
+            if models.Event.objects.filter(code=event_code).exists():
+                request.session.pop('retry_available_at', None)
+                request.session.pop('request_failed_attempts', None)
+                
+                event = models.Event.objects.filter(code=event_code).first()
+                models.EventJoinRequest.objects.create(user=user, event=event)
+
+                return redirect('home')
+            
+            elif retry_available_at > now: # If the retry delay changes, it will be stored in the session and the user cannot retry for a while.
+                self.request.session['retry_available_at'] = retry_available_at.timestamp()
+                form.add_error('event_code', 'Too many attempts.')
+                self.request.session['request_failed_attempts'] += 1
+
+            else:
+                form.add_error('event_code', 'The event code is incorrect')
+                self.request.session['request_failed_attempts'] += 1
+
+        else: # Return an error if the user has exceeded the retry limit. 
+            minutes = int((retry_available_at - now).total_seconds() / 60) + 1
+            form.add_error('event_code', f'Too many attempts. Please try again in {minutes} minutes.')
+        return render(request, template_name, {'form':form})
+    
 
 # events = models.Event.objects.all()
 # for event in events:

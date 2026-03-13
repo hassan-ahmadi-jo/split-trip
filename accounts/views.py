@@ -92,9 +92,7 @@ class EmailActivationView(View):
             self.request.session['email_activation_failed_attempts'] = 0
             self.request.session['retry_available_at'] = (now - timedelta(minutes=1)).timestamp() # minutes
             retry_available_at = now - timedelta(minutes=1)
-        # print(retry_available_at < now)
-        print(retry_available_at)
-        print(now)
+
         if retry_available_at < now: # Check if the user can activate their email.
             retry_available_at = calculate_retry_available_at(request.session.get('email_activation_failed_attempts'))
 

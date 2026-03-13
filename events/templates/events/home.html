@@ -10,7 +10,7 @@
     <h1>Split Trip</h1>
 
     <!-- Welcome Message -->
-    <p class="text-gray-200 font-medium text-lg mb-6">Welcome {{ user.first_name }} 👋</p>
+    <p class="text-gray-200 font-medium text-lg mb-6">Welcome {{ user.first_name|title }} 👋</p>
 
     <!-- Description -->
     <p class="description">Easily split travel or event expenses with your friends.</p>
@@ -19,7 +19,7 @@
     <p class="actions">
       <a href="{% url 'create_event' %}" class="link">Create a new event</a>
       or
-      <a href="#" class="link">join an existing one</a>
+      <a href="{% url 'create_join_request' %}" class="link">join an existing one</a>
       to get started.
     </p>
   </header>
@@ -101,7 +101,64 @@
     <!-- Bottom Links -->
     <div class="w-full flex justify-between mt-4 px-1 text-sm font-medium">
       <a href="{% url 'create_event' %}" class="text-cyan-500 hover:text-cyan-400 transition-colors">Create a new event</a>
-      <a href="#" class="text-cyan-500 hover:text-cyan-400 transition-colors">Join an existing one</a> <!-- حروف اول اصلاح شد -->
+      <a href="{% url 'create_join_request' %}" class="text-cyan-500 hover:text-cyan-400 transition-colors">Join an existing one</a> <!-- حروف اول اصلاح شد -->
     </div>
   </section>
+  {% if join_requests %}
+    <section class="w-11/12 max-w-6xl mx-auto my-10">
+      <!-- Section Header -->
+      <div class="mb-5 flex items-center justify-between">
+        <h2 class="text-xl font-semibold tracking-tight text-gray-100">Your Event Join Requests</h2>
+      </div>
+
+      <!-- Main Table Container -->
+      <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg overflow-hidden">
+        <!-- Responsive Wrapper for horizontal scroll on mobile -->
+        <div class="w-full overflow-x-auto">
+          <div class="min-w-[700px]">
+            <!-- Minimum width forces scroll on small screens -->
+
+            <!-- Table Header -->
+            <div class="grid grid-cols-12 gap-4 px-6 py-4 text-xs font-semibold tracking-wider text-gray-400 uppercase border-b border-gray-700/80 bg-gray-800/50">
+              <p class="col-span-5 text-left">Event Title</p>
+              <p class="col-span-3 text-left">Code</p>
+              <p class="col-span-2 text-left">Owner</p>
+              <p class="col-span-2 text-right">Requested</p>
+            </div>
+
+            <!-- Table Body / Rows -->
+            <div class="flex flex-col divide-y divide-gray-700/50">
+              {% for request in join_requests|slice:':6' %}
+                {% if forloop.counter >= 6 %}
+                  <!-- Show All Link -->
+                  <a href="#" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Events</a>
+                {% else %}
+                  <a href="#" class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/40 transition-colors duration-200">
+                    <!-- Title -->
+                    <div class="col-span-5 flex items-center gap-3 text-gray-100 font-medium truncate">{{ request.event.title }}</div>
+
+                    <!-- Code -->
+                    <div class="col-span-3 text-gray-400 font-mono text-sm tracking-wide">{{ request.event.code }}</div>
+
+                    <!-- Owner -->
+                    <div class="col-span-2 text-gray-400 font-mono text-sm tracking-wide">{{ request.event.creator.first_name }}</div>
+
+                    <!-- Requested Date & Action Icon -->
+                    <div class="col-span-2 flex items-center justify-end gap-3 text-sm text-gray-500 group-hover:text-gray-300 transition-colors">
+                      <span>{{ request.requested_at|date:'F j, Y' }}</span>
+
+                      <!-- Chevron Arrow Icon -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-gray-300 transform group-hover:translate-x-1 transition-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
 {% endblock %}

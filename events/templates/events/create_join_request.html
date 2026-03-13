@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create Event |
+{% endblock %}
+
+{% block content %}
+<form method="post" class="form-box">
+    {% csrf_token %}
+    <section class="form-title">
+        <h2>Join an event</h2>
+        <p>Enter the event code to request access.</p>
+    </section>
+    <div>
+        <p>{{ form.event_code.label }}</p>
+        {{ form.event_code }}
+        {% if form.event_code.errors %}
+        {{ form.event_code.errors }}
+        {% endif %}
+    </div>
+    <button type="submit" class="form-button">Request to Join</button>
+    <footer>
+        <p>
+            Want to create an event?
+            <a href="{% url 'create_event' %}" class="text-cyan-500">
+            Create one
+        </a>
+        </p>
+    </footer>
+</form>
+{% endblock %}
