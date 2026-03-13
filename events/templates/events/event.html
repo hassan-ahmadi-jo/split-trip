@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Event |
+{% endblock %}
+
+{% block content %}
+<!-- Main Container -->
+<section class="w-11/12 max-w-6xl mx-auto my-10 space-y-8">
+  
+  <!-- Header Section -->
+  <header class="border-b border-gray-700/80 pb-6">
+    <h1 class="font-black text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2 tracking-tight">
+      {{ member.event.title|title }}
+    </h1>
+    <p class="text-gray-400 text-sm md:text-base">Event Dashboard & Details</p>
+  </header>
+
+  <!-- Content Grid (2 Columns on Desktop, 1 on Mobile) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    <!-- 🟢 CARD 1: Event Information -->
+    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg flex flex-col">
+      <h2 class="text-lg font-semibold text-gray-100 mb-5 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        Event Details
+      </h2>
+      
+      <div class="space-y-4 flex-grow">
+        <!-- Event Code -->
+        <div class="flex items-center justify-between bg-gray-900/50 p-3 rounded-lg border border-gray-700/50">
+          <span class="text-gray-400 text-sm font-medium">Invitation Code</span>
+          <span class="font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded text-sm tracking-wider border border-cyan-500/20 select-all">
+            {{ member.event.code }}
+          </span>
+        </div>
+
+        <!-- Creator Info -->
+        <div class="flex items-start gap-3 text-gray-300 pt-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <div>
+            <p class="text-sm text-gray-400">Created by</p>
+            <p class="font-medium">{{ member.event.creator.first_name|title }}</p>
+            <p class="text-sm text-gray-500 mt-0.5 hover:text-cyan-400 transition-colors cursor-pointer">{{ member.event.creator.email }}</p>
+          </div>
+        </div>
+
+        <!-- Creation Date -->
+        <div class="flex items-center gap-3 text-gray-400 pt-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <span class="text-sm">Created on <span class="text-gray-300">{{ member.event.created_at|date:'F j, Y' }}</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🟢 CARD 2: User Status & Permissions -->
+    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg flex flex-col">
+      <h2 class="text-lg font-semibold text-gray-100 mb-5 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Your Access Level
+      </h2>
+
+      <div class="space-y-5 flex-grow">
+        <!-- Greeting & Join Date -->
+        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+          Hello <span class="font-medium text-gray-100">{{ user.first_name|default:user.username|title }}</span>, you joined this event on 
+          <span class="font-medium text-cyan-400">{{ member.joined_at|date:'F j, Y' }}</span>.
+        </p>
+
+        <!-- Role Badge & Description Container -->
+        <div class="bg-gray-900/60 rounded-lg p-5 border border-gray-700/60 mt-4">
+          
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-gray-400 text-sm font-medium">Your Role:</span>
+            
+            <!-- Dynamic Badges (Reused from previous page for consistency) -->
+            {% if member.event.creator == user %}
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">Owner</span>
+            {% elif member.can_edit_event_info %}
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">Admin</span>
+            {% else %}
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-600/20 text-gray-300 border border-gray-600/30">Member</span>
+            {% endif %}
+          </div>
+
+          <!-- Dynamic Permission Text -->
+          <p class="text-sm text-gray-400 leading-relaxed border-t border-gray-700/50 pt-3">
+            {% if member.event.creator == user %}
+              You have <span class="text-gray-200">full access</span>. You can manage users, change event settings, and create or edit expenses.
+            {% elif member.can_edit_event_info %}
+              You have <span class="text-gray-200">administrative access</span>. You can create or edit expenses within this event.
+            {% else %}
+              You have <span class="text-gray-200">view-only access</span>. You can observe the expenses but cannot make modifications.
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+{% endblock %}

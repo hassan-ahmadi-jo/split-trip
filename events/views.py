@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpRequest
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from datetime import datetime, timedelta
+from django.contrib import messages
 from . import forms, models
 from accounts.views import calculate_retry_available_at
 
@@ -99,7 +100,29 @@ class CreateJoinRequestView(LoginRequiredMixin, View):
             minutes = int((retry_available_at - now).total_seconds() / 60) + 1
             form.add_error('event_code', f'Too many attempts. Please try again in {minutes} minutes.')
         return render(request, template_name, {'form':form})
+
+class EventView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'events/event.html'
+
+    def test_func(self):
+        user = self.request.user
+        event_code = self.kwargs.get('event_code')
+        event = get_object_or_404(models.Event, code=event_code)
+        return user.memberships.filter(event=event).exists()
     
+    def handle_no_permission(self):
+        # messages.warning(self.request, "aaaaaaaaaaa") #todo: send messages
+        return redirect('home')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event_code = self.kwargs.get('event_code')
+        event = get_object_or_404(models.Event, code=event_code)
+        user = self.request.user
+        member = user.memberships.filter(event=event).first()
+        # context['event'] = event
+        context['member'] = member
+        return context
 
 # events = models.Event.objects.all()
 # for event in events:
