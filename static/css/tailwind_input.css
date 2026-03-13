@@ -46,3 +46,24 @@
 .form-box footer a{
     @apply hover:text-cyan-400 transition;
 }
+
+/* Container styling for better spacing */
+.page-header {
+    @apply flex flex-col items-center justify-center max-w-2xl mx-auto mt-12 mb-10 px-4;
+}
+
+/* App Title with Modern Gradient */
+.page-header h1 {
+    @apply font-black text-4xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-3 tracking-tight;
+}
+
+/* Base styles for description paragraphs */
+.page-header .description,
+.page-header .actions {
+    @apply text-center text-gray-400 text-base md:text-lg mb-2;
+}
+
+/* Consistent Link Styling */
+.page-header .link {
+    @apply text-cyan-500 font-medium hover:text-cyan-400 hover:underline underline-offset-4 transition-all duration-200;
+}

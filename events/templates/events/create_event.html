@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create Event |
+{% endblock %}
+
+{% block content %}
+<form method="post" class="form-box">
+    {% csrf_token %}
+    <section class="form-title">
+        <h2>Create a New Event</h2>
+        <p>Give your trip or event a name to start splitting expenses.</p>
+    </section>
+    <div>
+        <p>{{ form.title.label }}</p>
+        {{ form.title }}
+        {% if form.title.errors %}
+        {{ form.title.errors }}
+        {% endif %}
+    </div>
+    <button type="submit" class="form-button">Create</button>
+    <footer>
+        <p>
+            Want to join an event?
+            <a href="" class="text-cyan-500">
+            Send a request
+        </a>
+        </p>
+    </footer>
+</form>
+{% endblock %}

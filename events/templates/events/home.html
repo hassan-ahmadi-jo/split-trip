@@ -5,5 +5,103 @@
 {% endblock %}
 
 {% block content %}
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, eligendi?</p>
+  <header class="page-header">
+    <!-- Main Title with Gradient Effect -->
+    <h1>Split Trip</h1>
+
+    <!-- Welcome Message -->
+    <p class="text-gray-200 font-medium text-lg mb-6">Welcome {{ user.first_name }} 👋</p>
+
+    <!-- Description -->
+    <p class="description">Easily split travel or event expenses with your friends.</p>
+
+    <!-- Action Links -->
+    <p class="actions">
+      <a href="{% url 'create_event' %}" class="link">Create a new event</a>
+      or
+      <a href="#" class="link">join an existing one</a>
+      to get started.
+    </p>
+  </header>
+
+  <section class="w-11/12 max-w-6xl mx-auto my-10">
+    <!-- Section Header -->
+    <div class="mb-5 flex items-center justify-between">
+      <h2 class="text-xl font-semibold tracking-tight text-gray-100">Your Events</h2>
+    </div>
+
+    <!-- Main Table Container -->
+    <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg overflow-hidden">
+      <!-- Responsive Wrapper for horizontal scroll on mobile -->
+      <div class="w-full overflow-x-auto">
+        <div class="min-w-[700px]">
+          <!-- Minimum width forces scroll on small screens -->
+
+          <!-- Table Header -->
+          <div class="grid grid-cols-12 gap-4 px-6 py-4 text-xs font-semibold tracking-wider text-gray-400 uppercase border-b border-gray-700/80 bg-gray-800/50">
+            <p class="col-span-5 text-left">Event Title</p>
+            <p class="col-span-3 text-left">Code</p>
+            <p class="col-span-2 text-left">Role</p>
+            <p class="col-span-2 text-right">Joined</p> <!-- ترازبندی به راست تغییر کرد تا با محتوا هماهنگ شود -->
+          </div>
+
+          <!-- Table Body / Rows -->
+          <div class="flex flex-col divide-y divide-gray-700/50">
+            {% for member in memberships|slice:':6' %}
+              {% if forloop.counter >= 6 %}
+                <!-- Show All Link -->
+                <a href="#" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Events</a>
+              {% else %}
+                <a href="#" class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/40 transition-colors duration-200">
+                  <!-- Title -->
+                  <div class="col-span-5 flex items-center gap-3 text-gray-100 font-medium truncate">{{ member.event.title }}</div>
+
+                  <!-- Code -->
+                  <div class="col-span-3 text-gray-400 font-mono text-sm tracking-wide">{{ member.event.code }}</div>
+
+                  <!-- Role Badges -->
+                  <div class="col-span-2 flex items-center">
+                    {% if member.event.creator == user %}
+                      <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">Owner</span>
+                    {% elif member.can_edit_event_info %}
+                      <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">Admin</span>
+                    {% else %}
+                      <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-600/20 text-gray-300 border border-gray-600/30">Member</span>
+                    {% endif %}
+                  </div>
+
+                  <!-- Joined Date & Action Icon -->
+                  <div class="col-span-2 flex items-center justify-end gap-3 text-sm text-gray-500 group-hover:text-gray-300 transition-colors">
+                    <span>{{ member.joined_at|date:'F j, Y' }}</span>
+
+                    <!-- Chevron Arrow Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-gray-300 transform group-hover:translate-x-1 transition-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </div>
+                </a>
+              {% endif %}
+            {% empty %}
+              <!-- Empty State (When user has no events) -->
+              <div class="py-16 text-center flex flex-col items-center justify-center">
+                <div class="bg-gray-700/30 p-4 rounded-full mb-4">
+                  <svg class="w-8 h-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                </div>
+                <h3 class="text-gray-200 font-medium mb-1">No events found</h3>
+                <p class="text-gray-400 text-sm">You haven't joined or created any events yet.</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Links -->
+    <div class="w-full flex justify-between mt-4 px-1 text-sm font-medium">
+      <a href="{% url 'create_event' %}" class="text-cyan-500 hover:text-cyan-400 transition-colors">Create a new event</a>
+      <a href="#" class="text-cyan-500 hover:text-cyan-400 transition-colors">Join an existing one</a> <!-- حروف اول اصلاح شد -->
+    </div>
+  </section>
 {% endblock %}
