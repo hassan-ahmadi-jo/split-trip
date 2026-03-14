@@ -119,10 +119,50 @@ class EventView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         event_code = self.kwargs.get('event_code')
         event = get_object_or_404(models.Event, code=event_code)
         user = self.request.user
-        member = user.memberships.filter(event=event).first()
-        # context['event'] = event
-        context['member'] = member
+        membership = user.memberships.filter(event=event).first()
+        if event.creator == user:
+            join_requests = models.EventJoinRequest.objects.filter(event=event).all()
+            members_list = event.memberships.all()
+            context['join_requests'] = join_requests.order_by('requested_at')[:6]
+            context['members_list'] = members_list.order_by('joined_at')[:6]
+
+        context['membership'] = membership
         return context
+
+class JoinRequestHandlerView(LoginRequiredMixin, View):
+    def post(self, request:HttpRequest, request_id):
+        join_request = get_object_or_404(models.EventJoinRequest, id = request_id)
+        event = join_request.event
+        if event.creator == request.user:
+            if request.POST.get('reject') == '':
+                join_request.delete()
+            elif request.POST.get('accept') == '':
+                models.EventMembership.objects.create(
+                    event=event,
+                    user=join_request.user
+                    )
+                join_request.delete()
+            return redirect('event', event_code=event.code)
+        return redirect('home')
+
+class EventMembershipHandlerView(LoginRequiredMixin, View):
+    def post(self, request:HttpRequest, member_id):
+        membership = get_object_or_404(models.EventMembership, id = member_id)
+        event = membership.event
+        if event.creator == request.user and membership.user != event.creator:
+            if request.POST.get('admin') == '':
+                membership.can_edit_event_info = True
+                membership.save()
+            elif request.POST.get('member') == '':
+                membership.can_edit_event_info = False
+                membership.save()
+            elif request.POST.get('remove') == '':
+                membership.delete()
+            return redirect('event', event_code=event.code)
+        return redirect('home')
+
+
+
 
 # events = models.Event.objects.all()
 # for event in events:
