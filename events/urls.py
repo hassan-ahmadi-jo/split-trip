@@ -8,4 +8,8 @@ urlpatterns = [
     path('event/<str:event_code>', views.EventView.as_view(), name ='event'),
     path('join-request-handler/<int:request_id>', views.JoinRequestHandlerView.as_view(), name ='join_request_handler'),
     path('event-membership-handler/<int:member_id>', views.EventMembershipHandlerView.as_view(), name ='event_membership_handler'),
+    path('event-list', views.EventListView.as_view(), name ='event_list'),
+    path('join-request-list', views.JoinRequestListView.as_view(), name ='join_request_list'),
+    path('event/<str:event_code>/join-request', views.EventJoinRequestListView.as_view(), name ='event_join_request_list'),
+    path('event/<str:event_code>/members', views.EventMembersListView.as_view(), name ='event_members_list'),
 ]

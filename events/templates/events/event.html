@@ -165,7 +165,7 @@
               {% for member in members_list|slice:':6' %}
                 {% if forloop.counter >= 6 %}
                   <!-- Show All Link -->
-                  <a href="#" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Members</a>
+                  <a href="{% url "event_members_list" event_code=members_list.0.event.code %}" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Members</a>
                 {% else %}
                   <div class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
                     
@@ -265,9 +265,9 @@
 
             <!-- Table Body -->
             <div class="flex flex-col divide-y divide-gray-700/50">
-              {% for request in join_requests|slice:':6' %}
-                {% if forloop.counter >= 6 %}
-                  <a href="#" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Requests</a>
+              {% for request in join_requests|slice:':4' %}
+                {% if forloop.counter >= 4 %}
+                  <a href="{% url "event_join_request_list" event_code=request.event.code %}" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Requests</a>
                 {% else %}
                   <div class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
                     

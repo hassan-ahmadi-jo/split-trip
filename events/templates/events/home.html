@@ -139,12 +139,12 @@
 
             <!-- Table Body / Rows -->
             <div class="flex flex-col divide-y divide-gray-700/50">
-              {% for request in join_requests|slice:':6' %}
-                {% if forloop.counter >= 6 %}
+              {% for request in join_requests|slice:':4' %}
+                {% if forloop.counter >= 4 %}
                   <!-- Show All Link -->
-                  <a href="#" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Join Requests</a>
+                  <a href="{% url "join_request_list" %}" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Join Requests</a>
                 {% else %}
-                  <a href="#" class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/40 transition-colors duration-200">
+                  <div class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/40 transition-colors duration-200">
                     <!-- Title -->
                     <div class="col-span-5 flex items-center gap-3 text-gray-100 font-medium truncate">
                       <form action="{% url 'join_request_handler' request.id %}" method="post" class="flex items-center">
@@ -168,7 +168,7 @@
                     <div class="col-span-2 flex items-center justify-end gap-3 text-sm text-gray-500 group-hover:text-gray-300 transition-colors">
                       <span>{{ request.requested_at|date:'F j, Y' }}</span>
                     </div>
-                  </a>
+                  </div>
                 {% endif %}
               {% endfor %}
             </div>

@@ -21,7 +21,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         memberships = user.memberships.all()
         context_data['memberships'] = memberships.order_by('-joined_at')[:6]
         join_requests = user.join_requests.all()
-        context_data['join_requests'] = join_requests.order_by('-requested_at')[:6]
+        context_data['join_requests'] = join_requests.order_by('-requested_at')[:4]
         return context_data
     
 class CreateEventView(LoginRequiredMixin, CreateView):
@@ -124,7 +124,7 @@ class EventView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         if event.creator == user:
             join_requests = models.EventJoinRequest.objects.filter(event=event).all()
             members_list = event.memberships.all()
-            context['join_requests'] = join_requests.order_by('requested_at')[:6]
+            context['join_requests'] = join_requests.order_by('-requested_at')[:4]
             context['members_list'] = members_list.order_by('joined_at')[:6]
 
         context['membership'] = membership
@@ -165,8 +165,87 @@ class EventMembershipHandlerView(LoginRequiredMixin, View):
             return redirect('event', event_code=event.code)
         return redirect('home')
 
+class EventListView(LoginRequiredMixin, ListView):
+    template_name = 'events/event_list.html'
+    model = models.EventMembership
+    context_object_name = 'memberships'
+    paginate_by = 20
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        queryset = queryset.select_related('user').filter(user=user).order_by('-joined_at')
+        return queryset
+    
+class JoinRequestListView(LoginRequiredMixin, ListView):
+    template_name = 'events/join_request_list.html'
+    model = models.EventJoinRequest
+    context_object_name = 'join_requests'
+    paginate_by = 20
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        queryset = queryset.select_related('user').filter(user=user).order_by('-requested_at')
+        return queryset
+    
+class EventJoinRequestListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    template_name = 'events/event_join_request_list.html'
+    model = models.EventJoinRequest
+    context_object_name = 'join_requests'
+    paginate_by = 20
+
+    def get_event(self):
+        if not hasattr(self, '_event'):
+            event_code = self.kwargs.get('event_code')
+            self._event = get_object_or_404(models.Event, code=event_code)
+        return self._event
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        event = self.get_event()
+        queryset = queryset.select_related('event').filter(event=event).order_by('-requested_at')
+        return queryset
+    
+    def test_func(self):
+        user = self.request.user
+        event = self.get_event()
+        return user.memberships.filter(event=event).exists()
+    
+    def handle_no_permission(self):
+        return redirect('home')
+    
+class EventMembersListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    template_name = 'events/event_members_list.html'
+    model = models.EventMembership
+    context_object_name = 'members_list'
+    paginate_by = 20
+
+    def get_event(self):
+        if not hasattr(self, '_event'):
+            event_code = self.kwargs.get('event_code')
+            self._event = get_object_or_404(models.Event, code=event_code)
+        return self._event
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        event = self.get_event()
+        queryset = queryset.select_related('event').filter(event=event).order_by('joined_at')
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        event = self.get_event()
+        context_data['event_creator'] = event.creator
+        return context_data
+    
+    def test_func(self):
+        user = self.request.user
+        event = self.get_event()
+        return user.memberships.filter(event=event).exists()
+    
+    def handle_no_permission(self):
+        return redirect('home')
 
 # events = models.Event.objects.all()
 # for event in events:
