@@ -169,10 +169,10 @@ class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     template_name = "accounts/password_reset_complete.html"
 
 
-users = models.User.objects.all()
-for user in users:
-    print(user.first_name)
-    print(user.email_active_code)
-    print(user.is_email_active)
-    # user.delete()
-    print('------------------')
+# users = models.User.objects.all()
+# for user in users:
+#     print(user.first_name)
+#     print(user.email_active_code)
+#     print(user.is_email_active)
+#     # user.delete()
+#     print('------------------')

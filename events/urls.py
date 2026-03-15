@@ -12,4 +12,6 @@ urlpatterns = [
     path('join-request-list', views.JoinRequestListView.as_view(), name ='join_request_list'),
     path('event/<str:event_code>/join-request', views.EventJoinRequestListView.as_view(), name ='event_join_request_list'),
     path('event/<str:event_code>/members', views.EventMembersListView.as_view(), name ='event_members_list'),
+    path('create-event-success/<str:event_code>', views.CreateEventSuccessView.as_view(), name ='create_event_success'),
+    path('create-join-request-success/<str:event_title>', views.CreateJoinRequestSuccessView.as_view(), name ='create_join_request_success'),
 ]

@@ -27,7 +27,12 @@ class HomeView(LoginRequiredMixin, TemplateView):
 class CreateEventView(LoginRequiredMixin, CreateView):
     form_class = forms.CreateEventForm
     template_name = 'events/create_event.html'
-    success_url = reverse_lazy('home')
+    
+    def get_success_url(self):
+        return reverse_lazy(
+            'create_event_success',
+            kwargs={'event_code': self.object.code}
+        )
 
     def form_valid(self, form):
         user = self.request.user
@@ -86,7 +91,7 @@ class CreateJoinRequestView(LoginRequiredMixin, View):
                 event = models.Event.objects.filter(code=event_code).first()
                 models.EventJoinRequest.objects.create(user=user, event=event)
 
-                return redirect('home')
+                return redirect('create_join_request_success', event_title = event.title)
             
             elif retry_available_at > now: # If the retry delay changes, it will be stored in the session and the user cannot retry for a while.
                 self.request.session['retry_available_at'] = retry_available_at.timestamp()
@@ -246,6 +251,25 @@ class EventMembersListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     
     def handle_no_permission(self):
         return redirect('home')
+
+class CreateEventSuccessView(LoginRequiredMixin, TemplateView): 
+    template_name = 'events/create_event_success.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event_code = self.kwargs.get('event_code')
+        event = get_object_or_404(models.Event, code=event_code)
+        context["event"] = event
+        return context
+    
+
+class CreateJoinRequestSuccessView(LoginRequiredMixin, TemplateView):
+    template_name = 'events/create_join_request_success.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["event_title"] = self.kwargs.get('event_title')
+        return context
 
 # events = models.Event.objects.all()
 # for event in events:
