@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpRequest
 from django.views.generic.base import TemplateView
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -143,6 +144,9 @@ class JoinRequestHandlerView(LoginRequiredMixin, View):
                     )
                 join_request.delete()
             return redirect('event', event_code=event.code)
+        elif join_request.user == self.request.user:
+            if request.POST.get('remove') == '':
+                join_request.delete()
         return redirect('home')
 
 class EventMembershipHandlerView(LoginRequiredMixin, View):
