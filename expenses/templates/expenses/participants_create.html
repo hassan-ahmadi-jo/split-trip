@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create Participant |
+{% endblock %}
+
+{% block content %}
+<form method="post" class="form-box">
+  {% csrf_token %}
+  <section class="form-title">
+    <h2>Add Participant</h2>
+    <p>Enter the participant's name.</p>
+  </section>
+  <div>
+    <p>{{ form.full_name.label }}</p>
+    {{ form.full_name }}
+    {% if form.full_name.errors %}
+    {{ form.full_name.errors }}
+    {% endif %}
+  </div>
+  <button type="submit" class="form-button">Add Participant</button>
+  <footer class=>
+    <a href="{% url 'expenses' event_code=event.code %}">
+      Back to Expenses
+    </a>
+  </footer>
+</form>
+{% endblock %}

@@ -108,7 +108,7 @@
   <!-- 🟢 EXPENSES HUB NAVIGATION PORTAL -->
   <section class="w-11/12 max-w-6xl mx-auto my-10">
 
-    <a href="#" class="group relative flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-indigo-900 to-gray-800 border border-indigo-500/30 hover:border-indigo-400/60 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-indigo-500/20 overflow-hidden">
+    <a href="{% url "expenses" event_code=members_list.0.event.code %}" class="group relative flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-indigo-900 to-gray-800 border border-indigo-500/30 hover:border-indigo-400/60 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-indigo-500/20 overflow-hidden">
 
 
       <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

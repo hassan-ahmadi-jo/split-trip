@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Expenses |
+{% endblock %}
+
+{% block content %}
+{% for participant in participants %}
+<p>{{participant.id}}) {{participant.full_name}}</p>
+{% endfor %}
+{% endblock %}
