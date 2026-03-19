@@ -33,7 +33,7 @@ class EventMemberRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
         return context
 
 class ExpensesView(EventMemberRequiredMixin, TemplateView):
-    template_name = 'expenses/expenses.html'
+    template_name = 'expenses/dashboard.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,7 +62,7 @@ class ParticipantsUpdateView(EventMemberRequiredMixin, UpdateView):
     
     def get_success_url(self):
         event = self.get_event()
-        return reverse_lazy('expenses', kwargs = {'event_code': event.code})
+        return reverse_lazy('dashboard', kwargs = {'event_code': event.code})
     
     def get_queryset(self):
         return super().get_queryset().filter(event=self.get_event())
@@ -93,4 +93,4 @@ class ParticipantsDeleteView(EventMemberRequiredMixin, View):
             models.Participants.objects.filter(id=delete_participant_id).first().delete()
             if page_name == 'participant_list':
                 return redirect('participants_list', event_code=event_code)
-        return redirect('expenses', event_code=event_code)
+        return redirect('dashboard', event_code=event_code)
