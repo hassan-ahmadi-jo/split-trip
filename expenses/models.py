@@ -16,10 +16,10 @@ class Participants(models.Model):
             )
         ]
 
-# class Expenses(models.Model):
-#     title = models.CharField(max_length=50, verbose_name='Title')
-#     event = models.ForeignKey(Event, related_name='expenses', on_delete=models.CASCADE, verbose_name='Event')
-#     description = models.TextField(blank=True, verbose_name='Description')
-#     expense_date = models.DateField(verbose_name='Expense date')
-#     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at')
-#     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated at')
+class Expenses(models.Model):
+    title = models.CharField(max_length=50, verbose_name='Title')
+    event = models.ForeignKey(Event, related_name='expenses', on_delete=models.CASCADE, verbose_name='Event')
+    description = models.TextField(blank=True, verbose_name='Description')
+    expense_date = models.DateField(verbose_name='Expense date')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated at')

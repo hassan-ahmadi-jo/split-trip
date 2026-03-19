@@ -94,3 +94,35 @@ class ParticipantsDeleteView(EventMemberRequiredMixin, View):
             if page_name == 'participant_list':
                 return redirect('participants_list', event_code=event_code)
         return redirect('dashboard', event_code=event_code)
+
+class ExpensesCreateView(EventMemberRequiredMixin, CreateView):
+    template_name = 'expenses/expenses_create.html'
+    form_class = forms.ExpensesForm
+    
+    def get_success_url(self):
+        return reverse_lazy('dashboard', kwargs = {"event_code": self.get_event().code})
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['event'] = self.get_event()
+        return kwargs
+
+class ExpensesUpdateView(EventMemberRequiredMixin, UpdateView):
+    template_name = 'expenses/expenses_edit.html'
+    model = models.Expenses
+    form_class = forms.ExpensesForm
+    pk_url_kwarg = 'id'
+    
+    def get_success_url(self):
+        event = self.get_event()
+        return reverse_lazy('dashboard', kwargs = {'event_code': event.code})
+    
+    def get_queryset(self):
+        return super().get_queryset().filter(event=self.get_event())
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['event'] = self.get_event()
+        kwargs['update_object'] = True
+        return kwargs
+
