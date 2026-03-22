@@ -133,6 +133,7 @@ class EventView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             context['members_list'] = members_list.order_by('joined_at')[:6]
 
         context['membership'] = membership
+        context['event'] = event
         return context
 
 class JoinRequestHandlerView(LoginRequiredMixin, View):
