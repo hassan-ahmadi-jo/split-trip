@@ -53,8 +53,7 @@
 
 /* Main Form Container (Card) */
 .form-box {
-    @apply max-w-xl mx-auto px-6 sm:px-10 py-8 bg-gray-800 border border-gray-700/80 
-    rounded-2xl my-12 flex flex-col space-y-5 shadow-2xl shadow-gray-900/50 relative overflow-hidden;
+    @apply max-w-xl mx-auto px-6 sm:px-10 py-8 bg-gray-800 border border-gray-700/80 rounded-2xl my-12 flex flex-col space-y-5 shadow-2xl shadow-gray-900/50 relative overflow-hidden;
 }
 
 /* Form Title Section */
@@ -73,31 +72,23 @@
 }
 
 /* Labels (Targeting the <p> tag right above the input) */
-.form-box > div > p {
+.form-box>div>p {
     @apply ml-1 mb-1.5 text-sm font-medium text-gray-300 tracking-wide;
 }
 
 /* Input Fields */
 .form-control {
-    @apply w-full bg-gray-900/50 text-gray-100 px-4 py-3 rounded-xl 
-    border border-gray-600/80 transition-all duration-300
-    focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 
-    placeholder:text-gray-500 resize-none shadow-inner;
+    @apply w-full bg-gray-900/50 text-gray-100 px-4 py-3 rounded-xl border border-gray-600/80 transition-all duration-300 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 placeholder:text-gray-500 resize-none shadow-inner;
 }
 
 /* Django Error Lists <ul> */
 .errorlist {
-    @apply w-full m-0 mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-lg 
-    text-sm font-medium text-red-400 list-none text-left flex flex-col gap-1;
+    @apply w-full m-0 mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm font-medium text-red-400 list-none text-left flex flex-col gap-1;
 }
 
 /* Submit Button (Darker Gradient with Subtle Hover Effects) */
 .form-button {
-    @apply w-full sm:w-4/5 mx-auto mt-8 text-base font-semibold tracking-wide
-    rounded-xl py-3.5 text-gray-100 cursor-pointer transition-all duration-300
-    bg-gradient-to-r from-cyan-900 to-blue-900 hover:from-cyan-800 hover:to-blue-800
-    border border-cyan-800/50 hover:border-cyan-600/60
-    shadow-lg shadow-blue-900/30 hover:shadow-cyan-900/50 hover:-translate-y-0.5;
+    @apply w-full sm:w-4/5 mx-auto mt-8 text-base font-semibold tracking-wide rounded-xl py-3.5 text-gray-100 cursor-pointer transition-all duration-300 bg-gradient-to-r from-cyan-900 to-blue-900 hover:from-cyan-800 hover:to-blue-800 border border-cyan-800/50 hover:border-cyan-600/60 shadow-lg shadow-blue-900/30 hover:shadow-cyan-900/50 hover:-translate-y-0.5;
 }
 
 
@@ -113,11 +104,35 @@
 
 /* Custom Input for Expense Wizard */
 .wizard-input {
-    @apply w-full bg-gray-900/80 text-white px-5 py-4 rounded-2xl 
-    border-2 border-gray-700/50 transition-all duration-300
-    focus:outline-none focus:border-cyan-500/80 focus:bg-gray-900 
-    placeholder:text-gray-500 resize-none shadow-inner text-base;
+    @apply w-full bg-gray-900/80 text-white px-5 py-4 rounded-2xl border-2 border-gray-700/50 transition-all duration-300 focus:outline-none focus:border-cyan-500/80 focus:bg-gray-900 placeholder:text-gray-500 resize-none shadow-inner text-base;
 }
+
+.wizard-input-small {
+    @apply w-full bg-gray-950/50 text-white px-4 py-3 rounded-xl border border-gray-700 transition-all duration-300 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 placeholder:text-gray-600 shadow-inner;
+}
+
+.amount-input-entered {
+    @apply border-cyan-500/50 bg-cyan-500/5 shadow-[0_0_15px_rgba(34, 211, 238, 0.05)];
+}
+
+.amount-input-form {
+    @apply text-center text-xl font-bold text-cyan-400;
+}
+
+.mt-3 {
+    @apply mt-3;
+}
+
+.amount-input-paid {
+    @apply border-emerald-500/30 focus:border-emerald-500 text-emerald-400;
+}
+
+
+.hidden {
+    @apply hidden;
+}
+
+
 /* END FORM STYLES */
 
 
@@ -141,4 +156,83 @@
 /* Consistent Link Styling */
 .page-header .link {
     @apply text-cyan-500 font-medium hover:text-cyan-400 hover:underline underline-offset-4 transition-all duration-200;
+}
+
+
+/* static/css/base.css */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+/* submit button */
+.sunmit-button-active {
+    @apply cursor-pointer w-full sm:w-auto bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold py-4 px-12 rounded-2xl shadow-xl shadow-cyan-900/40 transform hover:-translate-y-1 transition-all duration-300;
+}
+
+.sunmit-button-not-active {
+    @apply cursor-not-allowed w-full sm:w-auto bg-gradient-to-r from-cyan-900 to-blue-900 text-gray-400 font-bold py-4 px-12 rounded-2xl transform transition-all duration-300;
+}
+
+
+/* split_payment_Success Page */
+@keyframes scaleIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes checkmark {
+    0% {
+        stroke-dashoffset: 50;
+        opacity: 0;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes floatGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), inset 0 0 20px rgba(16, 185, 129, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(16, 185, 129, 0.4), inset 0 0 30px rgba(16, 185, 129, 0.2);
+    }
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-glow {
+    animation: floatGlow 3s ease-in-out infinite;
+}
+
+.path-check {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: checkmark 0.8s ease-out 0.4s forwards;
 }

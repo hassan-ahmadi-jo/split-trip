@@ -2,7 +2,7 @@ from django import forms
 from . import models
 
 class ParticipantsForm(forms.ModelForm):
-    def __init__(self, event = None, update_object = False, *args, **kwargs):
+    def __init__(self, *args, event = None, update_object = False, **kwargs):
         super().__init__(*args, **kwargs)
         self.event = event
         self.update_object = update_object
@@ -31,15 +31,15 @@ class ParticipantsForm(forms.ModelForm):
         return data
     
     def save(self, commit = True):
-        form = super().save(False)
+        instance = super().save(False)
         if self.event is not None and self.update_object is not False:
-            form.event = self.event
+            instance.event = self.event
         if commit:
-            form.save()
-        return form
+            instance.save()
+        return instance
 
 class ExpensesForm(forms.ModelForm):
-    def __init__(self, event = None, update_object = False, *args, **kwargs):
+    def __init__(self, *args, event = None, update_object = False, **kwargs):
         self.event = event
         self.update_object = update_object
         super().__init__(*args, **kwargs)
@@ -72,11 +72,12 @@ class ExpensesForm(forms.ModelForm):
             'expense_date': {'required': 'Please select a date.'},
         }
     def save(self, commit = True):
-        form = super().save(False)
+        instance = super().save(False)
         if self.event is not None and self.update_object is False:
-            form.event = self.event
+            instance.event = self.event
         if commit:
-            form.save()
+            instance.save()
+        return instance
     
     def clean(self):
         data = super().clean()
@@ -90,3 +91,67 @@ class ExpensesForm(forms.ModelForm):
             self.add_error('description', 'The description must be no more than 5000 characters')
         return data
 
+class SplitPaymentForm(forms.ModelForm):
+    def __init__(self, *args, participant = None, expense = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.participant = participant
+        self.expense = expense
+
+    class Meta:
+        model = models.SplitPayment
+        fields = ['amount', 'description']
+        labels = {
+            'amount': 'Amount',
+            'description': 'Comment'
+        }
+        widgets = {
+            'amount': forms.TextInput(
+                attrs={
+                'class': 'wizard-input-small amount-input-form js-amount',
+                'placeholder': '0',
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'wizard-input-small js-amount-comment hidden mt-3',
+                'placeholder': 'Why this amount?',
+                'rows':'2'
+            })
+        }
+
+    def save(self, commit = True):
+        instance = super().save(False)
+        instance.participant = self.participant
+        instance.expense = self.expense
+
+        if commit:
+            instance.save()
+
+        return instance
+    
+class ExpensePaymentForm(forms.ModelForm):
+    def __init__(self, *args, participant = None, expense = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.participant = participant
+        self.expense = expense
+
+    class Meta:
+        model = models.ExpensePayment
+        fields = ['amount']
+        labels = {
+            'amount': 'Amount',
+        }
+        widgets = {
+            'amount': forms.TextInput(attrs={
+                'class': 'js-paid-amount wizard-input-small amount-input-paid',
+                'placeholder': '0',
+            }),
+        }
+
+    def save(self, commit = True):
+        instance = super().save(False)
+        instance.participant = self.participant
+        instance.expense = self.expense
+
+        if commit:
+            instance.save()
+
+        return instance
