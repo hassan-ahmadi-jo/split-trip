@@ -73,8 +73,8 @@ def update_total_amounts(event):
     expenses = event.expenses.all()
     participants = event.participants.all()
     for expense in expenses:
-        total_amont = expense.payments.aggregate(Sum('share_amount')).get('share_amount__sum') or 0
-        expense.total_amont = total_amont
+        total_amount = expense.payments.aggregate(Sum('share_amount')).get('share_amount__sum') or 0
+        expense.total_amount = total_amount
         expense.save()
 
     for participant in participants:
@@ -83,6 +83,7 @@ def update_total_amounts(event):
         participant.total_paid = total_paid
         participant.total_share = total_share
         participant.save()
+
 # Create your views here.
 class ExpensesView(EventMemberRequiredMixin, TemplateView):
     template_name = 'expenses/dashboard.html'
@@ -265,8 +266,24 @@ class SplitPaymentSuccessView(PaymentMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
+class ExpensesListView(EventMemberRequiredMixin, ListView):
+    template_name = 'expenses/expenses_list.html'
+    model = models.Expenses
+    context_object_name = 'expenses'
+    paginate_by = 20
 
-# expenses = models.Expenses.objects.all()
-# for ex in expenses:
-#     print(ex.title)
-#     ex.delete()
+    def get_queryset(self):
+        return super().get_queryset().filter(event = self.get_event()).order_by('expense_date')
+    
+
+class EpensesDeleteView(PaymentMixin, View):
+    @transaction.atomic
+    def delet_expense(self):
+        expense = self.get_expense()
+        if expense.total_amount == 0:
+            expense.delete()
+    def post(self, request, event_code, expense_id):
+        self.delet_expense()
+        if request.POST.get('page_name') == 'expenses_list':
+            return redirect('expenses_list', event_code = event_code)
+        return redirect('dashboard', event_code = event_code)

@@ -11,6 +11,6 @@ urlpatterns = [
     path('update/<int:id>/', views.ExpensesUpdateView.as_view(), name='expenses_update'),
     path('split-payment/<int:expense_id>/', views.SplitPaymentView.as_view(), name='split_payment'),
     path('split-payment-success/<int:expense_id>/', views.SplitPaymentSuccessView.as_view(), name='split_payment_Success'),
-    # path('list/', views.ExpensesListView.as_view(), name='expenses_list'),
-    # path('delete/<int:expense_id>', views.EpensesDeleteView.as_view(), name='expense_delete'),
+    path('list/', views.ExpensesListView.as_view(), name='expenses_list'),
+    path('delete/<int:expense_id>', views.EpensesDeleteView.as_view(), name='expense_delete'),
 ]
