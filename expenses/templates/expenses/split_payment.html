@@ -115,6 +115,27 @@
               <button type="button" class="cursor-pointer js-amount-comment-btn w-full py-2.5 px-4 border-2 border-dashed border-gray-700 rounded-xl text-sm font-medium text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400 transition-all duration-200">+ Add Comment</button>
             </div>
           </div>
+            {% empty %}
+            <!-- Empty State Styled -->
+            <div class="py-2 px-6 text-center flex flex-col items-center justify-center col-span-12">
+                <div class="bg-gray-800/50 p-5 rounded-full mb-5 border border-gray-700/50 shadow-inner">
+    
+                  <svg class="w-10 h-10 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h3 class="text-gray-200 font-bold text-lg mb-2">No Participants Yet</h3>
+                <p class="text-gray-400 text-sm mb-6 max-w-lg mx-auto leading-relaxed">
+                  You haven’t added anyone to this event yet. Start by adding participants to split expenses. <br>
+                  Your expense has been saved. After adding participants, you can edit it and assign the amount paid by each person.
+                </p>
+
+
+                <a href="{% url 'participants_create' event_code=event.code %}" class="text-cyan-400 hover:text-cyan-300 font-medium text-sm flex items-center gap-1.5 transition-colors">
+                  <i class="fas fa-plus text-xs"></i>
+                  Create your first participant
+                </a>
+            </div>
         {% endfor %}
       </div>
 

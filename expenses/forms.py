@@ -23,7 +23,7 @@ class ParticipantsForm(forms.ModelForm):
         data = self.cleaned_data["full_name"]
         event = self.event
         if len(data) < 3:
-            raise forms.ValidationError('The name must be at least 5 characters.')
+            raise forms.ValidationError('The name must be at least 3 characters.')
         elif len(data) > 20:
             raise forms.ValidationError('The name must be no more than 20 characters.')
         elif event and event.participants.filter(full_name__iexact=data).exclude(pk=self.instance.pk).exists():
@@ -32,7 +32,7 @@ class ParticipantsForm(forms.ModelForm):
     
     def save(self, commit = True):
         instance = super().save(False)
-        if self.event is not None and self.update_object is not False:
+        if self.event is not None and self.update_object is False:
             instance.event = self.event
         if commit:
             instance.save()

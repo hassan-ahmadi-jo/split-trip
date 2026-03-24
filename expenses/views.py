@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models import Sum
 from django.http import HttpResponseRedirect, HttpRequest
 from django.urls import reverse_lazy
 from django.views import View
@@ -58,12 +59,32 @@ class PaymentMixin(EventMemberRequiredMixin):
     def handle_no_permission(self):
         return redirect('dashboard', event_code = self._event_code)
 
-def create_empty_payments(expense):
+def create_empty_payments_for_expense(expense):
     participants = expense.event.participants.all()
     for participant in participants:
         models.SplitPayment.objects.create(expense = expense, participant = participant, amount = 0)
         models.ExpensePayment.objects.create(expense = expense, participant = participant, amount = 0)
-    
+
+def create_empty_payments_for_participant(participant):
+    expenses = participant.event.expenses.all()
+    for expense in expenses:
+        models.SplitPayment.objects.create(expense = expense, participant = participant, amount = 0)
+        models.ExpensePayment.objects.create(expense = expense, participant = participant, amount = 0)
+
+def update_total_amounts(event):
+    expenses = event.expenses.all()
+    participants = event.participants.all()
+    for expense in expenses:
+        total_amont = expense.payments.aggregate(Sum('amount')).get('amount__sum') or 0
+        expense.total_amont = total_amont
+        expense.save()
+
+    for participant in participants:
+        total_share = participant.payments.aggregate(Sum('amount')).get('amount__sum') or 0
+        total_paid = participant.payments_made.aggregate(Sum('amount')).get('amount__sum') or 0
+        participant.total_paid = total_paid
+        participant.total_share = total_share
+        participant.save()
 # Create your views here.
 class ExpensesView(EventMemberRequiredMixin, TemplateView):
     template_name = 'expenses/dashboard.html'
@@ -88,6 +109,12 @@ class ParticipantsCreateView(EventMemberRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         kwargs['event'] = self.get_event()
         return kwargs
+    
+    @transaction.atomic
+    def form_valid(self, form):
+        self.object = form.save()
+        create_empty_payments_for_participant(self.object)
+        return HttpResponseRedirect(self.get_success_url())
 
 class ParticipantsUpdateView(EventMemberRequiredMixin, UpdateView):
     template_name = 'expenses/participants_update.html'
@@ -97,6 +124,8 @@ class ParticipantsUpdateView(EventMemberRequiredMixin, UpdateView):
     
     def get_success_url(self):
         event = self.get_event()
+        if self.request.GET.get('page')=='participants_list':
+            return reverse_lazy('participants_list', kwargs = {'event_code': event.code})
         return reverse_lazy('dashboard', kwargs = {'event_code': event.code})
     
     def get_queryset(self):
@@ -112,7 +141,7 @@ class ParticipantsListView(EventMemberRequiredMixin, ListView):
     model = models.Participants
     template_name = 'expenses/participant_list.html'
     context_object_name = 'participants'
-    paginate_by = 2
+    paginate_by = 20
 
     def get_queryset(self):
         return super().get_queryset().filter(event=self.get_event())
@@ -124,9 +153,11 @@ class ParticipantsDeleteView(EventMemberRequiredMixin, View):
         data = request.POST
         delete_participant_id = int(data.get('delete_participant'))
         page_name = data.get('page_name')
-        if delete_participant_id is not None and event.participants.filter(id=delete_participant_id).exists():
-            models.Participants.objects.filter(id=delete_participant_id).first().delete()
-            if page_name == 'participant_list':
+        participant = get_object_or_404(event.participants, id = delete_participant_id)
+        if participant.total_paid + participant.total_share == 0:
+            participant.delete()
+
+        if page_name == 'participant_list':
                 return redirect('participants_list', event_code=event_code)
         return redirect('dashboard', event_code=event_code)
 
@@ -147,9 +178,9 @@ class ExpensesCreateView(EventMemberRequiredMixin, CreateView):
     @transaction.atomic
     def form_valid(self, form):
         self.object = form.save()
-        create_empty_payments(self.object)
+        create_empty_payments_for_expense(self.object)
         return HttpResponseRedirect(self.get_success_url())
-    
+
 class ExpensesUpdateView(EventMemberRequiredMixin, UpdateView):
     template_name = 'expenses/expenses_edit.html'
     model = models.Expenses
@@ -197,6 +228,8 @@ class SplitPaymentView(PaymentMixin, View):
             return False
         return True
     
+
+    
     @transaction.atomic
     def save_all_forms(self, forms_by_participant):
         expense = self.get_expense()
@@ -210,6 +243,8 @@ class SplitPaymentView(PaymentMixin, View):
             expense_payment_form.participant = participant
             expense_payment_form.expense = expense
             expense_payment_form.save()
+
+            update_total_amounts(self.get_event())
 
     def get(self, request, event_code, expense_id):
         forms_by_participant = self.create_forms()
