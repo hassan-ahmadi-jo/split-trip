@@ -74,7 +74,7 @@
 
       <!-- Participants Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {% for participant, split_payment_form, expense_payment_form in forms_by_participant %}
+        {% for participant, participant_expense_form in forms_by_participant %}
           <div class="js-participant-card group bg-gray-900/40 border border-gray-700/50 p-6 rounded-2xl transition-all duration-500 hover:border-gray-500/50 relative overflow-hidden">
             <div class="js-payer-badge hidden absolute -top-2 -right-8 bg-emerald-500 text-white text-[10px] font-black py-4 px-10 rotate-45 shadow-lg">PAYER</div>
 
@@ -94,7 +94,7 @@
             <div class="relative group/input">
               <label class="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Share Amount</label>
               <div class="relative flex items-center">
-                {{ split_payment_form.amount }}
+                {{ participant_expense_form.share_amount }}
                 <span class="absolute right-4 text-gray-500 font-bold text-sm">IRT</span>
               </div>
             </div>
@@ -103,7 +103,7 @@
               <div class="relative group/input">
                 <label class="block text-xs font-bold text-emerald-500 uppercase mb-2 ml-1">Paid Amount</label>
                 <div class="relative flex items-center">
-                  {{expense_payment_form.amount}}
+                  {{participant_expense_form.paid_amount}}
                   <span class="absolute right-4 text-emerald-600 font-bold text-sm">IRT</span>
                 </div>
                 <p class="text-[10px] text-gray-500 mt-2 ml-1 italic">Enter the amount this person actually paid.</p>
@@ -111,7 +111,7 @@
             </div>
 
             <div class="mt-4">
-              {{ split_payment_form.description }}
+              {{ participant_expense_form.description }}
               <button type="button" class="cursor-pointer js-amount-comment-btn w-full py-2.5 px-4 border-2 border-dashed border-gray-700 rounded-xl text-sm font-medium text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400 transition-all duration-200">+ Add Comment</button>
             </div>
           </div>

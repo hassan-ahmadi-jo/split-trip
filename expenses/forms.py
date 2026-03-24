@@ -91,23 +91,29 @@ class ExpensesForm(forms.ModelForm):
             self.add_error('description', 'The description must be no more than 5000 characters')
         return data
 
-class SplitPaymentForm(forms.ModelForm):
+class ParticipantExpenseForm(forms.ModelForm):
     def __init__(self, *args, participant = None, expense = None, **kwargs):
         super().__init__(*args, **kwargs)
         self.participant = participant
         self.expense = expense
 
     class Meta:
-        model = models.SplitPayment
-        fields = ['amount', 'description']
+        model = models.ParticipantExpense
+        fields = ['share_amount', 'paid_amount', 'description']
         labels = {
-            'amount': 'Amount',
+            'share_amount': 'Share amount',
+            'paid_amount': 'Paid amount',
             'description': 'Comment'
         }
         widgets = {
-            'amount': forms.TextInput(
+            'share_amount': forms.TextInput(
                 attrs={
-                'class': 'wizard-input-small amount-input-form js-amount',
+                'class': 'js-amount wizard-input-small amount-input-form',
+                'placeholder': '0',
+            }),
+            'paid_amount': forms.TextInput(
+                attrs={
+                'class': 'js-paid-amount wizard-input-small amount-input-paid',
                 'placeholder': '0',
             }),
             'description': forms.Textarea(attrs={
@@ -115,35 +121,6 @@ class SplitPaymentForm(forms.ModelForm):
                 'placeholder': 'Why this amount?',
                 'rows':'2'
             })
-        }
-
-    def save(self, commit = True):
-        instance = super().save(False)
-        instance.participant = self.participant
-        instance.expense = self.expense
-
-        if commit:
-            instance.save()
-
-        return instance
-    
-class ExpensePaymentForm(forms.ModelForm):
-    def __init__(self, *args, participant = None, expense = None, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.participant = participant
-        self.expense = expense
-
-    class Meta:
-        model = models.ExpensePayment
-        fields = ['amount']
-        labels = {
-            'amount': 'Amount',
-        }
-        widgets = {
-            'amount': forms.TextInput(attrs={
-                'class': 'js-paid-amount wizard-input-small amount-input-paid',
-                'placeholder': '0',
-            }),
         }
 
     def save(self, commit = True):

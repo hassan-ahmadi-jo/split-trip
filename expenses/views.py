@@ -62,26 +62,24 @@ class PaymentMixin(EventMemberRequiredMixin):
 def create_empty_payments_for_expense(expense):
     participants = expense.event.participants.all()
     for participant in participants:
-        models.SplitPayment.objects.create(expense = expense, participant = participant, amount = 0)
-        models.ExpensePayment.objects.create(expense = expense, participant = participant, amount = 0)
+        models.ParticipantExpense.objects.create(expense = expense,participant = participant, share_amount = 0, paid_amount = 0)
 
 def create_empty_payments_for_participant(participant):
     expenses = participant.event.expenses.all()
     for expense in expenses:
-        models.SplitPayment.objects.create(expense = expense, participant = participant, amount = 0)
-        models.ExpensePayment.objects.create(expense = expense, participant = participant, amount = 0)
+        models.ParticipantExpense.objects.create(expense = expense,participant = participant, share_amount = 0, paid_amount = 0)
 
 def update_total_amounts(event):
     expenses = event.expenses.all()
     participants = event.participants.all()
     for expense in expenses:
-        total_amont = expense.payments.aggregate(Sum('amount')).get('amount__sum') or 0
+        total_amont = expense.payments.aggregate(Sum('share_amount')).get('share_amount__sum') or 0
         expense.total_amont = total_amont
         expense.save()
 
     for participant in participants:
-        total_share = participant.payments.aggregate(Sum('amount')).get('amount__sum') or 0
-        total_paid = participant.payments_made.aggregate(Sum('amount')).get('amount__sum') or 0
+        total_share = participant.payments.aggregate(Sum('share_amount')).get('share_amount__sum') or 0
+        total_paid = participant.payments.aggregate(Sum('paid_amount')).get('paid_amount__sum') or 0
         participant.total_paid = total_paid
         participant.total_share = total_share
         participant.save()
@@ -204,27 +202,25 @@ class ExpensesUpdateView(EventMemberRequiredMixin, UpdateView):
 class SplitPaymentView(PaymentMixin, View):
     def create_forms(self, post_data = None):
         expense = self.get_expense()
-        split_payments = expense.payments.all()
+        payments = expense.payments.all()
 
         forms_by_participant = []
-        for split_payment in split_payments:
-            participant = split_payment.participant
-            expense_payment = expense.payments_made.filter(participant = participant).first()
-            split_payment_form = forms.SplitPaymentForm(post_data, prefix = f'p{participant.id}-split', instance = split_payment)
-            expense_payment_form = forms.ExpensePaymentForm(post_data, prefix = f'p{participant.id}-expense', instance = expense_payment)
-            forms_by_participant.append((participant, split_payment_form, expense_payment_form))
+        for payment in payments:
+            participant = payment.participant
+            participant_expense_form = forms.ParticipantExpenseForm(post_data, prefix = f'p{participant.id}', instance = payment)
+            forms_by_participant.append((participant, participant_expense_form))
         return forms_by_participant
     
     def is_all_forms_valid(self, forms_by_participant):
-        split_sum = 0
-        expense_sum = 0
+        paid_sum = 0
+        share_sum = 0
         for form in forms_by_participant:
-            participant, split_payment_form, expense_payment_form = form
-            if not split_payment_form.is_valid() or not expense_payment_form.is_valid():
+            participant_expense_form = form[1]
+            if not participant_expense_form.is_valid():
                 return False
-            split_sum += float(split_payment_form.cleaned_data.get('amount'))
-            expense_sum += float(expense_payment_form.cleaned_data.get('amount'))
-        if split_sum != expense_sum:
+            paid_sum += float(participant_expense_form.cleaned_data.get('paid_amount'))
+            share_sum += float(participant_expense_form.cleaned_data.get('share_amount'))
+        if paid_sum != share_sum:
             return False
         return True
     
@@ -234,15 +230,11 @@ class SplitPaymentView(PaymentMixin, View):
     def save_all_forms(self, forms_by_participant):
         expense = self.get_expense()
         for form in forms_by_participant:
-            participant, split_payment_form, expense_payment_form = form
+            participant, participant_expense_form = form
 
-            split_payment_form.participant = participant
-            split_payment_form.expense = expense
-            split_payment_form.save()
-
-            expense_payment_form.participant = participant
-            expense_payment_form.expense = expense
-            expense_payment_form.save()
+            participant_expense_form.participant = participant
+            participant_expense_form.expense = expense
+            participant_expense_form.save()
 
             update_total_amounts(self.get_event())
 
@@ -272,3 +264,9 @@ class SplitPaymentSuccessView(PaymentMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+# expenses = models.Expenses.objects.all()
+# for ex in expenses:
+#     print(ex.title)
+#     ex.delete()
