@@ -42,3 +42,9 @@ class ParticipantExpense(models.Model):
                 name='unique_participant_expense'
             )
         ]
+
+class CurrencyUnit(models.Model):
+    title = models.CharField(max_length=10, verbose_name='Title')
+    event = models.ForeignKey(Event, related_name='currencys', on_delete=models.CASCADE, verbose_name='event')
+    is_active = models.BooleanField(default=False, verbose_name='Is active')
+    

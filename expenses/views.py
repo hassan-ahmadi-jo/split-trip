@@ -84,15 +84,34 @@ def update_total_amounts(event):
         participant.total_share = total_share
         participant.save()
 
+def create_default_currency_units(event):
+    default_items = [
+        ("USD", True),
+        ("EUR", False),
+        ("IRT", False),
+    ]
+    for currency, is_active in default_items:
+        models.CurrencyUnit.objects.create(event = event, title = currency, is_active = is_active)
 # Create your views here.
 class ExpensesView(EventMemberRequiredMixin, TemplateView):
     template_name = 'expenses/dashboard.html'
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         event = self.get_event()
-        context['participants'] = models.Participants.objects.filter(event = event).all()
-        context['expenses'] = models.Expenses.objects.filter(event = event).all()
+        participants = models.Participants.objects.filter(event = event).all()[:11]
+        for p in participants:
+            p.balance = p.total_paid - p.total_share
+            print(p.full_name)
+            print(p.balance)
+            print('-------------')
+        expenses = models.Expenses.objects.filter(event = event).all()
+        context['participants'] = participants
+        context['expenses'] = expenses.order_by('-expense_date', '-created_at')[:11]
+        context['total_cost'] = expenses.aggregate(Sum('total_amount')).get('total_amount__sum')
+        if not event.currencys.exists():
+            create_default_currency_units(event)
+        context['currency_unit'] = event.currencys.filter(is_active = True).first().title
         return context
 
 class ParticipantsCreateView(EventMemberRequiredMixin, CreateView):
@@ -144,6 +163,12 @@ class ParticipantsListView(EventMemberRequiredMixin, ListView):
 
     def get_queryset(self):
         return super().get_queryset().filter(event=self.get_event())
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event = self.get_event()
+        context['currency_unit'] = event.currencys.filter(is_active = True).first().title
+        return context
 
 class ParticipantsDeleteView(EventMemberRequiredMixin, View):
     def post(self, request, event_code):
@@ -241,9 +266,11 @@ class SplitPaymentView(PaymentMixin, View):
 
     def get(self, request, event_code, expense_id):
         forms_by_participant = self.create_forms()
-        context = {'event':self.get_event(),
+        event = self.get_event()
+        context = {'event':event,
                    'expense': self.get_expense(),
                    'forms_by_participant': forms_by_participant,}
+        context['currency_unit'] = event.currencys.filter(is_active = True).first().title
         return render(request, 'expenses/split_payment.html', context = context)
     
     def post(self, request:HttpRequest , event_code, expense_id):
@@ -273,8 +300,13 @@ class ExpensesListView(EventMemberRequiredMixin, ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        return super().get_queryset().filter(event = self.get_event()).order_by('expense_date')
+        return super().get_queryset().filter(event = self.get_event()).order_by('-expense_date', '-created_at')
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event = self.get_event()
+        context['currency_unit'] = event.currencys.filter(is_active = True).first().title
+        return context
 
 class EpensesDeleteView(PaymentMixin, View):
     @transaction.atomic
@@ -287,3 +319,37 @@ class EpensesDeleteView(PaymentMixin, View):
         if request.POST.get('page_name') == 'expenses_list':
             return redirect('expenses_list', event_code = event_code)
         return redirect('dashboard', event_code = event_code)
+
+class CurrencyHandlerView(EventMemberRequiredMixin, View):
+    def post(self, request, event_code):
+        event = self.get_event()
+        currency_id = request.POST.get('remove')
+        request_type = 'remove'
+        if currency_id is None:
+            currency_id = request.POST.get('active')
+            request_type = 'active'
+        if currency_id is not None and event.currencys.filter(id=currency_id).exists():
+            currency = event.currencys.filter(id=currency_id).first()
+            if request_type == 'remove' and currency.is_active is False:
+                currency.delete()
+            elif currency.is_active is False:
+                for cur in event.currencys.all():
+                    if cur == currency:
+                        cur.is_active = True
+                    else:
+                        cur.is_active = False
+                    cur.save()
+        return redirect('dashboard', event_code = event_code)
+
+class CurrencyUnitCreateView(EventMemberRequiredMixin, CreateView):
+    form_class = forms.CurrencyUnitCreateForm
+    template_name = 'expenses/currency_unit_create.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['event'] = self.get_event()
+        return kwargs
+    
+    def get_success_url(self):
+        event = self.get_event()
+        return reverse_lazy('dashboard', kwargs = {'event_code': event.code})

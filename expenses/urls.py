@@ -13,4 +13,6 @@ urlpatterns = [
     path('split-payment-success/<int:expense_id>/', views.SplitPaymentSuccessView.as_view(), name='split_payment_Success'),
     path('list/', views.ExpensesListView.as_view(), name='expenses_list'),
     path('delete/<int:expense_id>', views.EpensesDeleteView.as_view(), name='expense_delete'),
+    path('currency/', views.CurrencyHandlerView.as_view(), name='currency_handler'),
+    path('currency-create/', views.CurrencyUnitCreateView.as_view(), name='currency_create'),
 ]

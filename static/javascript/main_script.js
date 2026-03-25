@@ -2,7 +2,7 @@ const priceEls = document.querySelectorAll('.js-price')
 
 const formatPrice = function (price) {
     let number = String(price).replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');
-    if (parseFloat("number") == 0) {
+    if (parseFloat("number") == 0 || number === "") {
         return '0'
     };
     dot_index = number.indexOf('.');

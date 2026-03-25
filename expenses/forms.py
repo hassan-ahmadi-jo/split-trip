@@ -132,3 +132,29 @@ class ParticipantExpenseForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+class CurrencyUnitCreateForm(forms.ModelForm):
+    def __init__(self, *args, event = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.event = event
+
+    class Meta:
+        model = models.CurrencyUnit
+        fields = ['title']
+        labels = {
+            'title': 'Title'
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter a currency title'
+            })
+        }
+
+    def save(self, commit = True):
+        instance = super().save(False)
+        if self.event is not None:
+            instance.event = self.event
+        if commit:
+            instance.save()
+        return instance
