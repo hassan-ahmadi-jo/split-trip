@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create Currency Unit |
+{% endblock %}
+
+{% block content %}
+<form method="post" class="form-box">
+  {% csrf_token %}
+  <section class="form-title">
+    <h2>Add Currency Unit</h2>
+    <p>Enter the currency unit title</p>
+  </section>
+  <div>
+    <p>{{ form.title.label }}</p>
+    {{ form.title }}
+    {% if form.title.errors %}
+    {{ form.title.errors }}
+    {% endif %}
+  </div>
+  <button type="submit" class="form-button">Add Currency Unit</button>
+  <footer class=>
+    <a href="{% url 'dashboard' event_code=event.code %}">
+      Cancel
+    </a>
+  </footer>
+</form>
+{% endblock %}
