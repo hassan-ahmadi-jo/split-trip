@@ -54,10 +54,10 @@
               <div class="js-participant group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
                 <div class="col-span-1 text-gray-500 font-mono text-sm tracking-wide">{{ forloop.counter }}</div>
 
-                <div class="col-span-4 flex items-center gap-3 text-gray-100 font-medium truncate">
+                <a  href="{% url 'participants_detail' event_code=event.code id=participant.id %}" class="col-span-4 flex items-center gap-3 text-gray-100 font-medium truncate hover:text-cyan-400 transition">
                   <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gray-700 to-gray-600 flex items-center justify-center text-xs font-bold text-gray-300 shadow-inner">{{ participant.full_name|make_list|first|upper }}</div>
                   {{ participant.full_name|title }}
-                </div>
+                </a>
 
                 <!-- Paid -->
                 <div class="col-span-2 flex items-center gap-1.5 text-left text-sm font-mono font-bold tracking-wide text-cyan-400">

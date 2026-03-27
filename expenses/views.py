@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpRequest
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic.base import TemplateView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from events.models import Event
@@ -102,9 +102,6 @@ class ExpensesView(EventMemberRequiredMixin, TemplateView):
         participants = models.Participants.objects.filter(event = event).all()[:11]
         for p in participants:
             p.balance = p.total_paid - p.total_share
-            print(p.full_name)
-            print(p.balance)
-            print('-------------')
         expenses = models.Expenses.objects.filter(event = event).all()
         context['participants'] = participants
         context['expenses'] = expenses.order_by('-expense_date', '-created_at')[:11]
@@ -144,6 +141,9 @@ class ParticipantsUpdateView(EventMemberRequiredMixin, UpdateView):
         event = self.get_event()
         if self.request.GET.get('page')=='participants_list':
             return reverse_lazy('participants_list', kwargs = {'event_code': event.code})
+        if self.request.GET.get('page')=='participants_detail':
+            id = self.request.GET.get('id')
+            return reverse_lazy('participants_detail', kwargs = {'event_code': event.code, 'id': id})
         return reverse_lazy('dashboard', kwargs = {'event_code': event.code})
     
     def get_queryset(self):
@@ -353,3 +353,17 @@ class CurrencyUnitCreateView(EventMemberRequiredMixin, CreateView):
     def get_success_url(self):
         event = self.get_event()
         return reverse_lazy('dashboard', kwargs = {'event_code': event.code})
+
+class ParticipantDetailView(EventMemberRequiredMixin, DetailView):
+    template_name = 'expenses/participant.html'
+    model = models.Participants
+    pk_url_kwarg = 'id'
+    context_object_name = 'participant'
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        participant = context.get('participant')
+        context['balance'] = participant.total_paid - participant.total_share
+        context['payments'] = participant.payments.all().order_by('-expense__expense_date', '-expense__created_at')
+        context['currency_unit'] = participant.event.currencys.filter(is_active = True).first().title
+        return context

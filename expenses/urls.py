@@ -10,6 +10,7 @@ urlpatterns = [
     path('participants/<int:id>/update/', views.ParticipantsUpdateView.as_view(), name='participants_update'),
     path('participants/list/', views.ParticipantsListView.as_view(), name='participants_list'),
     path('participants/delete/', views.ParticipantsDeleteView.as_view(), name='participants_delete'),
+    path('participants/<int:id>/', views.ParticipantDetailView.as_view(), name='participants_detail'),
 
     # Expenses
     path('expenses/create/', views.ExpensesCreateView.as_view(), name='expenses_create'),
