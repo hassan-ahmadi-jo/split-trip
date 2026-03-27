@@ -17,6 +17,7 @@ urlpatterns = [
     path('expenses/<int:id>/update/', views.ExpensesUpdateView.as_view(), name='expenses_update'),
     path('expenses/list/', views.ExpensesListView.as_view(), name='expenses_list'),
     path('expenses/<int:expense_id>/delete/', views.EpensesDeleteView.as_view(), name='expense_delete'),
+    path('expenses/<int:expense_id>/', views.ExpenseDetailView.as_view(), name='expense_detail'),
 
     # Split payment for a specific expense
     path('expenses/<int:expense_id>/split-payment/', views.SplitPaymentView.as_view(), name='split_payment'),

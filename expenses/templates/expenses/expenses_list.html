@@ -54,7 +54,7 @@
                 <div class="col-span-1 text-gray-500 font-mono text-sm tracking-wide">{{ forloop.counter }}</div>
 
                 <!-- Title -->
-                <div class="col-span-4 text-gray-100 font-medium truncate">{{ expense.title|title }}</div>
+                <a href="{% url 'expense_detail' event_code=event.code expense_id=expense.id %}" class="hover:text-cyan-400 cursor-pointer transition col-span-4 text-gray-100 font-medium truncate">{{ expense.title|title }}</a>
 
                 <!-- Date -->
                 <div class="col-span-3 text-gray-400 text-sm truncate">{{ expense.expense_date|date:'F j, Y' }}</div>

@@ -367,3 +367,18 @@ class ParticipantDetailView(EventMemberRequiredMixin, DetailView):
         context['payments'] = participant.payments.all().order_by('-expense__expense_date', '-expense__created_at')
         context['currency_unit'] = participant.event.currencys.filter(is_active = True).first().title
         return context
+
+class ExpenseDetailView(PaymentMixin, DetailView):
+    template_name = 'expenses/expense_detail.html'
+    model = models.Expenses
+    context_object_name = 'expense'
+    pk_url_kwarg = 'expense_id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        expense = self.get_expense()
+        event = self.get_event()
+        context['currency_unit'] = event.currencys.filter(is_active = True).first().title
+        context['payments'] = expense.payments.all()
+        return context
+    

@@ -196,7 +196,7 @@
 
             <div class="flex flex-col divide-y divide-gray-700/50">
               {% for expense in expenses|slice:':10' %}
-                <a href="#" class="js-expense group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
+                <a href="{% url 'expense_detail' event_code=event.code expense_id=expense.id %}" class="js-expense group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
                   <div class="col-span-1 text-gray-500 font-mono text-sm tracking-wide">{{ forloop.counter }}</div>
                   <div class="col-span-6 text-gray-100 font-medium truncate">{{ expense.title|title }}</div>
                   <div class="col-span-5 flex items-center justify-end gap-2 text-right text-sm text-gray-200 font-mono font-medium tracking-wide">
