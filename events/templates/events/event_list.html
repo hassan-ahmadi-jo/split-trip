@@ -9,7 +9,9 @@
 <section class="w-11/12 max-w-6xl mx-auto mt-10 mb-6">
   <!-- Section Header -->
   <div class="mb-5 flex items-center justify-between">
-    <h2 class="text-2xl font-bold tracking-tight text-gray-100">All Your Events</h2>
+    <h2 class="text-2xl font-bold tracking-tight text-gray-100">All Your Events
+      <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-gray-700 text-xs text-gray-300 font-mono">{{ user.memberships.count }}</span>
+    </h2>
   </div>
 
   <!-- Main Table Container -->

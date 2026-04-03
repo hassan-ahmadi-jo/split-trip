@@ -27,7 +27,10 @@
   <section class="w-11/12 max-w-6xl mx-auto my-10">
     <!-- Section Header -->
     <div class="mb-5">
-      <h2 class="text-xl font-semibold tracking-tight text-gray-100">Your Events</h2>
+      <h2 class="text-xl font-semibold tracking-tight text-gray-100">
+        Your Events
+        <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-gray-700 text-xs text-gray-300 font-mono">{{ user.memberships.count }}</span>
+      </h2>
       <p class="text-gray-400 text-sm mt-1">These are the events you are part of. Select one to view details and manage expenses.</p>
     </div>
 
@@ -118,7 +121,9 @@
     <section class="w-11/12 max-w-6xl mx-auto my-10">
       <!-- Section Header -->
       <div class="mb-5">
-        <h2 class="text-xl font-semibold tracking-tight text-gray-100">Your Join Requests</h2>
+        <h2 class="text-xl font-semibold tracking-tight text-gray-100">Your Join Requests
+          <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-gray-700 text-xs text-gray-300 font-mono">{{ user.join_requests.count }}</span>
+        </h2>
         <p class="text-gray-400 text-sm mt-1">These are the requests you have sent to join events and are still waiting for a response.</p>
       </div>
 
