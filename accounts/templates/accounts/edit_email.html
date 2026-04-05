@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Edit Email |
+{% endblock %}
+
+{% block content %}
+  <form method="post" class="form-box">
+    {% csrf_token %}
+    <section class="form-title">
+      <h2>Verify Your New Email</h2>
+      <p>We've sent a verification code to your new email address. <br> Enter the code below to confirm the change.</p>
+      <p class="!text-cyan-400">{{ new_email }}</p>
+    </section>
+    <div>
+      <p>{{ form.verification_code.label }}</p>
+      {{ form.verification_code }}
+      {% if form.verification_code.errors %}
+        {{ form.verification_code.errors }}
+      {% endif %}
+    </div>
+    <button type="submit" class="form-button">Verify Email</button>
+  </form>
+
+      <!-- 🟢 BACK TO HOME BUTTON -->
+<div class="w-full flex justify-center mt-4 mb-16">
+  <a href="{% url 'home' %}" class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
+    <!-- Left Arrow Icon with hover animation -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Back to Home
+  </a>
+</div>
+{% endblock %}

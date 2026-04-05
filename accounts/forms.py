@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from . import models
 
 class SignUpForm(forms.ModelForm):
@@ -124,3 +124,55 @@ class PasswordResetConfirmForm(SetPasswordForm):
                 'class': 'form-control',
                 'placeholder': 'Repeat new password'
             }))
+    
+class ProfileUpdateForme(forms.Form):
+    first_name = forms.CharField(
+        label='Name:',
+        max_length=130,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Hassan Ahmadi'
+        }),
+        error_messages={
+            'required': 'This field is required.'
+        }
+    )
+
+    email = forms.EmailField(
+        label='Email:',
+        max_length=120,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Hassan@gmail.com'
+        }),
+        error_messages={
+            'required': 'This field is required.'
+        }
+    )
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label="Old password",
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={"autocomplete": "current-password", "autofocus": True, 'class': 'form-control',}
+        ),
+    )
+
+    new_password1 = forms.CharField(
+            label='New password',
+            required=True,
+            strip=False,
+            widget=forms.PasswordInput(attrs={
+                "autocomplete": "new-password",
+                'class': 'form-control',
+                }),
+            help_text="Enter your new password",
+        )
+    new_password2 = forms.CharField(
+        label='Repeat the new password',
+        required=True,
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", 'class': 'form-control',}),
+        strip=False,
+        help_text="Enter the same password as before, for verification.",
+    )
