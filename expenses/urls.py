@@ -26,4 +26,7 @@ urlpatterns = [
     # Currency
     path('currency/', views.CurrencyHandlerView.as_view(), name='currency_handler'),
     path('currency/create/', views.CurrencyUnitCreateView.as_view(), name='currency_create'),
+
+    # Access Restricted
+    path('access-restricted', views.AccessRestrictedView.as_view(), name='access_restricted'),
 ]

@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from events.models import Event
+from events.models import Event, EventMembership
 from django.db import transaction
 from . import forms, models
 
@@ -21,6 +21,14 @@ class EventMemberRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
             event = get_object_or_404(Event, code=self._event_code)
             self._event = event
         return self._event
+    
+    def get_membership(self):
+        if hasattr(self, ('_membership')):
+            return self._membership
+        user = self.request.user
+        event = self.get_event()
+        self._membership = get_object_or_404(user.memberships, event = event)
+        return self._membership
 
     def test_func(self):
         user = self.request.user
@@ -58,6 +66,14 @@ class PaymentMixin(EventMemberRequiredMixin):
     
     def handle_no_permission(self):
         return redirect('dashboard', event_code = self._event_code)
+
+class AccessRestrictedMixin(UserPassesTestMixin):
+    def dispatch(self, request, *args, **kwargs):
+        membership = self.get_membership()
+        event = self.get_event()
+        if not membership.can_edit_event_info:
+            return redirect('access_restricted', event_code = event.code)
+        return super().dispatch(request, *args, **kwargs)
 
 def create_empty_payments_for_expense(expense):
     participants = expense.event.participants.all()
@@ -109,9 +125,11 @@ class ExpensesView(EventMemberRequiredMixin, TemplateView):
         if not event.currencys.exists():
             create_default_currency_units(event)
         context['currency_unit'] = event.currencys.filter(is_active = True).first().title
+        membership = self.get_membership()
+        context["can_edit_event_info"] = membership.can_edit_event_info
         return context
 
-class ParticipantsCreateView(EventMemberRequiredMixin, CreateView):
+class ParticipantsCreateView(EventMemberRequiredMixin, AccessRestrictedMixin, CreateView):
     form_class = forms.ParticipantsForm
     template_name = 'expenses/participants_create.html'
 
@@ -131,7 +149,7 @@ class ParticipantsCreateView(EventMemberRequiredMixin, CreateView):
         create_empty_payments_for_participant(self.object)
         return HttpResponseRedirect(self.get_success_url())
 
-class ParticipantsUpdateView(EventMemberRequiredMixin, UpdateView):
+class ParticipantsUpdateView(EventMemberRequiredMixin, AccessRestrictedMixin, UpdateView):
     template_name = 'expenses/participants_update.html'
     model = models.Participants
     form_class = forms.ParticipantsForm
@@ -168,9 +186,11 @@ class ParticipantsListView(EventMemberRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         event = self.get_event()
         context['currency_unit'] = event.currencys.filter(is_active = True).first().title
+        membership = self.get_membership()
+        context["can_edit_event_info"] = membership.can_edit_event_info
         return context
 
-class ParticipantsDeleteView(EventMemberRequiredMixin, View):
+class ParticipantsDeleteView(EventMemberRequiredMixin, AccessRestrictedMixin, View):
     def post(self, request, event_code):
         self._event_code = event_code
         event = self.get_event()
@@ -185,7 +205,7 @@ class ParticipantsDeleteView(EventMemberRequiredMixin, View):
                 return redirect('participants_list', event_code=event_code)
         return redirect('dashboard', event_code=event_code)
 
-class ExpensesCreateView(EventMemberRequiredMixin, CreateView):
+class ExpensesCreateView(EventMemberRequiredMixin, AccessRestrictedMixin, CreateView):
     template_name = 'expenses/expenses_create.html'
     form_class = forms.ExpensesForm
     
@@ -205,7 +225,7 @@ class ExpensesCreateView(EventMemberRequiredMixin, CreateView):
         create_empty_payments_for_expense(self.object)
         return HttpResponseRedirect(self.get_success_url())
 
-class ExpensesUpdateView(EventMemberRequiredMixin, UpdateView):
+class ExpensesUpdateView(EventMemberRequiredMixin, AccessRestrictedMixin, UpdateView):
     template_name = 'expenses/expenses_edit.html'
     model = models.Expenses
     form_class = forms.ExpensesForm
@@ -225,7 +245,7 @@ class ExpensesUpdateView(EventMemberRequiredMixin, UpdateView):
         kwargs['update_object'] = True
         return kwargs
 
-class SplitPaymentView(PaymentMixin, View):
+class SplitPaymentView(PaymentMixin, AccessRestrictedMixin, View):
     def create_forms(self, post_data = None):
         expense = self.get_expense()
         payments = expense.payments.all()
@@ -306,9 +326,11 @@ class ExpensesListView(EventMemberRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         event = self.get_event()
         context['currency_unit'] = event.currencys.filter(is_active = True).first().title
+        membership = self.get_membership()
+        context["can_edit_event_info"] = membership.can_edit_event_info
         return context
 
-class EpensesDeleteView(PaymentMixin, View):
+class EpensesDeleteView(PaymentMixin, AccessRestrictedMixin, View):
     @transaction.atomic
     def delet_expense(self):
         expense = self.get_expense()
@@ -320,7 +342,7 @@ class EpensesDeleteView(PaymentMixin, View):
             return redirect('expenses_list', event_code = event_code)
         return redirect('dashboard', event_code = event_code)
 
-class CurrencyHandlerView(EventMemberRequiredMixin, View):
+class CurrencyHandlerView(EventMemberRequiredMixin, AccessRestrictedMixin, View):
     def post(self, request, event_code):
         event = self.get_event()
         currency_id = request.POST.get('remove')
@@ -341,7 +363,7 @@ class CurrencyHandlerView(EventMemberRequiredMixin, View):
                     cur.save()
         return redirect('dashboard', event_code = event_code)
 
-class CurrencyUnitCreateView(EventMemberRequiredMixin, CreateView):
+class CurrencyUnitCreateView(EventMemberRequiredMixin, AccessRestrictedMixin, CreateView):
     form_class = forms.CurrencyUnitCreateForm
     template_name = 'expenses/currency_unit_create.html'
 
@@ -366,6 +388,8 @@ class ParticipantDetailView(EventMemberRequiredMixin, DetailView):
         context['balance'] = participant.total_paid - participant.total_share
         context['payments'] = participant.payments.all().order_by('-expense__expense_date', '-expense__created_at')
         context['currency_unit'] = participant.event.currencys.filter(is_active = True).first().title
+        membership = self.get_membership()
+        context["can_edit_event_info"] = membership.can_edit_event_info
         return context
 
 class ExpenseDetailView(PaymentMixin, DetailView):
@@ -380,5 +404,15 @@ class ExpenseDetailView(PaymentMixin, DetailView):
         event = self.get_event()
         context['currency_unit'] = event.currencys.filter(is_active = True).first().title
         context['payments'] = expense.payments.all()
+        membership = self.get_membership()
+        context["can_edit_event_info"] = membership.can_edit_event_info
         return context
-    
+
+class AccessRestrictedView(TemplateView):
+    template_name = 'expenses/access_restricted.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event = get_object_or_404(Event, code = self.kwargs.get('event_code'))
+        context['owner_name'] = event.creator.first_name
+        return context
