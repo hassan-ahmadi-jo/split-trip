@@ -24,7 +24,7 @@ event<section class="w-11/12 max-w-6xl mx-auto my-12">
 
         <!-- Table Body -->
         <div class="flex flex-col divide-y divide-gray-700/50">
-          {% for member in members_list|slice:':6' %}
+          {% for member in members_list %}
             <div class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
               <!-- Name -->
               <div class="col-span-3 flex items-center gap-3 text-gray-100 font-medium truncate">{{ member.user.first_name|default:member.user.username|title }}</div>
