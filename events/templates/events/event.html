@@ -107,26 +107,21 @@
 
   <!-- 🟢 EXPENSES HUB NAVIGATION PORTAL -->
   <section class="w-11/12 max-w-6xl mx-auto my-10">
-
-    <a href="{% url "dashboard" event_code=event.code %}" class="group relative flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-indigo-900 to-gray-800 border border-indigo-500/30 hover:border-indigo-400/60 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-indigo-500/20 overflow-hidden">
-
-
+    <a href="{% url 'dashboard' event_code=event.code %}" class="group relative flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-indigo-900 to-gray-800 border border-indigo-500/30 hover:border-indigo-400/60 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-indigo-500/20 overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
       <div class="relative flex items-center gap-5 z-10">
-
         <div class="p-4 bg-indigo-500/20 rounded-xl text-indigo-400 group-hover:text-indigo-300 group-hover:scale-110 transition-all duration-300 shadow-inner">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
           </svg>
         </div>
- 
+
         <div>
           <h3 class="text-xl font-bold tracking-wide text-gray-100 group-hover:text-white transition-colors">Manage Expenses & Splits</h3>
           <p class="text-sm text-gray-400 mt-1 max-w-lg">Go to the dedicated tracker to record costs, add specific participants, and calculate who owes what.</p>
         </div>
       </div>
-
 
       <div class="relative z-10 flex items-center gap-2 text-indigo-400 font-semibold group-hover:text-indigo-300 transition-colors mt-4 sm:mt-0 bg-gray-900/50 px-4 py-2 rounded-lg border border-indigo-500/20">
         <span class="tracking-wide uppercase text-sm">Open Tracker</span>
@@ -137,13 +132,13 @@
     </a>
   </section>
 
-        
   <!-- 🟢 MEMBERS SECTION -->
   {% if members_list %}
     <section class="w-11/12 max-w-6xl mx-auto my-12">
       <!-- Section Header -->
       <div class="mb-5">
-        <h2 class="text-2xl font-bold tracking-tight text-gray-100 mb-1">Event Members
+        <h2 class="text-2xl font-bold tracking-tight text-gray-100 mb-1">
+          Event Members
           <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-gray-700 text-xs text-gray-300 font-mono">{{ event.memberships.count }}</span>
         </h2>
         <p class="text-gray-400 text-sm">Manage the participants of your event and their access levels.</p>
@@ -152,8 +147,9 @@
       <!-- Main Table Container -->
       <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg overflow-hidden">
         <div class="w-full overflow-x-auto">
-          <div class="min-w-[850px]"> <!-- Increased min-width to accommodate form buttons -->
-            
+          <div class="min-w-[850px]">
+            <!-- Increased min-width to accommodate form buttons -->
+
             <!-- Table Header -->
             <div class="grid grid-cols-12 gap-4 px-6 py-4 text-xs font-semibold tracking-wider text-gray-400 uppercase border-b border-gray-700/80 bg-gray-900/50">
               <p class="col-span-3 text-left">Name</p>
@@ -167,25 +163,19 @@
               {% for member in members_list|slice:':6' %}
                 {% if forloop.counter >= 6 %}
                   <!-- Show All Link -->
-                  <a href="{% url "event_members_list" event_code=event.code %}" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Members</a>
+                  <a href="{% url 'event_members_list' event_code=event.code %}" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Members</a>
                 {% else %}
                   <div class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
-                    
                     <!-- Name -->
-                    <div class="col-span-3 flex items-center gap-3 text-gray-100 font-medium truncate">
-                      {{ member.user.first_name|default:member.user.username|title }}
-                    </div>
+                    <div class="col-span-3 flex items-center gap-3 text-gray-100 font-medium truncate">{{ member.user.first_name|default:member.user.username|title }}</div>
 
                     <!-- Email -->
-                    <div class="col-span-4 text-gray-400 font-mono text-sm tracking-wide truncate">
-                      {{ member.user.email }}
-                    </div>
+                    <div class="col-span-4 text-gray-400 font-mono text-sm tracking-wide truncate">{{ member.user.email }}</div>
 
                     <!-- Role Management -->
                     <div class="col-span-3 flex items-center">
                       {% if membership.event.creator == member.user %}
                         <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">Owner</span>
-                      
                       {% elif member.can_edit_event_info %}
                         <!-- Admin State -->
                         <form action="{% url 'event_membership_handler' member_id=member.id %}" method="post" class="flex items-center gap-2">
@@ -193,10 +183,11 @@
                           <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-500/10 text-cyan-400 border border-cyan-500/30">Admin</span>
                           <button type="submit" name="member" class="text-xs text-gray-400 hover:text-gray-200 underline underline-offset-2 transition-colors cursor-pointer px-1">Make Member</button>
                           <button type="submit" name="remove" class="ml-2 text-red-500 hover:text-red-400 hover:bg-red-500/10 p-1.5 rounded-md transition-colors cursor-pointer" title="Remove User">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
                           </button>
                         </form>
-                      
                       {% else %}
                         <!-- Member State -->
                         <form action="{% url 'event_membership_handler' member_id=member.id %}" method="post" class="flex items-center gap-2">
@@ -204,16 +195,16 @@
                           <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-gray-600/20 text-gray-300 border border-gray-600/30">Member</span>
                           <button type="submit" name="admin" class="text-xs text-gray-400 hover:text-cyan-400 underline underline-offset-2 transition-colors cursor-pointer px-1">Make Admin</button>
                           <button type="submit" name="remove" class="ml-2 text-red-500 hover:text-red-400 hover:bg-red-500/10 p-1.5 rounded-md transition-colors cursor-pointer" title="Remove User">
-                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
                           </button>
                         </form>
                       {% endif %}
                     </div>
 
                     <!-- Joined Date -->
-                    <div class="col-span-2 text-right text-sm text-gray-500">
-                      {{ member.joined_at|date:'F j, Y' }}
-                    </div>
+                    <div class="col-span-2 text-right text-sm text-gray-500">{{ member.joined_at|date:'F j, Y' }}</div>
                   </div>
                 {% endif %}
               {% endfor %}
@@ -225,90 +216,25 @@
       <!-- Role Descriptions Legend (Info Box) -->
       <div class="mt-4 bg-gray-900/60 border border-gray-700/60 rounded-lg p-4 flex flex-col md:flex-row gap-4 text-xs text-gray-400">
         <div class="flex items-start gap-2">
-           <span class="text-amber-400 font-medium">Owner:</span> Manage users, change settings, and edit expenses.
+          <span class="text-amber-400 font-medium">Owner:</span> Manage users, change settings, and edit expenses.
         </div>
         <div class="flex items-start gap-2">
-           <span class="text-cyan-400 font-medium">Admin:</span> Create or edit expenses for this event.
+          <span class="text-cyan-400 font-medium">Admin:</span> Create or edit expenses for this event.
         </div>
         <div class="flex items-start gap-2">
-           <span class="text-gray-300 font-medium">Member:</span> View expenses without making changes.
+          <span class="text-gray-300 font-medium">Member:</span> View expenses without making changes.
         </div>
       </div>
     </section>
   {% endif %}
 
   <!-- 🟢 JOIN REQUESTS SECTION -->
-  {% if join_requests %}
-    <section class="w-11/12 max-w-6xl mx-auto my-12">
-      <!-- Section Header -->
-      <div class="mb-5">
-        <h2 class="text-xl font-bold tracking-tight text-gray-100 mb-1 flex items-center gap-2">
-          <span class="relative flex h-3 w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
-          </span>
-          Pending Join Requests
-          <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-gray-700 text-xs text-gray-300 font-mono">{{ event.join_requests.count }}</span>
-        </h2>
-        <p class="text-gray-400 text-sm">These users have requested to join your event. You can accept or decline their requests.</p>
-      </div>
+  <div class="js-ajax-container">
+    {% include 'events/includes/event/event_join_requests.html' %}
+  </div>
+{% endblock %}
 
-      <!-- Main Table Container -->
-      <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg overflow-hidden">
-        <div class="w-full overflow-x-auto">
-          <div class="min-w-[700px]">
-            
-            <!-- Table Header -->
-            <div class="grid grid-cols-12 gap-4 px-6 py-4 text-xs font-semibold tracking-wider text-gray-400 uppercase border-b border-gray-700/80 bg-gray-900/50">
-              <p class="col-span-3 text-left">Name</p>
-              <p class="col-span-4 text-left">Email</p>
-              <p class="col-span-3 text-center">Action</p>
-              <p class="col-span-2 text-right">Requested</p>
-            </div>
 
-            <!-- Table Body -->
-            <div class="flex flex-col divide-y divide-gray-700/50">
-              {% for request in join_requests|slice:':4' %}
-                {% if forloop.counter >= 4 %}
-                  <a href="{% url "event_join_request_list" event_code=request.event.code %}" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Requests</a>
-                {% else %}
-                  <div class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
-                    
-                    <!-- Name -->
-                    <div class="col-span-3 flex items-center gap-3 text-gray-100 font-medium truncate">
-                      {{ request.user.first_name|default:request.user.username|title }}
-                    </div>
-
-                    <!-- Email -->
-                    <div class="col-span-4 text-gray-400 font-mono text-sm tracking-wide truncate">
-                      {{ request.user.email }}
-                    </div>
-
-                    <!-- Accept/Reject Actions -->
-                    <form action="{% url 'join_request_handler' request_id=request.id %}" method="post" class="col-span-3 flex justify-center items-center gap-2">
-                      {% csrf_token %}
-                      <button name="accept" type="submit" class="text-xs font-medium text-green-400 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                        Accept
-                      </button>
-                      <button name="reject" type="submit" class="text-xs font-medium text-red-400 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                        Decline
-                      </button>
-                    </form>
-
-                    <!-- Requested Date -->
-                    <div class="col-span-2 text-right text-sm text-gray-500">
-                      {{ request.requested_at|date:'F j, Y' }}
-                    </div>
-                  </div>
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  {% endif %}
-
+{% block script %}
+  <script src="{% static 'javascript/ajax_handler.js' %}"></script>
 {% endblock %}

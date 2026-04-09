@@ -1,134 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
   Join Requests |
 {% endblock %}
 
 {% block content %}
-  {% if join_requests %}
-    <section class="w-11/12 max-w-6xl mx-auto my-10">
-      <!-- Section Header -->
-      <div class="mb-5">
-        <h2 class="text-xl font-semibold tracking-tight text-gray-100">Your Join Requests
-          <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-gray-700 text-xs text-gray-300 font-mono">{{ user.join_requests.count }}</span>
-        </h2>
-        <p class="text-gray-400 text-sm mt-1">These are the requests you have sent to join events and are still waiting for a response.</p>
-      </div>
+  <div class="js-ajax-container">
+    {% include 'events/includes/join_request_list/join_requests.html' %}
+  </div>
 
-      <!-- Main Table Container -->
-      <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg overflow-hidden">
-        <!-- Responsive Wrapper for horizontal scroll on mobile -->
-        <div class="w-full overflow-x-auto">
-          <div class="min-w-[700px]">
-            <!-- Minimum width forces scroll on small screens -->
+  <!-- 🟢 BACK TO HOME BUTTON -->
+  <div class="w-full flex justify-center mt-4 mb-16">
+    <a href="{% url 'home' %}" class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
+      <!-- Left Arrow Icon with hover animation -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>Back to Home
+    </a>
+  </div>
+{% endblock %}
 
-            <!-- Table Header -->
-            <div class="grid grid-cols-12 gap-4 px-6 py-4 text-xs font-semibold tracking-wider text-gray-400 uppercase border-b border-gray-700/80 bg-gray-800/50">
-              <p class="col-span-5 text-left">Event Title</p>
-              <p class="col-span-3 text-left">Code</p>
-              <p class="col-span-2 text-left">Owner</p>
-              <p class="col-span-2 text-right">Requested</p>
-            </div>
-
-            <!-- Table Body / Rows -->
-            <div class="flex flex-col divide-y divide-gray-700/50">
-              {% for request in join_requests%}
-                  <div class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/40 transition-colors duration-200">
-                    <!-- Title -->
-                    <div class="col-span-5 flex items-center gap-3 text-gray-100 font-medium truncate">
-                      <form action="{% url 'join_request_handler' request.id %}" method="post" class="flex items-center">
-                        {% csrf_token %}
-                        <button type="submit" name="remove" class="text-red-500 hover:text-red-400 hover:bg-red-500/10 p-1.5 rounded-md transition-colors cursor-pointer" title="Remove Request">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        </button>
-                      </form>
-                      {{ request.event.title }}
-                    </div>
-
-                    <!-- Code -->
-                    <div class="col-span-3 text-gray-400 font-mono text-sm tracking-wide">{{ request.event.code }}</div>
-
-                    <!-- Owner -->
-                    <div class="col-span-2 text-gray-400 font-mono text-sm tracking-wide">{{ request.event.creator.first_name }}</div>
-
-                    <!-- Requested Date & Action Icon -->
-                    <div class="col-span-2 flex items-center justify-end gap-3 text-sm text-gray-500 group-hover:text-gray-300 transition-colors">
-                      <span>{{ request.requested_at|date:'F j, Y' }}</span>
-                    </div>
-                </div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  {% endif %}
-
-{% if page_obj.paginator.num_pages > 1 %}
-  <section class="w-11/12 max-w-6xl mx-auto mb-12 flex justify-center items-center">
-    <div class="flex items-center gap-2 bg-gray-900/50 p-2 rounded-2xl border border-gray-700/50 shadow-sm">
-      
-      <!-- Previous Button -->
-      {% if page_obj.has_previous %}
-        <a href="?page={{page_obj.previous_page_number}}&{{querydict}}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200" title="Previous Page">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
-        </a>
-        
-        <!-- Page 1 -->
-        {% if page_obj.number > 2 %}
-          <a href="?page=1&{{querydict}}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200 font-medium text-sm">1</a>
-          
-          <!-- Ellipsis -->
-          {% if page_obj.number != 3 %}
-            <div class="flex items-center justify-center w-6 h-10 text-gray-500 font-bold tracking-widest">...</div>
-          {% endif %}
-        {% endif %}
-        
-        <!-- Previous Page Number -->
-        <a href="?page={{page_obj.previous_page_number}}&{{querydict}}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200 font-medium text-sm">{{ page_obj.previous_page_number }}</a>
-      {% endif %}
-      
-      <!-- Current Page (Active) -->
-      <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold text-sm shadow-md shadow-cyan-500/25 cursor-default">
-        {{ page_obj.number }}
-      </div>
-      
-      <!-- Next Logic -->
-      {% if page_obj.has_next %}
-        <!-- Next Page Number -->
-        <a href="?page={{page_obj.next_page_number}}&{{querydict}}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200 font-medium text-sm">{{ page_obj.next_page_number }}</a>
-        
-        {% if page_obj.paginator.num_pages > page_obj.number|add:1 %}
-          <!-- Ellipsis -->
-          {% if page_obj.paginator.num_pages != page_obj.number|add:2 %}
-            <div class="flex items-center justify-center w-6 h-10 text-gray-500 font-bold tracking-widest">...</div>
-          {% endif %}
-          
-          <!-- Last Page -->
-          <a href="?page={{page_obj.paginator.num_pages}}&{{querydict}}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200 font-medium text-sm">{{ page_obj.paginator.num_pages }}</a>
-        {% endif %}
-        
-        <!-- Next Button -->
-        <a href="?page={{page_obj.next_page_number}}&{{querydict}}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200" title="Next Page">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </a>
-      {% endif %}
-      
-    </div>
-  </section>
-{% endif %}
-
-
-<!-- 🟢 BACK TO HOME BUTTON -->
-<div class="w-full flex justify-center mt-4 mb-16">
-  <a href="{% url 'home' %}" class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
-    <!-- Left Arrow Icon with hover animation -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-    </svg>
-    Back to Home
-  </a>
-</div>
+{% block script %}
+  <script src="{% static 'javascript/ajax_handler.js' %}"></script>
 {% endblock %}

@@ -23,7 +23,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         join_requests = user.join_requests.all()
         context_data['join_requests'] = join_requests.order_by('-requested_at')[:4]
         return context_data
-    
+
 class CreateEventView(LoginRequiredMixin, CreateView):
     form_class = forms.CreateEventForm
     template_name = 'events/create_event.html'
@@ -117,7 +117,6 @@ class EventView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return user.memberships.filter(event=event).exists()
     
     def handle_no_permission(self):
-        # messages.warning(self.request, "aaaaaaaaaaa") #todo: send messages
         return redirect('home')
     
     def get_context_data(self, **kwargs):
@@ -140,19 +139,40 @@ class JoinRequestHandlerView(LoginRequiredMixin, View):
     def post(self, request:HttpRequest, request_id):
         join_request = get_object_or_404(models.EventJoinRequest, id = request_id)
         event = join_request.event
+        btn_action = request.POST.get('btn_action')
+        page = request.POST.get('page')
+        context_data = {}
+        # context_data['accept_request'] = False
+
+        # event join requests
         if event.creator == request.user:
-            if request.POST.get('reject') == '':
+            if btn_action == 'reject':
                 join_request.delete()
-            elif request.POST.get('accept') == '':
+            elif btn_action == 'accept':
                 models.EventMembership.objects.create(
                     event=event,
                     user=join_request.user
                     )
                 join_request.delete()
-            return redirect('event', event_code=event.code)
+                # if page == 'event':
+                #     context_data['accept_request'] = True
+            if page == 'event':
+                context_data['join_requests'] = models.EventJoinRequest.objects.filter(event=event).all().order_by('-requested_at')[:4]
+                return render(request, 'events/includes/event/event_join_requests.html', context=context_data)
+            elif page == 'event_join_request_list':
+                context_data['join_requests'] = models.EventJoinRequest.objects.filter(event=event).all().order_by('-requested_at')
+                return render(request, 'events/includes/event_join_request_list/event_join_requests.html', context=context_data)
+        
+        # user join request
         elif join_request.user == self.request.user:
-            if request.POST.get('remove') == '':
+            if btn_action == 'remove':
                 join_request.delete()
+            if page == 'home':
+                context_data['join_requests'] = request.user.join_requests.all().order_by('-requested_at')[:4]
+                return render(request, 'events/includes/home/join_requests.html', context=context_data)
+            elif page == 'join_request_list':
+                context_data['join_requests'] = request.user.join_requests.all().order_by('-requested_at')
+                return render(request, 'events/includes/join_request_list/join_requests.html', context=context_data)
         return redirect('home')
 
 class EventMembershipHandlerView(LoginRequiredMixin, View):
@@ -182,7 +202,7 @@ class EventListView(LoginRequiredMixin, ListView):
         user = self.request.user
         queryset = queryset.select_related('user').filter(user=user).order_by('-joined_at')
         return queryset
-    
+
 class JoinRequestListView(LoginRequiredMixin, ListView):
     template_name = 'events/join_request_list.html'
     model = models.EventJoinRequest
@@ -194,7 +214,7 @@ class JoinRequestListView(LoginRequiredMixin, ListView):
         user = self.request.user
         queryset = queryset.select_related('user').filter(user=user).order_by('-requested_at')
         return queryset
-    
+
 class EventJoinRequestListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     template_name = 'events/event_join_request_list.html'
     model = models.EventJoinRequest
@@ -220,7 +240,7 @@ class EventJoinRequestListView(LoginRequiredMixin, UserPassesTestMixin, ListView
     
     def handle_no_permission(self):
         return redirect('home')
-    
+
 class EventMembersListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     template_name = 'events/event_members_list.html'
     model = models.EventMembership
@@ -262,7 +282,6 @@ class CreateEventSuccessView(LoginRequiredMixin, TemplateView):
         event = get_object_or_404(models.Event, code=event_code)
         context["event"] = event
         return context
-    
 
 class CreateJoinRequestSuccessView(LoginRequiredMixin, TemplateView):
     template_name = 'events/create_join_request_success.html'

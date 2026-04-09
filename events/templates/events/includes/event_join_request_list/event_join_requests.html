@@ -1,0 +1,117 @@
+  {% if join_requests %}
+    <section class="w-11/12 max-w-6xl mx-auto my-12">
+      <!-- Section Header -->
+      <div class="mb-5">
+        <h2 class="text-xl font-bold tracking-tight text-gray-100 mb-1 flex items-center gap-2">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
+          </span>
+          Pending Join Requests
+          <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-gray-700 text-xs text-gray-300 font-mono">{{ join_requests.count }}</span>
+        </h2>
+        <p class="text-gray-400 text-sm">These users have requested to join your event. You can accept or decline their requests.</p>
+      </div>
+
+      <!-- Main Table Container -->
+      <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg overflow-hidden">
+        <div class="w-full overflow-x-auto">
+          <div class="min-w-[700px]">
+            <!-- Table Header -->
+            <div class="grid grid-cols-12 gap-4 px-6 py-4 text-xs font-semibold tracking-wider text-gray-400 uppercase border-b border-gray-700/80 bg-gray-900/50">
+              <p class="col-span-3 text-left">Name</p>
+              <p class="col-span-4 text-left">Email</p>
+              <p class="col-span-3 text-center">Action</p>
+              <p class="col-span-2 text-right">Requested</p>
+            </div>
+
+            <!-- Table Body -->
+            <div class="flex flex-col divide-y divide-gray-700/50">
+              {% for request in join_requests %}
+                <div class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
+                  <!-- Name -->
+                  <div class="col-span-3 flex items-center gap-3 text-gray-100 font-medium truncate">{{ request.user.first_name|default:request.user.username|title }}</div>
+
+                  <!-- Email -->
+                  <div class="col-span-4 text-gray-400 font-mono text-sm tracking-wide truncate">{{ request.user.email }}</div>
+
+                  <!-- Accept/Reject Actions -->
+                  <form action="{% url 'join_request_handler' request_id=request.id %}" method="post" class="js-ajax-form col-span-3 flex justify-center items-center gap-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="page" value="event_join_request_list">
+                    <button name="btn_action" value="accept" type="submit" class="text-xs font-medium text-green-400 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>Accept
+                    </button>
+                    <button name="btn_action" value="reject" type="submit" class="text-xs font-medium text-red-400 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>Decline
+                    </button>
+                  </form>
+
+                  <!-- Requested Date -->
+                  <div class="col-span-2 text-right text-sm text-gray-500">{{ request.requested_at|date:'F j, Y' }}</div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if page_obj.paginator.num_pages > 1 %}
+    <section class="w-11/12 max-w-6xl mx-auto mb-12 flex justify-center items-center">
+      <div class="flex items-center gap-2 bg-gray-900/50 p-2 rounded-2xl border border-gray-700/50 shadow-sm">
+        <!-- Previous Button -->
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}&{{ querydict }}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200" title="Previous Page">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </a>
+
+          <!-- Page 1 -->
+          {% if page_obj.number > 2 %}
+            <a href="?page=1&{{ querydict }}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200 font-medium text-sm">1</a>
+
+            <!-- Ellipsis -->
+            {% if page_obj.number != 3 %}
+              <div class="flex items-center justify-center w-6 h-10 text-gray-500 font-bold tracking-widest">...</div>
+            {% endif %}
+          {% endif %}
+
+          <!-- Previous Page Number -->
+          <a href="?page={{ page_obj.previous_page_number }}&{{ querydict }}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200 font-medium text-sm">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+
+        <!-- Current Page (Active) -->
+        <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold text-sm shadow-md shadow-cyan-500/25 cursor-default">{{ page_obj.number }}</div>
+
+        <!-- Next Logic -->
+        {% if page_obj.has_next %}
+          <!-- Next Page Number -->
+          <a href="?page={{ page_obj.next_page_number }}&{{ querydict }}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200 font-medium text-sm">{{ page_obj.next_page_number }}</a>
+
+          {% if page_obj.paginator.num_pages > page_obj.number|add:1 %}
+            <!-- Ellipsis -->
+            {% if page_obj.paginator.num_pages != page_obj.number|add:2 %}
+              <div class="flex items-center justify-center w-6 h-10 text-gray-500 font-bold tracking-widest">...</div>
+            {% endif %}
+
+            <!-- Last Page -->
+            <a href="?page={{ page_obj.paginator.num_pages }}&{{ querydict }}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200 font-medium text-sm">{{ page_obj.paginator.num_pages }}</a>
+          {% endif %}
+
+          <!-- Next Button -->
+          <a href="?page={{ page_obj.next_page_number }}&{{ querydict }}" class="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200" title="Next Page">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
