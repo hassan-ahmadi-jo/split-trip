@@ -179,17 +179,27 @@ class EventMembershipHandlerView(LoginRequiredMixin, View):
     def post(self, request:HttpRequest, member_id):
         membership = get_object_or_404(models.EventMembership, id = member_id)
         event = membership.event
+        context = {}
+        context['event'] = event
         if event.creator == request.user and membership.user != event.creator:
-            if request.POST.get('admin') == '':
+            btn_action = request.POST.get('btn_action')
+            page = request.POST.get('page')
+            if btn_action == 'admin':
                 membership.can_edit_event_info = True
                 membership.save()
-            elif request.POST.get('member') == '':
+            elif btn_action == 'member':
                 membership.can_edit_event_info = False
                 membership.save()
-            elif request.POST.get('remove') == '':
+            elif btn_action == 'remove':
                 membership.delete()
-            return redirect('event', event_code=event.code)
-        return redirect('home')
+            
+            if page == 'event':
+                context['members_list'] = event.memberships.all().order_by('joined_at')[:6]
+                return render(request, 'events/includes/event/members.html', context = context)
+            
+            elif page == 'event_members_list':
+                context['members_list'] = event.memberships.all().order_by('joined_at')
+                return render(request, 'events/includes/event_members_list/members.html', context = context)
 
 class EventListView(LoginRequiredMixin, ListView):
     template_name = 'events/event_list.html'
@@ -262,7 +272,7 @@ class EventMembersListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         event = self.get_event()
-        context_data['event_creator'] = event.creator
+        context_data['event'] = event
         return context_data
     
     def test_func(self):

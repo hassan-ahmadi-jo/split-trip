@@ -1,33 +1,37 @@
 // AJAX
-const ajaxForms = document.querySelectorAll('.js-ajax-form');
-const ajaxContainer = document.querySelector('.js-ajax-container');
+const ajaxContainerEls = document.querySelectorAll('.js-ajax-container');
 
-const joinRequestFormHandler = function (element) {
-    
-    element.addEventListener('submit', function (el) {
-        el.preventDefault();
-        formData = new FormData(this);
-        formData.append(el.submitter.name, el.submitter.value);
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+ajaxContainerEls.forEach(function (container) {
+    const ajaxForms = container.querySelectorAll('.js-ajax-form');
+    const joinRequestFormHandler = function (element) {
 
-        url = this.action;
-        fetch(url, {
-            method: 'POST',
-            headers: { "X-CSRFToken": csrfToken},
-            body: formData
-        }).then(
-            response => response.text()
-        ).then(
-            htmlData => {
-                ajaxContainer.innerHTML = htmlData;
+        element.addEventListener('submit', function (el) {
+            el.preventDefault();
+            formData = new FormData(this);
+            formData.append(el.submitter.name, el.submitter.value);
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-                const newajaxForms = document.querySelectorAll('.js-ajax-form');
-                newajaxForms.forEach(form => joinRequestFormHandler(form));
-            }
-        )
-    });
-};
+            url = this.action;
+            fetch(url, {
+                method: 'POST',
+                headers: { "X-CSRFToken": csrfToken },
+                body: formData
+            }).then(
+                response => response.text()
+            ).then(
+                htmlData => {
+                    container.innerHTML = htmlData;
 
-ajaxForms.forEach(form => joinRequestFormHandler(form));
+                    const newajaxForms = document.querySelectorAll('.js-ajax-form');
+                    newajaxForms.forEach(form => joinRequestFormHandler(form));
+                }
+            )
+        });
+    };
+
+    ajaxForms.forEach(form => joinRequestFormHandler(form));
+
+});
+
 
 

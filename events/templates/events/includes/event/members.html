@@ -1,0 +1,96 @@
+{% if members_list %}
+  <section class="w-11/12 max-w-6xl mx-auto my-12">
+    <!-- Section Header -->
+    <div class="mb-5">
+      <h2 class="text-2xl font-bold tracking-tight text-gray-100 mb-1">
+        Event Members
+        <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-gray-700 text-xs text-gray-300 font-mono">{{ event.memberships.count }}</span>
+      </h2>
+      <p class="text-gray-400 text-sm">Manage the participants of your event and their access levels.</p>
+    </div>
+
+    <!-- Main Table Container -->
+    <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg overflow-hidden">
+      <div class="w-full overflow-x-auto">
+        <div class="min-w-[850px]">
+          <!-- Increased min-width to accommodate form buttons -->
+
+          <!-- Table Header -->
+          <div class="grid grid-cols-12 gap-4 px-6 py-4 text-xs font-semibold tracking-wider text-gray-400 uppercase border-b border-gray-700/80 bg-gray-900/50">
+            <p class="col-span-3 text-left">Name</p>
+            <p class="col-span-4 text-left">Email</p>
+            <p class="col-span-3 text-left">Role Management</p>
+            <p class="col-span-2 text-right">Joined</p>
+          </div>
+
+          <!-- Table Body -->
+          <div class="flex flex-col divide-y divide-gray-700/50">
+            {% for member in members_list|slice:':6' %}
+              {% if forloop.counter >= 6 %}
+                <!-- Show All Link -->
+                <a href="{% url 'event_members_list' event_code=event.code %}" class="block text-center px-6 py-4 text-sm font-medium text-cyan-500 hover:text-cyan-400 hover:bg-gray-700/40 transition-colors duration-200 uppercase tracking-wide">Show All Members</a>
+              {% else %}
+                <div class="group grid grid-cols-12 gap-4 items-center px-6 py-4 hover:bg-gray-700/30 transition-colors duration-200">
+                  <!-- Name -->
+                  <div class="col-span-3 flex items-center gap-3 text-gray-100 font-medium truncate">{{ member.user.first_name|default:member.user.username|title }}</div>
+
+                  <!-- Email -->
+                  <div class="col-span-4 text-gray-400 font-mono text-sm tracking-wide truncate">{{ member.user.email }}</div>
+
+                  <!-- Role Management -->
+                  <div class="col-span-3 flex items-center">
+                    {% if event.creator == member.user %}
+                      <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">Owner</span>
+                    {% elif member.can_edit_event_info %}
+                      <!-- Admin State -->
+                      <form action="{% url 'event_membership_handler' member_id=member.id %}" method="post" class="js-ajax-form flex items-center gap-2">
+                        {% csrf_token %}
+                        <input type="hidden" name="page" value="event">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-500/10 text-cyan-400 border border-cyan-500/30">Admin</span>
+                        <button type="submit" name="btn_action" value="member" class="text-xs text-gray-400 hover:text-gray-200 underline underline-offset-2 transition-colors cursor-pointer px-1">Make Member</button>
+                        <button type="submit" name="btn_action" value="remove" class="ml-2 text-red-500 hover:text-red-400 hover:bg-red-500/10 p-1.5 rounded-md transition-colors cursor-pointer" title="Remove User">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </form>
+                    {% else %}
+                      <!-- Member State -->
+                      <form action="{% url 'event_membership_handler' member_id=member.id %}" method="post" class="js-ajax-form flex items-center gap-2">
+                        {% csrf_token %}
+                        <input type="hidden" name="page" value="event">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-gray-600/20 text-gray-300 border border-gray-600/30">Member</span>
+                        <button type="submit" name="btn_action" value="admin" class="text-xs text-gray-400 hover:text-cyan-400 underline underline-offset-2 transition-colors cursor-pointer px-1">Make Admin</button>
+                        <button type="submit" name="btn_action" value="remove" class="ml-2 text-red-500 hover:text-red-400 hover:bg-red-500/10 p-1.5 rounded-md transition-colors cursor-pointer" title="Remove User">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </form>
+                    {% endif %}
+                  </div>
+
+                  <!-- Joined Date -->
+                  <div class="col-span-2 text-right text-sm text-gray-500">{{ member.joined_at|date:'F j, Y' }}</div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Role Descriptions Legend (Info Box) -->
+    <div class="mt-4 bg-gray-900/60 border border-gray-700/60 rounded-lg p-4 flex flex-col md:flex-row gap-4 text-xs text-gray-400">
+      <div class="flex items-start gap-2">
+        <span class="text-amber-400 font-medium">Owner:</span> Manage users, change settings, and edit expenses.
+      </div>
+      <div class="flex items-start gap-2">
+        <span class="text-cyan-400 font-medium">Admin:</span> Create or edit expenses for this event.
+      </div>
+      <div class="flex items-start gap-2">
+        <span class="text-gray-300 font-medium">Member:</span> View expenses without making changes.
+      </div>
+    </div>
+  </section>
+{% endif %}
