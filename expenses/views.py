@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Sum
-from django.http import HttpResponseRedirect, HttpRequest
+from django.http import HttpResponseRedirect, HttpRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic.base import TemplateView
@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from events.models import Event, EventMembership
 from django.db import transaction
+from django.template.loader import render_to_string
 from . import forms, models
 
 
@@ -115,12 +116,12 @@ class ExpensesView(EventMemberRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         event = self.get_event()
-        participants = models.Participants.objects.filter(event = event).all()[:11]
+        participants = models.Participants.objects.filter(event = event).all()[:8]
         for p in participants:
             p.balance = p.total_paid - p.total_share
         expenses = models.Expenses.objects.filter(event = event).all()
         context['participants'] = participants
-        context['expenses'] = expenses.order_by('-expense_date', '-created_at')[:11]
+        context['expenses'] = expenses.order_by('-expense_date', '-created_at')[:8]
         context['total_cost'] = expenses.aggregate(Sum('total_amount')).get('total_amount__sum')
         if not event.currencys.exists():
             create_default_currency_units(event)
@@ -361,7 +362,13 @@ class CurrencyHandlerView(EventMemberRequiredMixin, AccessRestrictedMixin, View)
                     else:
                         cur.is_active = False
                     cur.save()
-        return redirect('dashboard', event_code = event_code)
+        context = {'event': event}
+        return JsonResponse({
+            'html_data': render_to_string('expenses/includes/dashboard/currency.html', context),
+            'active_currency': event.currencys.filter(is_active = True).first().title
+        })
+        # return render(request, 'expenses/includes/dashboard/currency.html', context)
+        # return redirect('dashboard', event_code = event_code)
 
 class CurrencyUnitCreateView(EventMemberRequiredMixin, AccessRestrictedMixin, CreateView):
     form_class = forms.CurrencyUnitCreateForm
