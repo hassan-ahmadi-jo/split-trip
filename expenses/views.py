@@ -203,7 +203,12 @@ class ParticipantsDeleteView(EventMemberRequiredMixin, AccessRestrictedMixin, Vi
             participant.delete()
 
         if page_name == 'participant_list':
-                return redirect('participants_list', event_code=event_code)
+                context = {'event': event}
+                context['currency_unit'] = event.currencys.filter(is_active = True).first().title
+                membership = self.get_membership()
+                context["can_edit_event_info"] = membership.can_edit_event_info
+                context['participants'] = models.Participants.objects.filter(event=event).all()
+                return render(request, 'expenses/includes/participant_list/participants.html', context)
         return redirect('dashboard', event_code=event_code)
 
 class ExpensesCreateView(EventMemberRequiredMixin, AccessRestrictedMixin, CreateView):
@@ -340,7 +345,13 @@ class EpensesDeleteView(PaymentMixin, AccessRestrictedMixin, View):
     def post(self, request, event_code, expense_id):
         self.delet_expense()
         if request.POST.get('page_name') == 'expenses_list':
-            return redirect('expenses_list', event_code = event_code)
+            context = {'expenses': models.Expenses.objects.filter(event = self.get_event()).order_by('-expense_date', '-created_at')}
+            event = self.get_event()
+            context['currency_unit'] = event.currencys.filter(is_active = True).first().title
+            membership = self.get_membership()
+            context["can_edit_event_info"] = membership.can_edit_event_info
+            context['event'] = event
+            return render(request, 'expenses/includes/expenses_list/expenses.html', context)
         return redirect('dashboard', event_code = event_code)
 
 class CurrencyHandlerView(EventMemberRequiredMixin, AccessRestrictedMixin, View):
