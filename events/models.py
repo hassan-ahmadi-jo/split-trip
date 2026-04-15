@@ -12,16 +12,24 @@ class Event(models.Model):
     title = models.CharField(max_length=250, verbose_name='Title')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Creation date')
     code = models.CharField(max_length=7, unique=True, verbose_name='ID')
-    creator = models.ForeignKey(User, blank=True, on_delete=models.CASCADE, related_name='created_events', verbose_name='creator')
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_events', verbose_name='creator')
 
     def save(self, *args, **kwargs):
         if not self.code:
+            max_tries = 20
+            create_code_try  = 0
+
             while True:
                 self.code = create_event_code()
                 try:
                     return super().save(*args, **kwargs)
                 except IntegrityError:
                     self.code = None
+                    create_code_try += 1
+
+                if create_code_try > max_tries:
+                    raise IntegrityError("Unable to generate unique event code after many attempts.")
+                
         return super().save(*args, **kwargs)
     
 class EventMembership(models.Model):
