@@ -3,7 +3,7 @@ from django.views import View
 from django.http import HttpRequest
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from datetime import datetime, timedelta
@@ -300,6 +300,90 @@ class CreateJoinRequestSuccessView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["event_title"] = self.kwargs.get('event_title')
         return context
+
+class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    template_name = 'events/event_update.html'
+    model = models.Event
+    form_class = forms.CreateEventForm
+    pk_url_kwarg = 'event_code'
+
+    def get_success_url(self):
+        event = self.get_event()
+        return reverse_lazy('event_edit_success', kwargs = {'event_code': event.code})
+
+    def get_event(self):
+        if hasattr(self, '_event'):
+            return self._event
+        self._event = get_object_or_404(models.Event, code = self.kwargs.get('event_code'))
+        return self._event
+    
+    def get_object(self):
+        return self.get_event()
+    
+    def test_func(self):
+        event = self.get_event()
+        return event.creator == self.request.user
+    
+    def handle_no_permission(self):
+        return redirect('home')
+    
+    def get_form_kwargs(self):
+        kwargs =  super().get_form_kwargs()
+        kwargs['update_form'] = True
+        return kwargs
+    
+class EventUpdateSuccessView(LoginRequiredMixin, TemplateView):
+    template_name = 'events/event_update_success.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['event'] = models.Event.objects.filter(code = self.kwargs.get('event_code')).first()
+        return context
+
+class EventDeleteView(LoginRequiredMixin, View):
+    def post(self, request:HttpRequest, event_code):
+        event = get_object_or_404(models.Event, code = event_code)
+        if event.creator != request.user:
+            return redirect('home')
+        
+        if event.expenses.count() > 0:
+            return redirect('event_delete_failure', event_code = event_code)
+        
+        event.delete()
+        return redirect('event_delete_success')
+
+class EventDeleteSuccess(LoginRequiredMixin, TemplateView):
+    template_name = 'events/event_delete_success.html'
+
+class EventDeleteFailure(LoginRequiredMixin,UserPassesTestMixin, TemplateView):
+    template_name = 'events/event_delete_failure.html'
+
+    def get_event(self):
+        if hasattr(self, '_event'):
+            return self._event
+        self._event = get_object_or_404(models.Event, code = self.kwargs.get('event_code'))
+        return self._event
+    
+    def test_func(self):
+        event = self.get_event()
+        return event.creator == self.request.user
+    
+    def handle_no_permission(self):
+        return redirect('home')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['event'] = self.get_event()
+        return context
+
+class LeaveEventView(LoginRequiredMixin, TemplateView):
+    def post(self, request:HttpRequest, event_code):
+        event = get_object_or_404(models.Event, code = event_code)
+        is_user_member = event.memberships.filter(user = request.user).exists()
+        if event.creator != request.user and is_user_member:
+            membership = event.memberships.select_related('user').filter(user = request.user).first()
+            membership.delete()
+        return redirect('home')
 
 # events = models.Event.objects.all()
 # for event in events:

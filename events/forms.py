@@ -2,9 +2,10 @@ from django import forms
 from . import models
 
 class CreateEventForm(forms.ModelForm):
-    def __init__(self, user=None, *args, **kwargs):
+    def __init__(self, *args, user=None, update_form = False, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
+        self.update_form = update_form
     class Meta:
         model = models.Event
         fields = ['title']
@@ -41,11 +42,12 @@ class CreateEventForm(forms.ModelForm):
         event = super().save()
         if commit:
             event.save()
-            models.EventMembership.objects.create(
-                event=event,
-                user = self.user,
-                can_edit_event_info = True
-                )
+            if not self.update_form:
+                models.EventMembership.objects.create(
+                    event=event,
+                    user = self.user,
+                    can_edit_event_info = True
+                    )
         return event
     
 class CreateJoinRequestForm(forms.Form):

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Failure |
+{% endblock %}
+
+{% block content %}
+<!-- 🟠 EVENT DELETE FAILURE PAGE -->
+<div class="min-h-[75vh] flex items-center justify-center px-4">
+  <!-- Error/Warning Card -->
+  <div class="bg-gray-800 border border-gray-700/80 rounded-2xl shadow-2xl p-8 max-w-md w-full text-center relative overflow-hidden">
+    
+    <!-- Background Glow Effect (Amber/Red for Warning) -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-amber-500/20 rounded-full blur-3xl"></div>
+
+    <!-- Warning Icon (Exclamation Triangle) -->
+    <div class="mx-auto w-20 h-20 bg-gray-900/50 border border-amber-500/30 rounded-full flex items-center justify-center mb-6 shadow-inner relative z-10">
+      <svg class="w-10 h-10 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    </div>
+
+    <!-- Titles -->
+    <h1 class="text-2xl font-bold text-gray-100 tracking-tight mb-4 relative z-10">Cannot Delete Event</h1>
+    
+    <!-- Error Message Box -->
+    <div class="bg-amber-900/20 border border-amber-700/50 rounded-xl p-4 mb-8 text-left relative z-10">
+      <p class="text-gray-300 text-sm mb-3">
+        This event cannot be deleted because it has <span class="font-bold text-amber-400">{{ event.expenses.count }} expenses</span> linked to it.
+      </p>
+      <p class="text-gray-400 text-sm">
+        To delete this event, please remove all associated expenses first.
+      </p>
+    </div>
+
+    <!-- Actions (Buttons) -->
+    <div class="flex flex-col gap-3 relative z-10">
+      <!-- Return to Event Dashboard (Primary Action - to go delete expenses) -->
+      <a href="{% url 'dashboard' event_code=event.code %}" class="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium shadow-lg shadow-cyan-500/25 transition-all duration-300">
+        Go to Event Dashboard
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+      </a>
+      
+      <!-- Back to Events List -->
+      <a href="{% url 'event' event_code=event.code %}" class="w-full flex items-center justify-center px-6 py-3 rounded-xl bg-gray-800 border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-200 font-medium">
+        Back to Event
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

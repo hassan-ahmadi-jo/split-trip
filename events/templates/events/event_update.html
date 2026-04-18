@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edit Event |
+{% endblock %}
+
+{% block content %}
+<form method="post" class="form-box">
+  {% csrf_token %}
+  <section class="form-title">
+    <h2>Edit Event</h2>
+    <p>Update the event's name.</p>
+  </section>
+  <div>
+    <p>{{ form.title.label }}</p>
+    {{ form.title }}
+    {% if form.title.errors %}
+    {{ form.title.errors }}
+    {% endif %}
+  </div>
+  <button type="submit" class="form-button">Save Changes</button>
+  <footer class=>
+    <a href="{% url 'event' event_code=event.code %}">
+      Back to Event
+    </a>
+  </footer>
+</form>
+{% endblock %}
