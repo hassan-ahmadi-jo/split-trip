@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from datetime import datetime, timedelta
 from django.contrib import messages
-from . import forms, models
+from .. import forms, models
 from accounts.views import calculate_retry_available_at
 
 # Create your views here.
