@@ -21,3 +21,11 @@ class HomeAPI(APIView):
 class EvantCreateAPI(CreateAPIView):
     serializer_class = serializers.EventCreateSerializer
     permission_classes = [IsAuthenticated]
+
+class JoinRequestCreateAPI(CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.JoinRequestCreateSerializer
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['user'] = self.request.user
+        return super().get_serializer(*args, **kwargs)

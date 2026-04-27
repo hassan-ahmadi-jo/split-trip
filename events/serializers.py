@@ -2,6 +2,7 @@ from rest_framework import serializers
 from . import models
 from accounts.serializers import UserSerializer
 from django.db import transaction
+from django.shortcuts import get_object_or_404
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -50,3 +51,32 @@ class EventCreateSerializer(serializers.ModelSerializer):
             can_edit_event_info = True
         )
         return event
+
+class JoinRequestCreateSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, user = None, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+    event_code = serializers.CharField(write_only = True, max_length = 10)
+    class Meta:
+        model = models.EventJoinRequest
+        fields = ['event_code']
+
+    def validate(self, attrs):
+        user = self.user
+        event_code = attrs.get('event_code')
+        try:
+            self.event = models.Event.objects.get(code=event_code)
+        except models.Event.DoesNotExist:
+            raise serializers.ValidationError("The event code is incorrect")
+        
+        if user.join_requests.filter(event = self.event).exists():
+            raise serializers.ValidationError('You’ve already sent a request to join this event.')
+        
+        if user.memberships.filter(event = self.event).exists():
+            raise serializers.ValidationError('You are already a member of this event.')
+
+        return attrs
+        
+    def create(self, validated_data):
+        return models.EventJoinRequest.objects.create(event = self.event, user = self.user)
+    
