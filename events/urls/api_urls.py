@@ -6,4 +6,6 @@ urlpatterns = [
     path('create-event/', view.EvantCreateAPI.as_view()),
     path('create-join-request/', view.JoinRequestCreateAPI.as_view()),
     path('events/<str:event_code>/', view.EventAPI.as_view()),
+    path('join-request-delete/<int:pk>/', view.JoinRequestDeleteAPI.as_view()),
+    path('join-request-accept/<int:pk>/', view.JoinRequestAcceptAPI.as_view()),
 ]

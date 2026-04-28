@@ -1,11 +1,13 @@
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .. import models, serializers
 from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import NotFound
+from django.db import transaction
 
 class HomeAPI(APIView):
     permission_classes = [IsAuthenticated]
@@ -47,3 +49,37 @@ class EventAPI(APIView):
             context['join_requests'] = join_requests_serializer.data
             context['members_list'] = members_list_serializer.data
         return Response(context, status=status.HTTP_200_OK)
+
+class JoinRequestDeleteAPI(DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.EventJoinrequestSerializer
+    
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        user = self.request.user
+        join_request = get_object_or_404(models.EventJoinRequest.objects.select_related('user', 'event', 'event__creator'), id = pk)
+        if join_request.user == user or join_request.event.creator == user:
+            return join_request
+        else:
+            raise NotFound()
+        
+
+class JoinRequestAcceptAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @transaction.atomic
+    def add_user_to_event(self, join_request):
+        models.EventMembership.objects.get_or_create(
+            user = join_request.user,
+            event = join_request.event
+        )
+        join_request.delete()
+
+    def post(self, request: Request, pk):
+        user = request.user
+        join_request = get_object_or_404(models.EventJoinRequest.objects.select_related('user', 'event', 'event__creator'), id = pk)
+        if join_request.event.creator == user:
+            self.add_user_to_event(join_request)
+            return Response({'ok': True, 'message': 'Join request accepted success'})
+        else:
+            raise NotFound()
