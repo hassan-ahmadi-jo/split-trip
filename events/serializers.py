@@ -18,6 +18,13 @@ class EventMembershipSerializer(serializers.ModelSerializer):
         model = models.EventMembership
         fields = ['user', 'event', 'joined_at', 'can_edit_event_info']
 
+class EventMembershipUpdateSerializer(serializers.ModelSerializer):
+    Admin = serializers.BooleanField(source='can_edit_event_info')
+    
+    class Meta:
+        model = models.EventMembership
+        fields = ['Admin']
+
 class EventJoinrequestSerializer(serializers.ModelSerializer):
     event = EventSerializer()
     user = UserSerializer()
@@ -79,4 +86,3 @@ class JoinRequestCreateSerializer(serializers.ModelSerializer):
         
     def create(self, validated_data):
         return models.EventJoinRequest.objects.create(event = self.event, user = self.user)
-    

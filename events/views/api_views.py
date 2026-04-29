@@ -1,7 +1,7 @@
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView, DestroyAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveUpdateAPIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .. import models, serializers
@@ -62,7 +62,6 @@ class JoinRequestDeleteAPI(DestroyAPIView):
             return join_request
         else:
             raise NotFound()
-        
 
 class JoinRequestAcceptAPI(APIView):
     permission_classes = [IsAuthenticated]
@@ -83,3 +82,27 @@ class JoinRequestAcceptAPI(APIView):
             return Response({'ok': True, 'message': 'Join request accepted success'})
         else:
             raise NotFound()
+
+class MembershipDeleteAPI(DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = None
+
+    def get_object(self):
+        user = self.request.user
+        id = self.kwargs.get('pk')
+        membership = get_object_or_404(models.EventMembership.objects.select_related('user', 'event', 'event__creator'), id = id)
+        if user in (membership.event.creator, membership.user) and membership.event.creator != membership.user:
+            return membership
+        raise NotFound()
+
+class MembershipUpdateAPI(RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.EventMembershipUpdateSerializer
+    
+    def get_object(self):
+        user = self.request.user
+        id = self.kwargs.get('pk')
+        membership = get_object_or_404(models.EventMembership.objects.select_related('user', 'event', 'event__creator'), id = id)
+        if user == membership.event.creator and membership.user != user:
+            return membership
+        raise NotFound()

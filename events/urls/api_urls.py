@@ -8,4 +8,6 @@ urlpatterns = [
     path('events/<str:event_code>/', view.EventAPI.as_view()),
     path('join-request-delete/<int:pk>/', view.JoinRequestDeleteAPI.as_view()),
     path('join-request-accept/<int:pk>/', view.JoinRequestAcceptAPI.as_view()),
+    path('membership-delete/<int:pk>/', view.MembershipDeleteAPI.as_view()),
+    path('membership-update/<int:pk>/', view.MembershipUpdateAPI.as_view()),
 ]
