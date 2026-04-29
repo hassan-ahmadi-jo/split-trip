@@ -1,13 +1,14 @@
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveUpdateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView, RetrieveUpdateDestroyAPIView, RetrieveUpdateAPIView, ListAPIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .. import models, serializers
 from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import NotFound
 from django.db import transaction
+from rest_framework.exceptions import PermissionDenied
 
 class HomeAPI(APIView):
     permission_classes = [IsAuthenticated]
@@ -142,3 +143,18 @@ class EventMembersListAPI(ListAPIView):
         user = self.request.user
         event = get_object_or_404(models.Event.objects.select_related('creator'), code = event_code, creator = user)
         return event.memberships.select_related('user', 'event__creator').order_by('joined_at')
+
+class EventUpdateDeleteAPI(RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.EventCreateSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'code'
+    lookup_url_kwarg = 'event_code'
+
+    def get_queryset(self):
+        return models.Event.objects.select_related('creator').filter(creator = self.request.user)
+    
+    def perform_destroy(self, instance):
+        expenses_count = instance.expenses.count()
+        if expenses_count > 0:
+            raise PermissionDenied(f'This event cannot be deleted because it has {expenses_count} expenses linked to it. To delete this event, please remove all associated expenses first.')
+        return super().perform_destroy(instance)

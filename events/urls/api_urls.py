@@ -14,4 +14,5 @@ urlpatterns = [
     path('join-request-list/', view.UserJoinRequestListAPI.as_view()),
     path('events/<str:event_code>/join-requests/', view.EventJoinRequestListAPI.as_view()),
     path('events/<str:event_code>/members/', view.EventMembersListAPI.as_view()),
+    path('events/<str:event_code>/update/', view.EventUpdateDeleteAPI.as_view()),
 ]
