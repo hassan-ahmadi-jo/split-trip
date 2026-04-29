@@ -52,7 +52,7 @@ class EventAPI(APIView):
 
 class JoinRequestDeleteAPI(DestroyAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = serializers.EventJoinrequestSerializer
+    serializer_class = None
     
     def get_object(self):
         pk = self.kwargs.get('pk')
@@ -114,7 +114,7 @@ class EventListAPI(ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return user.memberships.select_related('event', 'event__creator').order_by('-joined_at')
-    
+
 class UserJoinRequestListAPI(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.EventJoinrequestSerializer
@@ -122,7 +122,7 @@ class UserJoinRequestListAPI(ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return user.join_requests.select_related('event', 'event__creator').order_by('-requested_at')
-    
+
 class EventJoinRequestListAPI(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.EventJoinrequestSerializer
