@@ -10,4 +10,8 @@ urlpatterns = [
     path('join-request-accept/<int:pk>/', view.JoinRequestAcceptAPI.as_view()),
     path('membership-delete/<int:pk>/', view.MembershipDeleteAPI.as_view()),
     path('membership-update/<int:pk>/', view.MembershipUpdateAPI.as_view()),
+    path('event-list/', view.EventListAPI.as_view()),
+    path('join-request-list/', view.UserJoinRequestListAPI.as_view()),
+    path('events/<str:event_code>/join-requests/', view.EventJoinRequestListAPI.as_view()),
+    path('events/<str:event_code>/members/', view.EventMembersListAPI.as_view()),
 ]

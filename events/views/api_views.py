@@ -1,7 +1,7 @@
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveUpdateAPIView, ListAPIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .. import models, serializers
@@ -106,3 +106,39 @@ class MembershipUpdateAPI(RetrieveUpdateAPIView):
         if user == membership.event.creator and membership.user != user:
             return membership
         raise NotFound()
+
+class EventListAPI(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.EventMembershipSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.memberships.select_related('event', 'event__creator').order_by('-joined_at')
+    
+class UserJoinRequestListAPI(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.EventJoinrequestSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.join_requests.select_related('event', 'event__creator').order_by('-requested_at')
+    
+class EventJoinRequestListAPI(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.EventJoinrequestSerializer
+
+    def get_queryset(self):
+        event_code = self.kwargs.get('event_code')
+        user = self.request.user
+        event = get_object_or_404(models.Event.objects.select_related('creator'), code = event_code, creator = user)
+        return event.join_requests.select_related('user', 'event__creator').order_by('-requested_at')
+
+class EventMembersListAPI(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.EventMembershipSerializer
+
+    def get_queryset(self):
+        event_code = self.kwargs.get('event_code')
+        user = self.request.user
+        event = get_object_or_404(models.Event.objects.select_related('creator'), code = event_code, creator = user)
+        return event.memberships.select_related('user', 'event__creator').order_by('joined_at')
