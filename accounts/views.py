@@ -256,7 +256,7 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
         else: # Return an error if the user has exceeded the retry limit. 
             minutes = int((retry_available_at - now).total_seconds() / 60) + 1
             form.add_error('verification_code', f'Too many attempts. Please try again in {minutes} minutes.')
-        return render(request, 'accounts/email_activation_page.html', {'form': form})
+        return render(request, self.template_name, {'form': form})
 
 class UserPasswordChangeView(LoginRequiredMixin, View):
     template_name = 'accounts/change_password.html'
