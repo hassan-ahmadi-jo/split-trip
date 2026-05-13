@@ -5,7 +5,9 @@ import random
 # Create your models here.
 
 def generate_email_active_code():
-    return str(random.randint(100000, 999999))
+    # Temporary demo code
+    return '123456'
+    # return str(random.randint(100000, 999999))
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='Email address')
