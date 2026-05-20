@@ -1,6 +1,10 @@
+from xml.dom import ValidationErr
+
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from . import models
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 class SignUpForm(forms.ModelForm):
     repeat_password = forms.CharField(
@@ -51,10 +55,13 @@ class SignUpForm(forms.ModelForm):
         name = cleaned_data.get('first_name')
         if len(name) < 3:
             self.add_error('first_name', 'Name must be at least 3 characters')
-        elif len(password) < 6:
-            self.add_error('password', 'Password must be at least 6 characters')
         elif password != repeat_password:
             self.add_error('repeat_password', 'The password and the repeat password do not match.')
+        if password:
+            try:
+                validate_password(password, self.instance)
+            except ValidationError as error:
+                self.add_error('password', error)
         return cleaned_data
     
     def save(self, commit = True):
