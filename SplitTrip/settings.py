@@ -154,9 +154,34 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = "login"
 
 
-#  email backend for development
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+#  email backend
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+DEFAULT_FROM_EMAIL = f"SplitTrip <{EMAIL_HOST_USER}>"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "loggers": {
+        "django.core.mail": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
