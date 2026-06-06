@@ -147,6 +147,8 @@ class PasswordResetView(UserPassesTestMixin, auth_views.PasswordResetView):
     # todo: user login
     template_name = 'accounts/password_reset.html'
     email_template_name = "registration/password_reset_email.text"
+    subject_template_name = 'registration/password_reset_subject.txt'
+    html_email_template_name = 'registration/password_reset_email_template.html'
     form_class = forms.PasswordResetForm
 
     def test_func(self):
