@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import update_session_auth_hash
 from django.conf import settings
-from . import forms, models
+from . import forms, models, services
 
 # Create your views here.
 
@@ -49,6 +49,7 @@ class SignUpView(UserPassesTestMixin, CreateView):
         response = super().form_valid(form)
         user = self.object
         self.request.session['pending_verification_user_id'] = user.id
+        services.create_and_send_email_activation_code(user, generate_code=False)
         return response
 
 class EmailActivationView(View):
@@ -95,6 +96,11 @@ class EmailActivationView(View):
                         'USE_FIXED_EMAIL_ACTIVATION_CODE': settings.USE_FIXED_EMAIL_ACTIVATION_CODE,
                         'FIXED_EMAIL_ACTIVATION_CODE': settings.FIXED_EMAIL_ACTIVATION_CODE}
 
+        if request.POST.get('action') == 'resend-email':
+            services.create_and_send_email_activation_code(user = user)
+            context_data['form'] = forms.EmailActivationForm()
+            return render(request, 'accounts/email_activation_page.html', context_data)
+        
         if not form.is_valid():
             return render(request, 'accounts/email_activation_page.html', context_data)
         
@@ -121,8 +127,8 @@ class EmailActivationView(View):
                 request.session.pop('email_activation_failed_attempts', None)
 
                 user.is_email_active = True
-                user.email_active_code = models.generate_email_active_code()
-                user.save()
+                # to do: email_active_code must not be valid 
+                user.save(update_fields = ['is_email_active'])
 
                 login(request, user)
                 return redirect('home')
@@ -205,9 +211,11 @@ class ProfileUpdateView(LoginRequiredMixin, View):
             user = get_object_or_404(models.User, id = request.user.id)
             user.first_name = form.data.get('first_name')
             user.save()
-            if user.email == form.data.get('email'):
+            new_email = form.data.get('email')
+            if user.email == new_email:
                 return redirect('profile')
-            request.session['email_update_information'] = form.data.get('email')
+            request.session['email_update_information'] = new_email
+            services.create_and_send_email_activation_code(user=user, target_email=new_email)
             return redirect('email_update')
         return render(request, self.template_name, {'form': form})
     
@@ -229,17 +237,25 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
         form = forms.EmailActivationForm(request.POST)
         new_email = request.session.get('email_update_information')
         context = {
-                'form': forms.EmailActivationForm(),
+                'form': form,
                 'new_email': new_email,
                 'USE_FIXED_EMAIL_ACTIVATION_CODE': settings.USE_FIXED_EMAIL_ACTIVATION_CODE,
                 'FIXED_EMAIL_ACTIVATION_CODE': settings.FIXED_EMAIL_ACTIVATION_CODE
             }
+        
+        user = self.request.user
+        
+        if request.POST.get('action') == 'resend-email':
+            services.create_and_send_email_activation_code(user = user, target_email=new_email)
+            context['form'] = forms.EmailActivationForm()
+            return render(request, self.template_name, context=context)
+        
+
         if not form.is_valid:
             return render(request, self.template_name, context=context)
         
         now = datetime.now()
         verification_code = form.data.get('verification_code')
-        user = self.request.user
 
         # Check for existing session data for the activation code retry delay.
         retry_ts = request.session.get('retry_available_at')
@@ -262,8 +278,8 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
                 request.session.pop('email_activation_failed_attempts', None)
 
                 user.email = new_email
-                user.email_active_code = models.generate_email_active_code()
-                user.save()
+                # to do: email_active_code must not be valid 
+                user.save(update_fields=['email'])
 
                 return redirect('profile')
                 

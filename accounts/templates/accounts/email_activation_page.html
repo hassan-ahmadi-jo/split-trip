@@ -19,7 +19,7 @@
         {{ form.verification_code.errors }}
       {% endif %}
     </div>
-    <button type="submit" class="form-button">Active</button>
+    <button type="submit" name="action" value="submit" class="form-button">Active</button>
 
     <!-- Demo Version Notice -->
     {% if USE_FIXED_EMAIL_ACTIVATION_CODE %}
@@ -28,6 +28,19 @@
           This is a demo version of SplitTrip. you can use the verification code
           <span class="font-bold text-cyan-400 tracking-widest mx-1">{{ FIXED_EMAIL_ACTIVATION_CODE }}</span>
           to activate your account.
+        </p>
+      </div>
+    {% else %}
+      <!-- Resend Email -->
+      <div class="mt-4 text-center flex flex-col items-center gap-1">
+        <div class="text-sm text-gray-400 mt-4">
+          Didn't receive the code?
+          <button type="submit" name="action" value="resend-email" id="resend-btn" formnovalidate class="text-cyan-500 hover:text-cyan-400 transition-colors duration-200 underline underline-offset-2 cursor-pointer focus:outline-none">Resend Email</button>
+        </div>
+
+        <!-- hidden -->
+        <p id="resend-timer" class="hidden text-sm text-gray-500">
+          Resend email in <span class="font-bold text-gray-400">60</span> seconds.
         </p>
       </div>
     {% endif %}

@@ -9,7 +9,9 @@
     {% csrf_token %}
     <section class="form-title">
       <h2>Verify Your New Email</h2>
-      <p>We've sent a verification code to your new email address. <br> Enter the code below to confirm the change.</p>
+      <p>
+        We've sent a verification code to your new email address. <br /> Enter the code below to confirm the change.
+      </p>
       <p class="!text-cyan-400">{{ new_email }}</p>
     </section>
     <div>
@@ -19,7 +21,7 @@
         {{ form.verification_code.errors }}
       {% endif %}
     </div>
-    <button type="submit" class="form-button">Verify Email</button>
+    <button type="submit" name="action" value="submit" class="form-button">Verify Email</button>
     <!-- Demo Version Notice -->
     {% if USE_FIXED_EMAIL_ACTIVATION_CODE %}
       <div class="mt-6 p-4 bg-blue-900/20 border border-blue-800/50 rounded-lg text-sm text-gray-300 text-center">
@@ -29,17 +31,29 @@
           to activate your account.
         </p>
       </div>
+    {% else %}
+      <!-- Resend Email -->
+      <div class="mt-4 text-center flex flex-col items-center gap-1">
+        <div class="text-sm text-gray-400 mt-4">
+          Didn't receive the code?
+          <button type="submit" name="action" value="resend-email" id="resend-btn" formnovalidate class="text-cyan-500 hover:text-cyan-400 transition-colors duration-200 underline underline-offset-2 cursor-pointer focus:outline-none">Resend Email</button>
+        </div>
+
+        <!-- hidden -->
+        <p id="resend-timer" class="hidden text-sm text-gray-500">
+          Resend email in <span class="font-bold text-gray-400">60</span> seconds.
+        </p>
+      </div>
     {% endif %}
   </form>
 
-      <!-- 🟢 BACK TO HOME BUTTON -->
-<div class="w-full flex justify-center mt-4 mb-16">
-  <a href="{% url 'home' %}" class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
-    <!-- Left Arrow Icon with hover animation -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-    </svg>
-    Back to Home
-  </a>
-</div>
+  <!-- 🟢 BACK TO HOME BUTTON -->
+  <div class="w-full flex justify-center mt-4 mb-16">
+    <a href="{% url 'home' %}" class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
+      <!-- Left Arrow Icon with hover animation -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>Back to Home
+    </a>
+  </div>
 {% endblock %}
