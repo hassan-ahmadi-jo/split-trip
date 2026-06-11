@@ -14,26 +14,6 @@ from django.conf import settings
 from . import forms, models, services
 
 # Create your views here.
-
-# Helper function to calculate the retry delay for a user
-def calculate_retry_available_at(failed_attempts):
-    now = datetime.now()
-    try:
-        failed_attempts = int(failed_attempts)
-    except:
-        return now - timedelta(minutes=1)
-    failed_limit = 5
-    base_penalty_time = 3
-    if failed_attempts == 0:
-        return now - timedelta(minutes=1)
-    if failed_attempts % failed_limit == 0:
-        penalty_time = base_penalty_time ** int(failed_attempts / failed_limit) # minutes
-    else:
-        penalty_time = 0 # minutes
-    penalty_time -= 1
-    return now + timedelta(minutes=penalty_time)
-
-
 class SignUpView(UserPassesTestMixin, CreateView):
     form_class = forms.SignUpForm
     template_name = 'accounts/sign_up_page.html'
@@ -118,7 +98,7 @@ class EmailActivationView(View):
             retry_available_at = now - timedelta(minutes=1)
 
         if retry_available_at < now: # Check if the user can activate their email.
-            retry_available_at = calculate_retry_available_at(request.session.get('email_activation_failed_attempts'))
+            retry_available_at = services.calculate_retry_available_at(request.session.get('email_activation_failed_attempts'))
 
             # If the activation code is valid, activate the user's email, log them in, and redirect to the home page.
             if user.email_active_code == verification_code:
@@ -269,7 +249,7 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
             retry_available_at = now - timedelta(minutes=1)
 
         if retry_available_at < now: # Check if the user can activate their email.
-            retry_available_at = calculate_retry_available_at(request.session.get('email_activation_failed_attempts'))
+            retry_available_at = services.calculate_retry_available_at(request.session.get('email_activation_failed_attempts'))
 
         # If the activation code is valid, activate the user's email, log them in, and redirect to the home page.
             if user.email_active_code == verification_code:

@@ -1,8 +1,6 @@
-from xml.dom import ValidationErr
-
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
-from . import models
+from . import models, services
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
@@ -67,7 +65,7 @@ class SignUpForm(forms.ModelForm):
     def save(self, commit = True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data.get('password'))
-        user.email_active_code = models.generate_email_active_code()
+        user.email_active_code = services.generate_email_active_code()
         if commit:
             user.save()
         return user

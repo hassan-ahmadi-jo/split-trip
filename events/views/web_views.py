@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from datetime import datetime, timedelta
 from django.contrib import messages
 from .. import forms, models
-from accounts.views import calculate_retry_available_at
+from accounts.services import calculate_retry_available_at
 
 # Create your views here.
 
