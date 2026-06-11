@@ -10,6 +10,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import update_session_auth_hash
+from django.conf import settings
 from . import forms, models
 
 # Create your views here.
@@ -57,6 +58,7 @@ class EmailActivationView(View):
     - Requires `pending_verification_user_id` in session; otherwise redirect to login.
     - On valid code: mark email verified, log user in, clear pending session key, redirect home.
     """
+    
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('home')
@@ -70,20 +72,33 @@ class EmailActivationView(View):
         if user is None:
             return redirect('login')
         user_email = user.email
-        return render(request, 'accounts/email_activation_page.html', {'form': form, 'user_email': user_email})
+
+        context_data = {'form': form,
+                        'user_email': user_email,
+                        'USE_FIXED_EMAIL_ACTIVATION_CODE': settings.USE_FIXED_EMAIL_ACTIVATION_CODE,
+                        'FIXED_EMAIL_ACTIVATION_CODE': settings.FIXED_EMAIL_ACTIVATION_CODE}
+        
+        return render(request, 'accounts/email_activation_page.html', context_data)
     
     def post(self, request:HttpRequest):
         form = forms.EmailActivationForm(request.POST)
-
-        if not form.is_valid():
-            return render(request, 'accounts/email_activation_page.html', {'form': form})
         
-
-        verification_code = form.cleaned_data.get('verification_code')
         user = models.User.objects.filter(id = request.session.get('pending_verification_user_id')).first()
         if user is None:
             return redirect('login')
+        user_email = user.email
+        
         now = datetime.now()
+
+        context_data = {'form': form,
+                        'user_email': user_email,
+                        'USE_FIXED_EMAIL_ACTIVATION_CODE': settings.USE_FIXED_EMAIL_ACTIVATION_CODE,
+                        'FIXED_EMAIL_ACTIVATION_CODE': settings.FIXED_EMAIL_ACTIVATION_CODE}
+
+        if not form.is_valid():
+            return render(request, 'accounts/email_activation_page.html', context_data)
+        
+        verification_code = form.cleaned_data.get('verification_code')
 
         # Check for existing session data for the activation code retry delay.
         retry_ts = request.session.get('retry_available_at')
@@ -122,7 +137,7 @@ class EmailActivationView(View):
         else: # Return an error if the user has exceeded the retry limit. 
             minutes = int((retry_available_at - now).total_seconds() / 60) + 1
             form.add_error('verification_code', f'Too many attempts. Please try again in {minutes} minutes.')
-        return render(request, 'accounts/email_activation_page.html', {'form': form})
+        return render(request, 'accounts/email_activation_page.html', context_data)
 
 class UserLoginView(UserPassesTestMixin ,auth_views.LoginView):
     template_name = 'accounts/login_page.html'
@@ -204,6 +219,8 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
             context = {
                 'form': forms.EmailActivationForm(),
                 'new_email': new_email,
+                'USE_FIXED_EMAIL_ACTIVATION_CODE': settings.USE_FIXED_EMAIL_ACTIVATION_CODE,
+                'FIXED_EMAIL_ACTIVATION_CODE': settings.FIXED_EMAIL_ACTIVATION_CODE
             }
             return render(request, self.template_name, context=context)
         return redirect('home')
@@ -214,6 +231,8 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
         context = {
                 'form': forms.EmailActivationForm(),
                 'new_email': new_email,
+                'USE_FIXED_EMAIL_ACTIVATION_CODE': settings.USE_FIXED_EMAIL_ACTIVATION_CODE,
+                'FIXED_EMAIL_ACTIVATION_CODE': settings.FIXED_EMAIL_ACTIVATION_CODE
             }
         if not form.is_valid:
             return render(request, self.template_name, context=context)
@@ -258,7 +277,7 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
         else: # Return an error if the user has exceeded the retry limit. 
             minutes = int((retry_available_at - now).total_seconds() / 60) + 1
             form.add_error('verification_code', f'Too many attempts. Please try again in {minutes} minutes.')
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, context=context)
 
 class UserPasswordChangeView(LoginRequiredMixin, View):
     template_name = 'accounts/change_password.html'

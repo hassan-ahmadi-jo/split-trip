@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import random
+from django.conf import settings
 
 # Create your models here.
 
 def generate_email_active_code():
-    # Temporary demo code
-    return '123456'
-    # return str(random.randint(100000, 999999))
+    if settings.USE_FIXED_EMAIL_ACTIVATION_CODE:
+        return settings.FIXED_EMAIL_ACTIVATION_CODE
+    return str(random.randint(100000, 999999))
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='Email address')

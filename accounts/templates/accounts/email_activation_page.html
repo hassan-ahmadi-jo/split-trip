@@ -10,7 +10,7 @@
     <section class="form-title">
       <h2>Active Email</h2>
       <p>Enter the verification code sent to your email:</p>
-      <p>{{user_email}}</p>
+      <p>{{ user_email }}</p>
     </section>
     <div>
       <p>{{ form.verification_code.label }}</p>
@@ -21,13 +21,15 @@
     </div>
     <button type="submit" class="form-button">Active</button>
 
-  <!-- Demo Version Notice -->
-  <div class="mt-6 p-4 bg-blue-900/20 border border-blue-800/50 rounded-lg text-sm text-gray-300 text-center">
-    <p>
-      This is a demo version of SplitTrip. Due to internet access limitations and email service issues, you can use the verification code 
-      <span class="font-bold text-cyan-400 tracking-widest mx-1">123456</span> 
-      to activate your account.
-    </p>
-  </div>
+    <!-- Demo Version Notice -->
+    {% if USE_FIXED_EMAIL_ACTIVATION_CODE %}
+      <div class="mt-6 p-4 bg-blue-900/20 border border-blue-800/50 rounded-lg text-sm text-gray-300 text-center">
+        <p>
+          This is a demo version of SplitTrip. you can use the verification code
+          <span class="font-bold text-cyan-400 tracking-widest mx-1">{{ FIXED_EMAIL_ACTIVATION_CODE }}</span>
+          to activate your account.
+        </p>
+      </div>
+    {% endif %}
   </form>
 {% endblock %}
