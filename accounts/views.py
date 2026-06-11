@@ -47,7 +47,7 @@ class SignUpView(UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        user = form.save()
+        user = self.object
         self.request.session['pending_verification_user_id'] = user.id
         return response
 
