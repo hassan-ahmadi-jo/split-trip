@@ -187,7 +187,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
     
     def post(self, request:HttpRequest):
         form = forms.ProfileUpdateForme(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             user = get_object_or_404(models.User, id = request.user.id)
             user.first_name = form.data.get('first_name')
             user.save()
@@ -231,7 +231,7 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
             return render(request, self.template_name, context=context)
         
 
-        if not form.is_valid:
+        if not form.is_valid():
             return render(request, self.template_name, context=context)
         
         now = datetime.now()
