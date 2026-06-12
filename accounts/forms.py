@@ -148,12 +148,18 @@ class ProfileUpdateForme(forms.Form):
         max_length=120,
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Hassan@gmail.com'
+            'placeholder': 'YourEmail@gmail.com'
         }),
         error_messages={
             'required': 'This field is required.'
         }
     )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if models.User.objects.filter(email = email).exists():
+            self.add_error('email', 'User with this Email address already exists.')
+        return email
 
 class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
