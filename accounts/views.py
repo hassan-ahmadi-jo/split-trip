@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.http import HttpRequest
 from django.contrib.auth import login
 from datetime import datetime, timedelta
+from django.utils import timezone
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -68,6 +69,7 @@ class EmailActivationView(View):
         if user is None:
             return redirect('login')
         user_email = user.email
+        activation, created = models.EmailActivation.objects.get_or_create(user = user)
         
         now = datetime.now()
 
@@ -101,14 +103,15 @@ class EmailActivationView(View):
             retry_available_at = services.calculate_retry_available_at(request.session.get('email_activation_failed_attempts'))
 
             # If the activation code is valid, activate the user's email, log them in, and redirect to the home page.
-            if user.email_active_code == verification_code:
+            if user.email_active_code == verification_code and activation.expires_at > timezone.now():
                 request.session.pop('pending_verification_user_id', None)
                 request.session.pop('retry_available_at', None)
                 request.session.pop('email_activation_failed_attempts', None)
 
                 user.is_email_active = True
-                # to do: email_active_code must not be valid 
+                activation.expires_at = timezone.now() - timedelta(minutes=10)
                 user.save(update_fields = ['is_email_active'])
+                activation.save(update_fields=['expires_at'])
 
                 login(request, user)
                 return redirect('home')
@@ -224,6 +227,7 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
             }
         
         user = self.request.user
+        activation, created = models.EmailActivation.objects.get_or_create(user = user)
         
         if request.POST.get('action') == 'resend-email':
             services.create_and_send_email_activation_code(user = user, target_email=new_email)
@@ -252,14 +256,15 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
             retry_available_at = services.calculate_retry_available_at(request.session.get('email_activation_failed_attempts'))
 
         # If the activation code is valid, activate the user's email, log them in, and redirect to the home page.
-            if user.email_active_code == verification_code:
+            if user.email_active_code == verification_code and activation.expires_at > timezone.now():
                 request.session.pop('email_update_information', None)
                 request.session.pop('retry_available_at', None)
                 request.session.pop('email_activation_failed_attempts', None)
 
                 user.email = new_email
-                # to do: email_active_code must not be valid 
+                activation.expires_at = timezone.now() - timedelta(minutes=10)
                 user.save(update_fields=['email'])
+                activation.save(update_fields=['expires_at'])
 
                 return redirect('profile')
                 

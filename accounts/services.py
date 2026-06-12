@@ -1,7 +1,8 @@
-from . import emails
+from . import emails, models
 import random
 from django.conf import settings
 from datetime import datetime, timedelta
+from django.utils import timezone
 
 def generate_email_active_code():
     if settings.USE_FIXED_EMAIL_ACTIVATION_CODE:
@@ -13,9 +14,11 @@ def create_and_send_email_activation_code(user, target_email = None, generate_co
         target_email = user.email
     
     if generate_code:
-        code = generate_email_active_code()
-        user.email_active_code = code
+        user.email_active_code = generate_email_active_code()
         user.save(update_fields = ['email_active_code'])
+    activation, created = models.EmailActivation.objects.get_or_create(user = user)
+    activation.expires_at = timezone.now() + timedelta(days=1)
+    activation.save(update_fields=['expires_at'])
 
     emails.send_activation_code_email(user, target_email)
 
