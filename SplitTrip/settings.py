@@ -190,3 +190,8 @@ REST_FRAMEWORK = {
 
 USE_FIXED_EMAIL_ACTIVATION_CODE = os.getenv('USE_FIXED_EMAIL_ACTIVATION_CODE', 'True') == 'True'
 FIXED_EMAIL_ACTIVATION_CODE = os.getenv('FIXED_EMAIL_ACTIVATION_CODE', '123456')
+
+
+
+# Minimum minutes a user must wait before requesting another email activation code
+EMAIL_ACTIVATION_RESEND_COOLDOWN_MINUTES = 3

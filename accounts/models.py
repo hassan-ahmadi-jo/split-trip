@@ -17,3 +17,4 @@ class User(AbstractUser):
 class EmailActivation(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='email_activation', verbose_name='User')
     expires_at = models.DateTimeField(default= timezone.now ,verbose_name='Expiration Time')
+    email_send_available_at = models.DateTimeField(default=timezone.now, verbose_name='Email Send Available At')

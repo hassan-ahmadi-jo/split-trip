@@ -49,8 +49,9 @@ class EmailActivationView(View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        form = forms.EmailActivationForm()
         user = models.User.objects.filter(id = request.session.get('pending_verification_user_id')).first()
+        remain_time = (user.email_activation.email_send_available_at - timezone.now()).total_seconds()
+        form = forms.EmailActivationForm(initial={'resend_cooldown': int(remain_time)})
         if user is None:
             return redirect('login')
         user_email = user.email
@@ -63,15 +64,16 @@ class EmailActivationView(View):
         return render(request, 'accounts/email_activation_page.html', context_data)
     
     def post(self, request:HttpRequest):
-        form = forms.EmailActivationForm(request.POST)
-        
         user = models.User.objects.filter(id = request.session.get('pending_verification_user_id')).first()
+        user_email = user.email
+        activation, _ = models.EmailActivation.objects.get_or_create(user = user)
+        now = datetime.now()
+
+        form = forms.EmailActivationForm(request.POST)
+        form_valid = form.is_valid()
+        
         if user is None:
             return redirect('login')
-        user_email = user.email
-        activation, created = models.EmailActivation.objects.get_or_create(user = user)
-        
-        now = datetime.now()
 
         context_data = {'form': form,
                         'user_email': user_email,
@@ -79,11 +81,11 @@ class EmailActivationView(View):
                         'FIXED_EMAIL_ACTIVATION_CODE': settings.FIXED_EMAIL_ACTIVATION_CODE}
 
         if request.POST.get('action') == 'resend-email':
-            services.create_and_send_email_activation_code(user = user)
-            context_data['form'] = forms.EmailActivationForm()
+            remain_time = services.create_and_send_email_activation_code(user = user)
+            context_data['form'] = forms.EmailActivationForm(initial={'resend_cooldown': int(remain_time)})
             return render(request, 'accounts/email_activation_page.html', context_data)
         
-        if not form.is_valid():
+        if not form_valid:
             return render(request, 'accounts/email_activation_page.html', context_data)
         
         verification_code = form.cleaned_data.get('verification_code')
@@ -207,8 +209,9 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
     def get(self, request:HttpRequest):
         new_email = request.session.get('email_update_information')
         if new_email:
+            remain_time = (request.user.email_activation.email_send_available_at - timezone.now()).total_seconds()
             context = {
-                'form': forms.EmailActivationForm(),
+                'form': forms.EmailActivationForm(initial={'resend_cooldown': int(remain_time)}),
                 'new_email': new_email,
                 'USE_FIXED_EMAIL_ACTIVATION_CODE': settings.USE_FIXED_EMAIL_ACTIVATION_CODE,
                 'FIXED_EMAIL_ACTIVATION_CODE': settings.FIXED_EMAIL_ACTIVATION_CODE
@@ -217,8 +220,13 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
         return redirect('home')
     
     def post(self, request:HttpRequest):
-        form = forms.EmailActivationForm(request.POST)
+        user = self.request.user
+        activation, _ = models.EmailActivation.objects.get_or_create(user = user)
         new_email = request.session.get('email_update_information')
+
+        form = forms.EmailActivationForm(request.POST)
+        form_valid = form.is_valid()
+
         context = {
                 'form': form,
                 'new_email': new_email,
@@ -226,16 +234,14 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
                 'FIXED_EMAIL_ACTIVATION_CODE': settings.FIXED_EMAIL_ACTIVATION_CODE
             }
         
-        user = self.request.user
-        activation, created = models.EmailActivation.objects.get_or_create(user = user)
         
         if request.POST.get('action') == 'resend-email':
-            services.create_and_send_email_activation_code(user = user, target_email=new_email)
-            context['form'] = forms.EmailActivationForm()
+            remain_time = services.create_and_send_email_activation_code(user = user, target_email = new_email)
+            context['form'] = forms.EmailActivationForm(initial={'resend_cooldown': int(remain_time)})
             return render(request, self.template_name, context=context)
         
 
-        if not form.is_valid():
+        if not form_valid:
             return render(request, self.template_name, context=context)
         
         now = datetime.now()

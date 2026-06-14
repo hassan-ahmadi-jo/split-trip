@@ -83,6 +83,14 @@ class EmailActivationForm(forms.Form):
         }
     )
 
+    resend_cooldown = forms.IntegerField(
+        required = False,
+        widget=forms.TextInput(attrs={
+            'class': 'hidden',
+            'id': 'resend-remaining'
+        }),
+    )
+
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=150,
