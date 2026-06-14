@@ -9,8 +9,8 @@ def send_activation_code_email(user, target_email = None):
     """
     if getattr(settings, 'USE_FIXED_EMAIL_ACTIVATION_CODE', False):
         return None
-    
-    html = render_to_string('emails/activation_code_email.html', {'user': user})
+    is_valid_for = int(settings.EMAIL_ACTIVATION_CODE_EXPIRE_MINUTES / 60) # hours
+    html = render_to_string('emails/activation_code_email.html', {'user': user, 'is_valid_for': is_valid_for})
     text_content = f"Your activation code is: {user.email_active_code}"
 
     email_message = EmailMultiAlternatives(

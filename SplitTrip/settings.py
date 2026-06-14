@@ -195,3 +195,6 @@ FIXED_EMAIL_ACTIVATION_CODE = os.getenv('FIXED_EMAIL_ACTIVATION_CODE', '123456')
 
 # Minimum minutes a user must wait before requesting another email activation code
 EMAIL_ACTIVATION_RESEND_COOLDOWN_MINUTES = 3
+
+# Defines how long (in minutes) an email activation code remains valid before it expires.
+EMAIL_ACTIVATION_CODE_EXPIRE_MINUTES = 1440  # 24 hours
