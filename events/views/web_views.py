@@ -13,8 +13,8 @@ from accounts.services import calculate_retry_available_at
 
 # Create your views here.
 
-class HomeView(LoginRequiredMixin, TemplateView):
-    template_name = 'events/home.html'
+class SplitterDashboardView(LoginRequiredMixin, TemplateView):
+    template_name = 'events/splitter_dashboard.html'
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         user = self.request.user
@@ -117,7 +117,7 @@ class EventView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return user.memberships.filter(event=event).exists()
     
     def handle_no_permission(self):
-        return redirect('home')
+        return redirect('splitter_dashboard')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -167,13 +167,13 @@ class JoinRequestHandlerView(LoginRequiredMixin, View):
         elif join_request.user == self.request.user:
             if btn_action == 'remove':
                 join_request.delete()
-            if page == 'home':
+            if page == 'splitter_dashboard':
                 context_data['join_requests'] = request.user.join_requests.all().order_by('-requested_at')[:4]
-                return render(request, 'events/includes/home/join_requests.html', context=context_data)
+                return render(request, 'events/includes/splitter_dashboard/join_requests.html', context=context_data)
             elif page == 'join_request_list':
                 context_data['join_requests'] = request.user.join_requests.all().order_by('-requested_at')
                 return render(request, 'events/includes/join_request_list/join_requests.html', context=context_data)
-        return redirect('home')
+        return redirect('splitter_dashboard')
 
 class EventMembershipHandlerView(LoginRequiredMixin, View):
     def post(self, request:HttpRequest, member_id):
@@ -249,7 +249,7 @@ class EventJoinRequestListView(LoginRequiredMixin, UserPassesTestMixin, ListView
         return user.memberships.filter(event=event).exists()
     
     def handle_no_permission(self):
-        return redirect('home')
+        return redirect('splitter_dashboard')
 
 class EventMembersListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     template_name = 'events/event_members_list.html'
@@ -281,7 +281,7 @@ class EventMembersListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return user.memberships.filter(event=event).exists()
     
     def handle_no_permission(self):
-        return redirect('home')
+        return redirect('splitter_dashboard')
 
 class CreateEventSuccessView(LoginRequiredMixin, TemplateView): 
     template_name = 'events/create_event_success.html'
@@ -325,7 +325,7 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return event.creator == self.request.user
     
     def handle_no_permission(self):
-        return redirect('home')
+        return redirect('splitter_dashboard')
     
     def get_form_kwargs(self):
         kwargs =  super().get_form_kwargs()
@@ -344,7 +344,7 @@ class EventDeleteView(LoginRequiredMixin, View):
     def post(self, request:HttpRequest, event_code):
         event = get_object_or_404(models.Event, code = event_code)
         if event.creator != request.user:
-            return redirect('home')
+            return redirect('splitter_dashboard')
         
         if event.expenses.count() > 0:
             return redirect('event_delete_failure', event_code = event_code)
@@ -369,7 +369,7 @@ class EventDeleteFailure(LoginRequiredMixin,UserPassesTestMixin, TemplateView):
         return event.creator == self.request.user
     
     def handle_no_permission(self):
-        return redirect('home')
+        return redirect('hsplitter_dashboardome')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -383,7 +383,7 @@ class LeaveEventView(LoginRequiredMixin, TemplateView):
         if event.creator != request.user and is_user_member:
             membership = event.memberships.select_related('user').filter(user = request.user).first()
             membership.delete()
-        return redirect('home')
+        return redirect('splitter_dashboard')
 
 # events = models.Event.objects.all()
 # for event in events:

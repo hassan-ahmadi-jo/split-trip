@@ -37,7 +37,7 @@ class EventMemberRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
         return user.memberships.filter(event=event).exists()
     
     def handle_no_permission(self):
-        return redirect('home')
+        return redirect('splitter_dashboard')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,7 +66,7 @@ class PaymentMixin(EventMemberRequiredMixin):
         return base_test and is_expense_exists
     
     def handle_no_permission(self):
-        return redirect('dashboard', event_code = self._event_code)
+        return redirect('tracker', event_code = self._event_code)
 
 class AccessRestrictedMixin(UserPassesTestMixin):
     def dispatch(self, request, *args, **kwargs):
@@ -111,7 +111,7 @@ def create_default_currency_units(event):
         models.CurrencyUnit.objects.create(event = event, title = currency, is_active = is_active)
 # Create your views here.
 class ExpensesView(EventMemberRequiredMixin, TemplateView):
-    template_name = 'expenses/dashboard.html'
+    template_name = 'expenses/tracker.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -163,7 +163,7 @@ class ParticipantsUpdateView(EventMemberRequiredMixin, AccessRestrictedMixin, Up
         if self.request.GET.get('page')=='participants_detail':
             id = self.request.GET.get('id')
             return reverse_lazy('participants_detail', kwargs = {'event_code': event.code, 'id': id})
-        return reverse_lazy('dashboard', kwargs = {'event_code': event.code})
+        return reverse_lazy('tracker', kwargs = {'event_code': event.code})
     
     def get_queryset(self):
         return super().get_queryset().filter(event=self.get_event())
@@ -209,7 +209,7 @@ class ParticipantsDeleteView(EventMemberRequiredMixin, AccessRestrictedMixin, Vi
                 context["can_edit_event_info"] = membership.can_edit_event_info
                 context['participants'] = models.Participants.objects.filter(event=event).all()
                 return render(request, 'expenses/includes/participant_list/participants.html', context)
-        return redirect('dashboard', event_code=event_code)
+        return redirect('tracker', event_code=event_code)
 
 class ExpensesCreateView(EventMemberRequiredMixin, AccessRestrictedMixin, CreateView):
     template_name = 'expenses/expenses_create.html'
@@ -336,7 +336,7 @@ class ExpensesListView(EventMemberRequiredMixin, ListView):
         context["can_edit_event_info"] = membership.can_edit_event_info
         return context
 
-class EpensesDeleteView(PaymentMixin, AccessRestrictedMixin, View):
+class ExpensesDeleteView(PaymentMixin, AccessRestrictedMixin, View):
     @transaction.atomic
     def delet_expense(self):
         expense = self.get_expense()
@@ -352,7 +352,7 @@ class EpensesDeleteView(PaymentMixin, AccessRestrictedMixin, View):
             context["can_edit_event_info"] = membership.can_edit_event_info
             context['event'] = event
             return render(request, 'expenses/includes/expenses_list/expenses.html', context)
-        return redirect('dashboard', event_code = event_code)
+        return redirect('tracker', event_code = event_code)
 
 class CurrencyHandlerView(EventMemberRequiredMixin, AccessRestrictedMixin, View):
     def post(self, request, event_code):
@@ -375,11 +375,11 @@ class CurrencyHandlerView(EventMemberRequiredMixin, AccessRestrictedMixin, View)
                     cur.save()
         context = {'event': event}
         return JsonResponse({
-            'html_data': render_to_string('expenses/includes/dashboard/currency.html', context),
+            'html_data': render_to_string('expenses/includes/tracker/currency.html', context),
             'active_currency': event.currencys.filter(is_active = True).first().title
         })
-        # return render(request, 'expenses/includes/dashboard/currency.html', context)
-        # return redirect('dashboard', event_code = event_code)
+        # return render(request, 'expenses/includes/tracker/currency.html', context)
+        # return redirect('tracker', event_code = event_code)
 
 class CurrencyUnitCreateView(EventMemberRequiredMixin, AccessRestrictedMixin, CreateView):
     form_class = forms.CurrencyUnitCreateForm
@@ -392,7 +392,7 @@ class CurrencyUnitCreateView(EventMemberRequiredMixin, AccessRestrictedMixin, Cr
     
     def get_success_url(self):
         event = self.get_event()
-        return reverse_lazy('dashboard', kwargs = {'event_code': event.code})
+        return reverse_lazy('tracker', kwargs = {'event_code': event.code})
 
 class ParticipantDetailView(EventMemberRequiredMixin, DetailView):
     template_name = 'expenses/participant.html'

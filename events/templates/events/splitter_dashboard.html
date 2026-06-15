@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block title %}
-  Home |
+  App Dashboard |
 {% endblock %}
 
 {% block content %}
   <header class="page-header">
     <!-- Main Title with Gradient Effect -->
-    <h1>Split Trip</h1>
+    <h1>Expense Splitter</h1>
 
     <!-- Welcome Message -->
     <p class="text-gray-200 font-medium text-lg mb-6">Welcome {{ user.first_name|title }} 👋</p>
@@ -119,7 +119,7 @@
   </section>
 
   <div class="js-ajax-container">
-    {% include "events/includes/home/join_requests.html" %}
+    {% include "events/includes/splitter_dashboard/join_requests.html" %}
   </div>
 {% endblock %}
 

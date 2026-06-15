@@ -19,9 +19,19 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('events.urls.web_urls')),
-    path('api/', include('events.urls.api_urls')),
+
+    # --- Public Website (optional)
+
+    # --- App
+    path('app/splitter/', include('events.urls.web_urls')),
+    path('app/splitter/events/<str:event_code>/tracker/', include('expenses.urls')),
+
+    # --- API
+    path('api/events/', include('events.urls.api_urls')),
+
+    # --- Accounts
     path('accounts/', include('accounts.urls')),
-    path('events/<str:event_code>/', include('expenses.urls')),
+
+    # DRF auth
     path('api-auth/', include('rest_framework.urls')),
 ]
