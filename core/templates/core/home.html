@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Home |
+{% endblock %}
+
+{% block content %}
+  <!-- Hero Section -->
+  <section class="relative bg-gray-900 pt-24 pb-32 lg:pt-36 lg:pb-40 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+        <!-- Text Content -->
+        <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+          <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+            <span class="block">SplitTrip – Split travel</span>
+            <span class="block text-cyan-500">expenses with friends,</span>
+            <span class="block">without the hassle.</span>
+          </h1>
+          <p class="mt-3 text-base text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">Create a trip, invite your friends, add expenses, and let SplitTrip handle the balances.</p>
+          <div class="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0 flex flex-col sm:flex-row gap-4">
+            <a href="{% url 'splitter_dashboard' %}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-cyan-500 hover:bg-cyan-400 transition-colors duration-200">Start a trip</a>
+            <a href="#how-it-works" class="inline-flex items-center justify-center px-6 py-3 border border-gray-600 text-base font-medium rounded-md text-gray-300 hover:text-white hover:border-gray-400 hover:bg-gray-800 transition-colors duration-200">See how it works</a>
+          </div>
+        </div>
+
+        <!-- Hero Image / Screenshot -->
+        <div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
+          <div class="relative mx-auto w-3/4 rounded-xl shadow-2xl lg:max-w-2xl border border-gray-700 bg-gray-800 overflow-hidden transform lg:hover:scale-105 transition-all duration-300">
+
+            <img src="{% static 'images/Hero_Image.png' %}" alt="SplitTrip Dashboard" class="w-full h-auto" />
+
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent pointer-events-none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="py-16 bg-gray-800 border-y border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-extrabold text-white sm:text-4xl">Stop arguing about money after trips</h2>
+      <div class="mt-10 max-w-lg mx-auto grid gap-6 sm:grid-cols-3 sm:max-w-none">
+        <div class="flex flex-col items-center">
+          <div class="flex items-center justify-center h-12 w-12 rounded-md bg-red-900/50 text-red-400 mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-300 text-center">No more messy spreadsheets</h3>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="flex items-center justify-center h-12 w-12 rounded-md bg-red-900/50 text-red-400 mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-300 text-center">No more “Who paid for dinner?”</h3>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="flex items-center justify-center h-12 w-12 rounded-md bg-red-900/50 text-red-400 mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-300 text-center">No more awkward calculations</h3>
+        </div>
+      </div>
+      <p class="mt-8 text-xl font-medium text-cyan-400">SplitTrip keeps everything clear and fair.</p>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="py-20 bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="text-base font-semibold text-cyan-500 tracking-wide uppercase">Simple Process</h2>
+        <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">How SplitTrip works</p>
+        <p class="mt-4 max-w-2xl text-xl text-gray-400 mx-auto">Just three simple steps to manage your trip's finances.</p>
+      </div>
+
+      <div class="mt-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Step 1 -->
+          <div class="relative bg-gray-800 p-6 rounded-xl border border-gray-700">
+            <div class="absolute -top-5 left-6 bg-cyan-500 text-gray-900 font-bold text-xl w-10 h-10 rounded-full flex items-center justify-center">1</div>
+            <h3 class="mt-4 text-xl font-bold text-white">Create or join a trip</h3>
+            <p class="mt-2 text-base text-gray-400">Create a new trip event, or send a join request to existing trips your friends have created.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative bg-gray-800 p-6 rounded-xl border border-gray-700">
+            <div class="absolute -top-5 left-6 bg-cyan-500 text-gray-900 font-bold text-xl w-10 h-10 rounded-full flex items-center justify-center">2</div>
+            <h3 class="mt-4 text-xl font-bold text-white">Add participants & expenses</h3>
+            <p class="mt-2 text-base text-gray-400">If you’re the event creator or an admin, add participants to the trip and log each expense as a separate entry.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="relative bg-gray-800 p-6 rounded-xl border border-gray-700">
+            <div class="absolute -top-5 left-6 bg-cyan-500 text-gray-900 font-bold text-xl w-10 h-10 rounded-full flex items-center justify-center">3</div>
+            <h3 class="mt-4 text-xl font-bold text-white">See who paid what</h3>
+            <div class="mt-2 text-base text-gray-400 space-y-2">
+              <p>For every expense and every participant, SplitTrip shows:</p>
+              <ul class="list-disc pl-5 text-gray-300">
+                <li>how much they paid,</li>
+                <li>how much they should share,</li>
+              </ul>
+              <p>so you can clearly see each person’s contribution across the whole trip.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="py-16 bg-gray-800 border-t border-gray-700">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-extrabold text-white">Ready to simplify your next trip?</h2>
+      <p class="mt-4 text-lg text-gray-400">Create your first trip in minutes and let SplitTrip handle the math.</p>
+      <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+        <a href="{% url 'splitter_dashboard' %}" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-cyan-500 hover:bg-cyan-400 transition-colors duration-200 w-full sm:w-auto">Open SplitTrip</a>
+        <a href="/about" class="text-sm text-cyan-500 hover:text-cyan-400 hover:underline transition-colors duration-200 mt-4 sm:mt-0">Learn more about the project &rarr;</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
