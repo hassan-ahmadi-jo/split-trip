@@ -20,7 +20,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # --- Public Website (optional)
+    # --- Public Website
+    path('', include('core.urls')),
 
     # --- App
     path('app/splitter/', include('events.urls.web_urls')),
