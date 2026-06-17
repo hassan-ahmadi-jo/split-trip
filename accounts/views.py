@@ -50,7 +50,8 @@ class EmailActivationView(View):
 
     def get(self, request):
         user = models.User.objects.filter(id = request.session.get('pending_verification_user_id')).first()
-        remain_time = (user.email_activation.email_send_available_at - timezone.now()).total_seconds()
+        activation, _ = models.EmailActivation.objects.get_or_create(user = user)
+        remain_time = (activation.email_send_available_at - timezone.now()).total_seconds()
         form = forms.EmailActivationForm(initial={'resend_cooldown': int(remain_time)})
         if user is None:
             return redirect('login')
@@ -185,14 +186,16 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 class ProfileUpdateView(LoginRequiredMixin, View):
     template_name = 'accounts/profile_update.html'
     def get(self, request:HttpRequest):
-        form = forms.ProfileUpdateForme()
+        form = forms.ProfileUpdateForm()
         form.initial['first_name'] = request.user.first_name
         form.initial['email'] = request.user.email
         return render(request, self.template_name, {'form': form})
     
     def post(self, request:HttpRequest):
         user = request.user
-        form = forms.ProfileUpdateForme(request.POST, user_email=user.email)
+        activation, _ = models.EmailActivation.objects.get_or_create(user = user)
+        remain_time = (activation.email_send_available_at - timezone.now()).total_seconds()
+        form = forms.ProfileUpdateForm(request.POST, user_email=user.email, email_resend_remaining_time = remain_time, pending_email = activation.pending_email)
         if form.is_valid():
             user.first_name = form.data.get('first_name')
             user.save()
@@ -209,7 +212,8 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
     def get(self, request:HttpRequest):
         new_email = request.session.get('email_update_information')
         if new_email:
-            remain_time = (request.user.email_activation.email_send_available_at - timezone.now()).total_seconds()
+            activation, _ = models.EmailActivation.objects.get_or_create(user = request.user)
+            remain_time = (activation.email_send_available_at - timezone.now()).total_seconds()
             context = {
                 'form': forms.EmailActivationForm(initial={'resend_cooldown': int(remain_time)}),
                 'new_email': new_email,
@@ -267,7 +271,8 @@ class UserEmailUpdateView(LoginRequiredMixin, View):
                 request.session.pop('retry_available_at', None)
                 request.session.pop('email_activation_failed_attempts', None)
 
-                user.email = new_email
+                if activation.pending_email:
+                    user.email = activation.pending_email
                 activation.expires_at = timezone.now() - timedelta(minutes=10)
                 user.save(update_fields=['email'])
                 activation.save(update_fields=['expires_at'])

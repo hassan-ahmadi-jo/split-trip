@@ -28,7 +28,8 @@ def create_and_send_email_activation_code(user, target_email = None, generate_co
 
     activation.expires_at = now + timedelta(minutes=settings.EMAIL_ACTIVATION_CODE_EXPIRE_MINUTES)
     activation.email_send_available_at = now + timedelta(minutes=settings.EMAIL_ACTIVATION_RESEND_COOLDOWN_MINUTES)
-    activation.save(update_fields=['expires_at', 'email_send_available_at'])
+    activation.pending_email = target_email
+    activation.save(update_fields=['expires_at', 'email_send_available_at', 'pending_email'])
 
     emails.send_activation_code_email(user, target_email)
     return int(settings.EMAIL_ACTIVATION_RESEND_COOLDOWN_MINUTES * 60)

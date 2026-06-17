@@ -138,9 +138,11 @@ class PasswordResetConfirmForm(SetPasswordForm):
                 'placeholder': 'Repeat new password'
             }))
     
-class ProfileUpdateForme(forms.Form):
-    def __init__(self, *args, user_email=None, **kwargs):
+class ProfileUpdateForm(forms.Form):
+    def __init__(self, *args, user_email=None, email_resend_remaining_time=0, pending_email=None, **kwargs):
         self.user_email=user_email
+        self.email_resend_remaining_time = email_resend_remaining_time
+        self.pending_email = pending_email
         super().__init__(*args, **kwargs)
 
     first_name = forms.CharField(
@@ -172,7 +174,14 @@ class ProfileUpdateForme(forms.Form):
         if email == self.user_email:
             return email
         if models.User.objects.filter(email = email).exists():
-            self.add_error('email', 'User with this Email address already exists.')
+            raise forms.ValidationError('User with this Email address already exists.')
+        if self.email_resend_remaining_time > 0 and email != self.pending_email:
+            time = int(self.email_resend_remaining_time / 60) + 1
+            if time == 1:
+                text = f'Please tray again in {time} minuet'
+            else:
+                text = f'Please tray again in {time} minuets'
+            raise forms.ValidationError(text)
         return email
 
 class UserPasswordChangeForm(PasswordChangeForm):
