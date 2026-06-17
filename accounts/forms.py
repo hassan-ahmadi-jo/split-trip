@@ -139,6 +139,10 @@ class PasswordResetConfirmForm(SetPasswordForm):
             }))
     
 class ProfileUpdateForme(forms.Form):
+    def __init__(self, *args, user_email=None, **kwargs):
+        self.user_email=user_email
+        super().__init__(*args, **kwargs)
+
     first_name = forms.CharField(
         label='Name:',
         max_length=130,
@@ -165,6 +169,8 @@ class ProfileUpdateForme(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
+        if email == self.user_email:
+            return email
         if models.User.objects.filter(email = email).exists():
             self.add_error('email', 'User with this Email address already exists.')
         return email

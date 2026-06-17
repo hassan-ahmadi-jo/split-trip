@@ -191,9 +191,9 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'form': form})
     
     def post(self, request:HttpRequest):
-        form = forms.ProfileUpdateForme(request.POST)
+        user = request.user
+        form = forms.ProfileUpdateForme(request.POST, user_email=user.email)
         if form.is_valid():
-            user = get_object_or_404(models.User, id = request.user.id)
             user.first_name = form.data.get('first_name')
             user.save()
             new_email = form.data.get('email')
