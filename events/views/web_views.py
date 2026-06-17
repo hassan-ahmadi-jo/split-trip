@@ -330,6 +330,8 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def get_form_kwargs(self):
         kwargs =  super().get_form_kwargs()
         kwargs['update_form'] = True
+        kwargs['user'] = self.request.user
+        kwargs['event_old_title'] = self.get_event().title
         return kwargs
     
 class EventUpdateSuccessView(LoginRequiredMixin, TemplateView):

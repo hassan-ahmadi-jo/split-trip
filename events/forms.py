@@ -2,10 +2,11 @@ from django import forms
 from . import models
 
 class CreateEventForm(forms.ModelForm):
-    def __init__(self, *args, user=None, update_form = False, **kwargs):
+    def __init__(self, *args, user=None, update_form = False, event_old_title = None, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
         self.update_form = update_form
+        self.event_old_title = event_old_title
     class Meta:
         model = models.Event
         fields = ['title']
@@ -29,6 +30,8 @@ class CreateEventForm(forms.ModelForm):
     def clean_title(self):
         title = self.cleaned_data.get('title')
         user = self.user
+        if self.event_old_title and self.event_old_title == title:
+            return title
         if len(title) < 3:
             raise forms.ValidationError('Title must be at least 3 characters.')
         elif len(title) > 250:
@@ -39,7 +42,7 @@ class CreateEventForm(forms.ModelForm):
         return title
     
     def save(self, commit = True):
-        event = super().save()
+        event = super().save(commit=False)
         if commit:
             event.save()
             if not self.update_form:
