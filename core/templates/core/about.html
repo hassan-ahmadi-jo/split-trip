@@ -1,115 +1,149 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
   About |
 {% endblock %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto px-6 py-16 text-gray-300">
-    
+  <div class="max-w-3xl mx-auto px-6 py-16 text-gray-300">
     <!-- 1. Page Header -->
     <header class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">About SplitTrip</h1>
-        <p class="text-lg md:text-xl text-gray-400 leading-relaxed mb-4">
-            SplitTrip is a simple web app designed to make tracking and sharing travel expenses easier for groups.
-        </p>
-        <p class="text-lg text-gray-400 leading-relaxed">
-            It helps friends organize trips, record shared costs, and clearly see who paid what.
-        </p>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">{% trans 'About SplitTrip' %}</h1>
+
+      <p class="text-lg md:text-xl text-gray-400 leading-relaxed mb-4">
+        {% trans 'SplitTrip is a simple web app designed to make tracking and sharing travel expenses easier for groups.' %}
+      </p>
+
+      <p class="text-lg text-gray-400 leading-relaxed">
+        {% trans 'It helps friends organize trips, record shared costs, and clearly see who paid what.' %}
+      </p>
     </header>
 
-    <hr class="border-gray-800 mb-12">
+    <hr class="border-gray-800 mb-12" />
 
     <!-- 2. The Idea -->
     <section class="mb-12">
-        <h2 class="text-2xl font-semibold text-white mb-4">The idea behind SplitTrip</h2>
-        <div class="space-y-4 text-gray-400">
-            <p>Group trips are fun, but tracking shared expenses can quickly become confusing.</p>
-            <p>People pay for different things — food, transport, accommodation — and it becomes hard to remember who paid and how much everyone should contribute.</p>
-            <p class="text-cyan-400 font-medium">SplitTrip was created to make that process simple and transparent.</p>
-        </div>
+      <h2 class="text-2xl font-semibold text-white mb-4">{% trans 'The idea behind SplitTrip' %}</h2>
+
+      <div class="space-y-4 text-gray-400">
+        <p>
+          {% trans 'Group trips are fun, but tracking shared expenses can quickly become confusing.' %}
+        </p>
+
+        <p>
+          {% trans 'People pay for different things — food, transport, accommodation — and it becomes hard to remember who paid and how much everyone should contribute.' %}
+        </p>
+
+        <p class="text-cyan-400 font-medium">
+          {% trans 'SplitTrip was created to make that process simple and transparent.' %}
+        </p>
+      </div>
     </section>
 
     <!-- 3. What you can do with SplitTrip -->
     <section class="mb-12">
-        <h2 class="text-2xl font-semibold text-white mb-4">With SplitTrip you can:</h2>
-        <ul class="list-disc list-inside space-y-3 text-gray-400 bg-gray-800/50 p-6 rounded-xl border border-gray-700/50">
-            <li>Create shared trip events</li>
-            <li>Invite participants or join existing trips</li>
-            <li>Record expenses during the trip</li>
-            <li>See how much each person paid and how much they should share</li>
-        </ul>
-        <p class="mt-4 text-gray-400 italic">The goal is to keep everything clear in one place.</p>
+      <h2 class="text-2xl font-semibold text-white mb-4">{% trans 'With SplitTrip you can:' %}</h2>
+
+      <ul class="list-disc list-inside space-y-3 text-gray-400 bg-gray-800/50 p-6 rounded-xl border border-gray-700/50">
+        <li>
+          {% trans 'Create shared trip events' %}
+        </li>
+        <li>
+          {% trans 'Invite participants or join existing trips' %}
+        </li>
+        <li>
+          {% trans 'Record expenses during the trip' %}
+        </li>
+        <li>
+          {% trans 'See how much each person paid and how much they should share' %}
+        </li>
+      </ul>
+
+      <p class="mt-4 text-gray-400 italic">
+        {% trans 'The goal is to keep everything clear in one place.' %}
+      </p>
     </section>
 
     <!-- 4. About the Project -->
     <section class="mb-12">
-        <h2 class="text-2xl font-semibold text-white mb-4">About the project</h2>
-        <div class="space-y-4 text-gray-400">
-            <p>SplitTrip is built as a personal SaaS-style project to explore clean architecture and product design.</p>
-            <p>The platform is designed so that multiple apps can live under the same system, with SplitTrip being the first application.</p>
-        </div>
+      <h2 class="text-2xl font-semibold text-white mb-4">{% trans 'About the project' %}</h2>
+
+      <div class="space-y-4 text-gray-400">
+        <p>
+          {% trans 'SplitTrip is built as a personal SaaS-style project to explore clean architecture and product design.' %}
+        </p>
+
+        <p>
+          {% trans 'The platform is designed so that multiple apps can live under the same system, with Expense Splitter being the first application.' %}
+        </p>
+      </div>
     </section>
 
     <!-- 5. About the Developer -->
     <section class="mb-12">
-        <h2 class="text-2xl font-semibold text-white mb-4">About the developer</h2>
-        <div class="space-y-4 text-gray-400">
-            <p>SplitTrip is developed by <strong>Hasan Ahmadi</strong> as a personal project focused on building practical web applications and experimenting with scalable Django architecture.</p>
-            <p>The project is continuously evolving with new features and improvements.</p>
-        </div>
+      <h2 class="text-2xl font-semibold text-white mb-4">{% trans 'About the developer' %}</h2>
+
+      <div class="space-y-4 text-gray-400">
+        <p>
+          {% blocktrans %}SplitTrip is developed by <strong>Hasan Ahmadi</strong> as a personal project focused on building practical web applications and experimenting with scalable Django architecture.{% endblocktrans %}
+        </p>
+
+        <p>
+          {% trans 'The project is continuously evolving with new features and improvements.' %}
+        </p>
+      </div>
     </section>
 
-    <hr class="border-gray-800 mb-12">
+    <hr class="border-gray-800 mb-12" />
 
     <!-- 6. Links -->
     <section>
-        {% if site_settings %}
+      {% if site_settings %}
         <div>
-            <h2 class="text-lg font-medium text-white mb-6">You can also reach me directly:</h2>
-            <div class="flex gap-4 mb-6">
-                <!-- Website Icon -->
-                {% if site_settings.website_url %}
-                <a href="{{site_settings.website_url}}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-cyan-400 hover:scale-110 transition-all duration-300 shadow-lg" title="Website">
-                    <svg fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8.03 8.03 0 015.08 16zm2.95-8H5.08a8.03 8.03 0 013.84-3.56A15.65 15.65 0 007.54 8zm4.46 11.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.34.16-2h4.68c.09.66.16 1.32.16 2s-.07 1.34-.16 2zm1.2 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-3.84 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z" />
-                    </svg>
-                </a>
-                {% endif %}
+          <h2 class="text-lg font-medium text-white mb-6">{% trans 'You can also reach me directly:' %}</h2>
 
-                <!-- LinkedIn Icon -->
-                {% if site_settings.linkedin_url %}
-                <a href="{{site_settings.linkedin_url}}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-blue-400 hover:scale-110 transition-all duration-300 shadow-lg" title="LinkedIn">
-                    <svg fill="currentColor" viewBox="0 0 24 24" class="h-4 w-4">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                    </svg>
-                </a>
-                {% endif %}
+          <div class="flex gap-4 mb-6">
+            <!-- Website Icon -->
+            {% if site_settings.website_url %}
+              <a href="{{ site_settings.website_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-cyan-400 hover:scale-110 transition-all duration-300 shadow-lg" title="{% trans 'Website' %}">
+                <svg fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8.03 8.03 0 015.08 16zm2.95-8H5.08a8.03 8.03 0 013.84-3.56A15.65 15.65 0 007.54 8zm4.46 11.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.34.16-2h4.68c.09.66.16 1.32.16 2s-.07 1.34-.16 2zm1.2 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-3.84 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z" />
+                </svg>
+              </a>
+            {% endif %}
 
-                <!-- GitHub Icon -->
-                {% if site_settings.github_url %}
-                <a href="{{site_settings.github_url}}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white hover:scale-110 transition-all duration-300 shadow-lg" title="GitHub">
-                    <svg fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5">
-                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
-                    </svg>
-                </a>
-                {% endif %}
+            <!-- LinkedIn Icon -->
+            {% if site_settings.linkedin_url %}
+              <a href="{{ site_settings.linkedin_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-blue-400 hover:scale-110 transition-all duration-300 shadow-lg" title="{% trans 'LinkedIn' %}">
+                <svg fill="currentColor" viewBox="0 0 24 24" class="h-4 w-4">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+              </a>
+            {% endif %}
 
-                <!-- Email Icon -->
-                <!-- توجه: متغیر conract_email دقیقاً همان‌طور که در کد شما بود استفاده شده است -->
-                {% if site_settings.conract_email %}
-                <a href="mailto:{{site_settings.conract_email}}" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-cyan-400 hover:scale-110 transition-all duration-300 shadow-lg" title="Email">
-                    <svg fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5">
-                        <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
-                        <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
-                    </svg>
-                </a>
-                {% endif %}
-            </div>
+            <!-- GitHub Icon -->
+            {% if site_settings.github_url %}
+              <a href="{{ site_settings.github_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white hover:scale-110 transition-all duration-300 shadow-lg" title="{% trans 'GitHub' %}">
+                <svg fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5">
+                  <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+            {% endif %}
+
+            <!-- Email Icon -->
+            {% if site_settings.conract_email %}
+              <a href="mailto:{{ site_settings.conract_email }}" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-cyan-400 hover:scale-110 transition-all duration-300 shadow-lg" title="{% trans 'Email' %}">
+                <svg fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5">
+                  <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                  <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+                </svg>
+              </a>
+            {% endif %}
+          </div>
         </div>
-        {% endif %}
+      {% endif %}
     </section>
-
-</div>
+  </div>
 {% endblock %}

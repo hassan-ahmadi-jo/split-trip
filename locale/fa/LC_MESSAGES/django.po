@@ -2,22 +2,147 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-06-18 12:45+0000\n"
-"PO-Revision-Date: 2026-06-18 13:38+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-18 16:04+0000\n"
+"PO-Revision-Date: 2026-06-18 15:58+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.10.3\n"
 
-#: Documents/web/Projects/SplitTrip/SplitTrip/SplitTrip/settings.py:129
+#: SplitTrip/SplitTrip/settings.py:131 SplitTrip/SplitTrip/settings.py:141
 msgid "Persian"
 msgstr "فارسی"
 
-#: Documents/web/Projects/SplitTrip/SplitTrip/SplitTrip/settings.py:130
+#: SplitTrip/SplitTrip/settings.py:132 SplitTrip/SplitTrip/settings.py:142
 msgid "English"
 msgstr "انگلیسی"
 
-#: Documents/web/Projects/SplitTrip/SplitTrip/core/templates/core/about.html:14
+#: SplitTrip/core/templates/core/about.html:13
 msgid "About SplitTrip"
-msgstr "درباره سایت"
+msgstr "درباره SplitTrip"
+
+#: SplitTrip/core/templates/core/about.html:16
+msgid ""
+"SplitTrip is a simple web app designed to make tracking and sharing travel "
+"expenses easier for groups."
+msgstr ""
+"SplitTrip یک وب‌اپلیکیشن ساده است که برای ساده‌تر کردن ثبت و تقسیم هزینه‌های "
+"سفرهای گروهی طراحی شده است."
+
+#: SplitTrip/core/templates/core/about.html:20
+msgid ""
+"It helps friends organize trips, record shared costs, and clearly see who "
+"paid what."
+msgstr ""
+"این ابزار به دوستان کمک می‌کند سفرهایشان را مدیریت کنند، هزینه‌های مشترک را "
+"ثبت کنند و به‌وضوح ببینند چه کسی چه مبلغی پرداخت کرده است."
+
+#: SplitTrip/core/templates/core/about.html:28
+msgid "The idea behind SplitTrip"
+msgstr "ایده‌ی پشت SplitTrip"
+
+#: SplitTrip/core/templates/core/about.html:32
+msgid ""
+"Group trips are fun, but tracking shared expenses can quickly become "
+"confusing."
+msgstr ""
+"سفرهای گروهی لذت‌بخش هستند، اما پیگیری هزینه‌های مشترک خیلی زود می‌تواند "
+"گیج‌کننده شود."
+
+#: SplitTrip/core/templates/core/about.html:36
+msgid ""
+"People pay for different things — food, transport, accommodation — and it "
+"becomes hard to remember who paid and how much everyone should contribute."
+msgstr ""
+"افراد برای چیزهای مختلفی هزینه می‌کنند — غذا، حمل‌ونقل، اقامت — و بعد از مدتی "
+"به خاطر سپردن اینکه چه کسی چه مقدار پرداخت کرده و سهم هر نفر چقدر است سخت "
+"می‌شود."
+
+#: SplitTrip/core/templates/core/about.html:40
+msgid "SplitTrip was created to make that process simple and transparent."
+msgstr "SplitTrip ساخته شد تا این فرایند را ساده و شفاف کند."
+
+#: SplitTrip/core/templates/core/about.html:47
+msgid "With SplitTrip you can:"
+msgstr "با SplitTrip می‌توانید:"
+
+#: SplitTrip/core/templates/core/about.html:51
+msgid "Create shared trip events"
+msgstr "سفرهای گروهی ایجاد کنید"
+
+#: SplitTrip/core/templates/core/about.html:54
+msgid "Invite participants or join existing trips"
+msgstr "شرکت‌کنندگان را دعوت کنید یا به سفرهای موجود بپیوندید"
+
+#: SplitTrip/core/templates/core/about.html:57
+msgid "Record expenses during the trip"
+msgstr "هزینه‌ها را در طول سفر ثبت کنید"
+
+#: SplitTrip/core/templates/core/about.html:60
+msgid "See how much each person paid and how much they should share"
+msgstr "ببینید هر نفر چقدر پرداخت کرده و سهم هر نفر چقدر است"
+
+#: SplitTrip/core/templates/core/about.html:65
+msgid "The goal is to keep everything clear in one place."
+msgstr "هدف این است که همه‌چیز به‌صورت شفاف در یک جا باشد."
+
+#: SplitTrip/core/templates/core/about.html:71
+msgid "About the project"
+msgstr "درباره پروژه"
+
+#: SplitTrip/core/templates/core/about.html:75
+msgid ""
+"SplitTrip is built as a personal SaaS-style project to explore clean "
+"architecture and product design."
+msgstr ""
+"SplitTrip به‌عنوان یک پروژه شخصی در سبک SaaS ساخته شده تا معماری تمیز و طراحی "
+"محصول در آن تجربه و پیاده‌سازی شود."
+
+#: SplitTrip/core/templates/core/about.html:79
+msgid ""
+"The platform is designed so that multiple apps can live under the same "
+"system, with Expense Splitter being the first application."
+msgstr ""
+"این پلتفرم به‌گونه‌ای طراحی شده که چندین اپلیکیشن بتوانند در یک سیستم واحد "
+"فعال باشند و Expense Splitter اولین اپلیکیشن آن است."
+
+#: SplitTrip/core/templates/core/about.html:86
+msgid "About the developer"
+msgstr "درباره توسعه‌دهنده"
+
+#: SplitTrip/core/templates/core/about.html:90
+msgid ""
+"SplitTrip is developed by <strong>Hasan Ahmadi</strong> as a personal "
+"project focused on building practical web applications and experimenting "
+"with scalable Django architecture."
+msgstr ""
+"SplitTrip توسط <strong>Hasan Ahmadi</strong> به‌عنوان یک پروژه شخصی توسعه داده "
+"شده که تمرکز آن بر ساخت وب‌اپلیکیشن‌های کاربردی و آزمایش معماری مقیاس‌پذیر "
+"Django است."
+
+#: SplitTrip/core/templates/core/about.html:94
+msgid ""
+"The project is continuously evolving with new features and improvements."
+msgstr "این پروژه به‌طور مداوم با قابلیت‌ها و بهبودهای جدید در حال توسعه است."
+
+#: SplitTrip/core/templates/core/about.html:105
+msgid "You can also reach me directly:"
+msgstr "همچنین می‌توانید مستقیماً با من در ارتباط باشید:"
+
+#: SplitTrip/core/templates/core/about.html:110
+msgid "Website"
+msgstr "وب‌سایت"
+
+#: SplitTrip/core/templates/core/about.html:119
+msgid "LinkedIn"
+msgstr "لینکدین"
+
+#: SplitTrip/core/templates/core/about.html:128
+msgid "GitHub"
+msgstr "گیت‌هاب"
+
+#: SplitTrip/core/templates/core/about.html:137
+msgid "Email"
+msgstr "ایمیل"
