@@ -15,7 +15,7 @@ class SiteSettings(models.Model):
 
 class ContactSender(models.Model):
     email = models.EmailField(verbose_name='Email address')
-    is_sender_member = models.BooleanField(verbose_name='Is user member in website')
+    is_sender_member = models.BooleanField(default=False, verbose_name='Is user member in website')
 
     def __str__(self):
         return f"{self.email}"
