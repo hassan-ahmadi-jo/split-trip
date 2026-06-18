@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
 
-urlpatterns = [
+urlpatterns = []
+
+urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
 
     # --- Public Website
@@ -35,4 +38,9 @@ urlpatterns = [
 
     # DRF auth
     path('api-auth/', include('rest_framework.urls')),
-]
+
+    # ROSETTA
+    path('rosetta/', include('rosetta.urls'))
+)
+
+

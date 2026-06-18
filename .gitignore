@@ -20,6 +20,7 @@ staticfiles/
 .vscode/
 .idea/
 
+*.mo
 
 # Tailwin
 node_modules/
