@@ -24,3 +24,11 @@ class ContactView(CreateView):
             form = forms.ContactMessageForm()
         context['form'] = form
         return context
+    
+class AboutView(TemplateView):
+    template_name = 'core/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['site_settings'] = models.SiteSettings.objects.filter(is_active = True).first()
+        return context
