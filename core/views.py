@@ -32,3 +32,6 @@ class AboutView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['site_settings'] = models.SiteSettings.objects.filter(is_active = True).first()
         return context
+    
+class AppsView(TemplateView):
+    template_name = 'core/apps.html'

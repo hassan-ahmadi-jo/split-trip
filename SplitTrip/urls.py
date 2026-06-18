@@ -24,8 +24,8 @@ urlpatterns = [
     path('', include('core.urls')),
 
     # --- App
-    path('app/splitter/', include('events.urls.web_urls')),
-    path('app/splitter/events/<str:event_code>/tracker/', include('expenses.urls')),
+    path('apps/splitter/', include('events.urls.web_urls')),
+    path('apps/splitter/events/<str:event_code>/tracker/', include('expenses.urls')),
 
     # --- API
     path('api/events/', include('events.urls.api_urls')),
