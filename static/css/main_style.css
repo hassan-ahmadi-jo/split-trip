@@ -104,8 +104,6 @@
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
     --radius-3xl: 1.5rem;
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
     --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --blur-sm: 8px;
@@ -1789,6 +1787,9 @@
   .text-center {
     text-align: center;
   }
+  .text-end {
+    text-align: end;
+  }
   .text-left {
     text-align: left;
   }
@@ -3210,8 +3211,8 @@
   color: var(--color-gray-400);
 }
 .form-box>div>p {
+  margin-inline-start: calc(var(--spacing) * 1);
   margin-bottom: calc(var(--spacing) * 1.5);
-  margin-left: calc(var(--spacing) * 1);
   font-size: var(--text-sm);
   line-height: var(--tw-leading, var(--text-sm--line-height));
   --tw-font-weight: var(--font-weight-medium);
@@ -3285,7 +3286,7 @@
     background-color: color-mix(in oklab, var(--color-red-500) 10%, transparent);
   }
   padding: calc(var(--spacing) * 3);
-  text-align: left;
+  text-align: start;
   font-size: var(--text-sm);
   line-height: var(--tw-leading, var(--text-sm--line-height));
   --tw-font-weight: var(--font-weight-medium);
@@ -3499,9 +3500,6 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-cyan-400);
 }
-.mt-3 {
-  margin-top: calc(var(--spacing) * 3);
-}
 .amount-input-paid {
   border-color: color-mix(in srgb, oklch(69.6% 0.17 162.48) 30%, transparent);
   @supports (color: color-mix(in lab, red, red)) {
@@ -3511,6 +3509,9 @@
   &:focus {
     border-color: var(--color-emerald-500);
   }
+}
+.mt-3 {
+  margin-top: calc(var(--spacing) * 3);
 }
 .hidden {
   display: none;
@@ -3581,7 +3582,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 input[type=number] {
   -moz-appearance: textfield;
 }
-.sunmit-button-active {
+.submit-button-active {
   width: 100%;
   transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   cursor: pointer;
@@ -3626,7 +3627,7 @@ input[type=number] {
     width: auto;
   }
 }
-.sunmit-button-not-active {
+.submit-button-not-active {
   width: 100%;
   transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   cursor: not-allowed;
@@ -3685,7 +3686,7 @@ input[type=number] {
     }
   }
 }
-.remove-botton-disabled {
+.remove-button-disabled {
   display: flex;
   cursor: not-allowed;
   align-items: center;
@@ -3713,49 +3714,6 @@ input[type=number] {
   transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
   transition-duration: var(--tw-duration, var(--default-transition-duration));
 }
-@keyframes scaleIn {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  70% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-@keyframes checkmark {
-  0% {
-    stroke-dashoffset: 50;
-    opacity: 0;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-}
-@keyframes floatGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), inset 0 0 20px rgba(16, 185, 129, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(16, 185, 129, 0.4), inset 0 0 30px rgba(16, 185, 129, 0.2);
-  }
-}
-.animate-scale-in {
-  animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.animate-glow {
-  animation: floatGlow 3s ease-in-out infinite;
-}
-.path-check {
-  stroke-dasharray: 50;
-  stroke-dashoffset: 50;
-  animation: checkmark 0.8s ease-out 0.4s forwards;
-}
 .access-restricted {
   display: flex;
   cursor: not-allowed;
@@ -3772,7 +3730,6 @@ input[type=number] {
   @supports (color: color-mix(in lab, red, red)) {
     background-color: color-mix(in oklab, var(--color-gray-700) 30%, transparent);
   }
-  background-image: none;
   font-size: var(--text-xs);
   line-height: var(--tw-leading, var(--text-xs--line-height));
   --tw-font-weight: var(--font-weight-medium);
@@ -3819,7 +3776,7 @@ input[type=number] {
     outline-style: none;
   }
 }
-.contant-form-email {
+.contact-form-email {
   width: 100%;
   border-radius: var(--radius-md);
   border-style: var(--tw-border-style);
@@ -3852,7 +3809,7 @@ input[type=number] {
     outline-style: none;
   }
 }
-.contant-form-textarea {
+.contact-form-textarea {
   width: 100%;
   resize: none;
   border-radius: var(--radius-md);
