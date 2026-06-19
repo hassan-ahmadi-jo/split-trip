@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 10:01+0000\n"
+"POT-Creation-Date: 2026-06-19 10:17+0000\n"
 "PO-Revision-Date: 2026-06-18 15:58+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -21,6 +21,7 @@ msgstr "انگلیسی"
 
 #: core/forms.py:9 core/templates/core/about.html:137
 #: core/templates/core/contact.html:86
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:31
 msgid "Email"
 msgstr "ایمیل"
 
@@ -489,11 +490,13 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"        این رویداد قابل حذف نیست زیرا %(expense_count)s هزینه به آن متصل است.\n"
+"        این رویداد قابل حذف نیست زیرا %(expense_count)s هزینه به آن متصل "
+"است.\n"
 "        "
 msgstr[1] ""
 "\n"
-"        این رویداد قابل حذف نیست زیرا %(expense_count)s هزینه به آن متصل هستند.\n"
+"        این رویداد قابل حذف نیست زیرا %(expense_count)s هزینه به آن متصل "
+"هستند.\n"
 "        "
 
 #: events/templates/events/event_delete_failure.html:41
@@ -505,6 +508,46 @@ msgid "Go to Tracker"
 msgstr "رفتن به پیگیری هزینه‌ها"
 
 #: events/templates/events/event_delete_failure.html:70
+#: events/templates/events/event_join_request_list.html:32
 msgid "Back to Event"
 msgstr "بازگشت به رویداد"
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:11
+msgid "Pending Join Requests"
+msgstr "ارسال درخواست"
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:19
+msgid ""
+"These users have requested to join your event. You can accept or decline "
+"their requests."
+msgstr ""
+"این کاربران درخواست پیوستن به رویداد شما را داده‌اند. می‌توانید درخواست آن‌ها را بپذیرید یا رد کنید."
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:30
+msgid "Name"
+msgstr "نام"
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:32
+msgid "Action"
+msgstr "اقدام"
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:33
+msgid "Requested"
+msgstr "زمان درخواست"
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:74
+msgid "Accept"
+msgstr "پذیرفتن"
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:93
+msgid "Decline"
+msgstr "رد کردن"
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:121
+msgid "Previous Page"
+msgstr "صفحه قبلی"
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:180
+msgid "Next Page"
+msgstr "صفحه بعدی"
 
