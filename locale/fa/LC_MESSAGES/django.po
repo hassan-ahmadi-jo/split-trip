@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 10:43+0000\n"
+"POT-Creation-Date: 2026-06-19 15:21+0000\n"
 "PO-Revision-Date: 2026-06-18 15:58+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -22,6 +22,7 @@ msgstr "انگلیسی"
 #: core/forms.py:9 core/templates/core/about.html:137
 #: core/templates/core/contact.html:86
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:32
+#: events/templates/events/includes/event_members_list/members.html:26
 msgid "Email"
 msgstr "ایمیل"
 
@@ -510,6 +511,7 @@ msgstr "رفتن به پیگیری هزینه‌ها"
 
 #: events/templates/events/event_delete_failure.html:70
 #: events/templates/events/event_join_request_list.html:32
+#: events/templates/events/event_members_list.html:33
 msgid "Back to Event"
 msgstr "بازگشت به رویداد"
 
@@ -530,25 +532,28 @@ msgid "Role"
 msgstr "نقش"
 
 #: events/templates/events/event_list.html:31
+#: events/templates/events/includes/event_members_list/members.html:28
 msgid "Joined"
 msgstr "زمان پیوستن"
 
 #: events/templates/events/event_list.html:55
+#: events/templates/events/includes/event_members_list/members.html:52
 msgid "Owner"
 msgstr "مالک"
 
 #: events/templates/events/event_list.html:59
+#: events/templates/events/includes/event_members_list/members.html:63
 msgid "Admin"
 msgstr "مدیر"
 
 #: events/templates/events/event_list.html:63
+#: events/templates/events/includes/event_members_list/members.html:101
 msgid "Member"
 msgstr "عضو"
 
 #: events/templates/events/event_list.html:100
 msgid "No events found"
 msgstr "هیچ رویدادی پیدا نشد"
-
 
 #: events/templates/events/event_list.html:104
 msgid "You haven't joined or created any events yet."
@@ -575,6 +580,7 @@ msgstr ""
 "را بپذیرید یا رد کنید."
 
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:31
+#: events/templates/events/includes/event_members_list/members.html:25
 msgid "Name"
 msgstr "نام"
 
@@ -601,3 +607,56 @@ msgstr "صفحه قبلی"
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:181
 msgid "Next Page"
 msgstr "صفحه بعدی"
+
+#: events/templates/events/includes/event_members_list/members.html:8
+msgid "Event Members"
+msgstr "اعضای رویداد"
+
+#: events/templates/events/includes/event_members_list/members.html:14
+msgid "Manage the participants of your event and their access levels."
+msgstr "شرکت‌کنندگان رویداد و سطح دسترسی آن‌ها را مدیریت کنید."
+
+#: events/templates/events/includes/event_members_list/members.html:27
+msgid "Role Management"
+msgstr "مدیریت نقش‌ها"
+
+#: events/templates/events/includes/event_members_list/members.html:70
+#, fuzzy
+#| msgid "Member"
+msgid "Make Member"
+msgstr "تبدیل به عضو"
+
+#: events/templates/events/includes/event_members_list/members.html:77
+#: events/templates/events/includes/event_members_list/members.html:115
+msgid "Remove User"
+msgstr "حذف کاربر"
+
+#: events/templates/events/includes/event_members_list/members.html:108
+#, fuzzy
+#| msgid "Admin"
+msgid "Make Admin"
+msgstr "تبدیل به مدیر"
+
+#: events/templates/events/includes/event_members_list/members.html:151
+msgid "Owner:"
+msgstr "مالک:"
+
+#: events/templates/events/includes/event_members_list/members.html:152
+msgid "Manage users, change settings, and edit expenses."
+msgstr "مدیریت کاربران، تغییر تنظیمات و ویرایش هزینه‌ها."
+
+#: events/templates/events/includes/event_members_list/members.html:156
+msgid "Admin:"
+msgstr "مدیر:"
+
+#: events/templates/events/includes/event_members_list/members.html:157
+msgid "Create or edit expenses for this event."
+msgstr "ایجاد یا ویرایش هزینه‌ها برای این رویداد."
+
+#: events/templates/events/includes/event_members_list/members.html:161
+msgid "Member:"
+msgstr "عضو:"
+
+#: events/templates/events/includes/event_members_list/members.html:162
+msgid "View expenses without making changes."
+msgstr "مشاهده هزینه‌ها بدون امکان ایجاد تغییر."

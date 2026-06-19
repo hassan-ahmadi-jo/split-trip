@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
   Event Join Requests |
@@ -11,15 +12,28 @@
     {% include 'events/includes/event_members_list/members.html' %}
   </div>
 
-  <!-- 🟢 BACK TO EVENT BUTTON -->
-  <div class="w-full flex justify-center mt-4 mb-16">
-    <a href="{% url 'event' event_code=members_list.0.event.code %}" class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
-      <!-- Left Arrow Icon with hover animation -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-      </svg>Back to Event
-    </a>
-  </div>
+<!-- BACK TO EVENT BUTTON -->
+<div class="w-full flex justify-center mt-4 mb-16">
+  <a href="{% url 'event' event_code=members_list.0.event.code %}"
+     class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
+
+    <!-- Arrow Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="w-4 h-4 transform group-hover:-translate-x-1 rtl:scale-x-[-1] transition-transform duration-300"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"
+         stroke-width="2"
+         aria-hidden="true">
+      <path stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+
+    {% trans "Back to Event" %}
+  </a>
+</div>
+
 {% endblock %}
 
 {% block script %}
