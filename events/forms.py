@@ -57,13 +57,13 @@ class CreateEventForm(forms.ModelForm):
     
 class CreateJoinRequestForm(forms.Form):
     event_code = forms.CharField(
-        label='Event code:',
+        label= _('Event code'),
         max_length=20,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Enter the event code'
+            'placeholder': _('Enter the event code')
         }),
         error_messages={
-            'required': 'This field is required.'
+            'required': _('This field is required.')
         }
     )

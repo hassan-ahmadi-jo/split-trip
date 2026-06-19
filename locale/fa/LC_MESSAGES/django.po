@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 08:51+0000\n"
+"POT-Creation-Date: 2026-06-19 10:01+0000\n"
 "PO-Revision-Date: 2026-06-18 15:58+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -24,7 +24,7 @@ msgstr "انگلیسی"
 msgid "Email"
 msgstr "ایمیل"
 
-#: core/forms.py:16 events/forms.py:29
+#: core/forms.py:16 events/forms.py:29 events/forms.py:67
 msgid "This field is required."
 msgstr "پر کردن این فیلد الزامی است"
 
@@ -410,8 +410,15 @@ msgstr "عنوان نباید بیش از ۲۵۰ کاراکتر باشد."
 #: events/forms.py:42
 msgid ""
 "You already have an event with this name. Please choose a different name."
-msgstr ""
-"شما قبلاً رویدادی با این نام دارید. لطفاً نام دیگری انتخاب کنید."
+msgstr "شما قبلاً رویدادی با این نام دارید. لطفاً نام دیگری انتخاب کنید."
+
+#: events/forms.py:60
+msgid "Event code"
+msgstr "کد رویداد"
+
+#: events/forms.py:64
+msgid "Enter the event code"
+msgstr "کد رویداد را وارد کنید"
 
 #: events/templates/events/create_event.html:13
 msgid "Create a New Event"
@@ -440,6 +447,64 @@ msgid "Send a request"
 msgstr "ارسال درخواست"
 
 #: events/templates/events/create_event.html:62
+#: events/templates/events/create_join_request.html:44
 msgid "Back to App Dashboard"
 msgstr "بازگشت به داشبورد اپ"
+
+#: events/templates/events/create_join_request.html:12
+msgid "Join an event"
+msgstr "پیوستن به یک رویداد"
+
+#: events/templates/events/create_join_request.html:14
+msgid "Enter the event code to request access."
+msgstr "برای درخواست دسترسی، کد رویداد را وارد کنید."
+
+#: events/templates/events/create_join_request.html:26
+msgid "Request to Join"
+msgstr "درخواست پیوستن"
+
+#: events/templates/events/create_join_request.html:30
+msgid "Want to create an event?"
+msgstr "می‌خواهید یک رویداد ایجاد کنید؟"
+
+#: events/templates/events/create_join_request.html:31
+msgid "Create one"
+msgstr "یک رویداد ایجاد کنید"
+
+#: events/templates/events/event_delete_failure.html:27
+msgid "Cannot Delete Event"
+msgstr "امکان حذف رویداد وجود ندارد"
+
+#: events/templates/events/event_delete_failure.html:33
+#, python-format
+msgid ""
+"\n"
+"        This event cannot be deleted because it has %(expense_count)s "
+"expense linked to it.\n"
+"        "
+msgid_plural ""
+"\n"
+"        This event cannot be deleted because it has %(expense_count)s "
+"expenses linked to it.\n"
+"        "
+msgstr[0] ""
+"\n"
+"        این رویداد قابل حذف نیست زیرا %(expense_count)s هزینه به آن متصل است.\n"
+"        "
+msgstr[1] ""
+"\n"
+"        این رویداد قابل حذف نیست زیرا %(expense_count)s هزینه به آن متصل هستند.\n"
+"        "
+
+#: events/templates/events/event_delete_failure.html:41
+msgid "To delete this event, please remove all associated expenses first."
+msgstr "برای حذف این رویداد، ابتدا همه هزینه‌های مرتبط را حذف کنید."
+
+#: events/templates/events/event_delete_failure.html:52
+msgid "Go to Tracker"
+msgstr "رفتن به پیگیری هزینه‌ها"
+
+#: events/templates/events/event_delete_failure.html:70
+msgid "Back to Event"
+msgstr "بازگشت به رویداد"
 

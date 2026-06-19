@@ -1,41 +1,47 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
-Create Event |
+  Create Event |
 {% endblock %}
 
 {% block content %}
-<form method="post" class="form-box">
+  <form method="post" class="form-box">
     {% csrf_token %}
     <section class="form-title">
-        <h2>Join an event</h2>
-        <p>Enter the event code to request access.</p>
+      <h2>{% trans 'Join an event' %}</h2>
+      <p>
+        {% trans 'Enter the event code to request access.' %}
+      </p>
     </section>
     <div>
-        <p>{{ form.event_code.label }}</p>
-        {{ form.event_code }}
-        {% if form.event_code.errors %}
-        {{ form.event_code.errors }}
-        {% endif %}
-    </div>
-    <button type="submit" class="form-button">Request to Join</button>
-    <footer>
-        <p>
-            Want to create an event?
-            <a href="{% url 'create_event' %}" class="text-cyan-500">
-            Create one
-        </a>
-        </p>
-    </footer>
-</form>
+      <p>{{ form.event_code.label }}</p>
+      {{ form.event_code }}
 
-<!-- 🟢 BACK TO splitter_dashboard BUTTON -->
-<div class="w-full flex justify-center mt-4 mb-16">
-<a href="{% url 'splitter_dashboard' %}" class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
-    <!-- Left Arrow Icon -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-    </svg>Back to App Dashboard
-</a>
-</div>
+      {% if form.event_code.errors %}
+        {{ form.event_code.errors }}
+      {% endif %}
+    </div>
+
+    <button type="submit" class="form-button">{% trans 'Request to Join' %}</button>
+
+    <footer>
+      <p>
+        {% blocktrans %}Want to create an event?{% endblocktrans %}
+        <a href="{% url 'create_event' %}" class="text-cyan-500">{% trans 'Create one' %}</a>
+      </p>
+    </footer>
+  </form>
+
+  <!-- BACK TO splitter_dashboard BUTTON -->
+  <div class="w-full flex justify-center mt-4 mb-16">
+    <a href="{% url 'splitter_dashboard' %}" class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
+      <!-- Arrow Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 rtl:scale-x-[-1] transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+
+      {% trans 'Back to App Dashboard' %}
+    </a>
+  </div>
 {% endblock %}

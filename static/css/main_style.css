@@ -290,6 +290,9 @@
   .inset-0 {
     inset: calc(var(--spacing) * 0);
   }
+  .start-1\/2 {
+    inset-inline-start: calc(1/2 * 100%);
+  }
   .start-6 {
     inset-inline-start: calc(var(--spacing) * 6);
   }
@@ -1791,6 +1794,9 @@
   }
   .text-right {
     text-align: right;
+  }
+  .text-start {
+    text-align: start;
   }
   .font-mono {
     font-family: var(--font-mono);
