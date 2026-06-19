@@ -104,6 +104,8 @@
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
     --radius-3xl: 1.5rem;
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
     --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --blur-sm: 8px;
@@ -288,6 +290,9 @@
   .inset-0 {
     inset: calc(var(--spacing) * 0);
   }
+  .start-6 {
+    inset-inline-start: calc(var(--spacing) * 6);
+  }
   .end-4 {
     inset-inline-end: calc(var(--spacing) * 4);
   }
@@ -362,9 +367,6 @@
   }
   .left-1\/4 {
     left: calc(1/4 * 100%);
-  }
-  .left-6 {
-    left: calc(var(--spacing) * 6);
   }
   .-z-10 {
     z-index: calc(10 * -1);
@@ -1745,6 +1747,9 @@
   .py-20 {
     padding-block: calc(var(--spacing) * 20);
   }
+  .ps-5 {
+    padding-inline-start: calc(var(--spacing) * 5);
+  }
   .pt-2 {
     padding-top: calc(var(--spacing) * 2);
   }
@@ -1777,9 +1782,6 @@
   }
   .pb-32 {
     padding-bottom: calc(var(--spacing) * 32);
-  }
-  .pl-5 {
-    padding-left: calc(var(--spacing) * 5);
   }
   .text-center {
     text-align: center;
@@ -3112,9 +3114,9 @@
       padding-bottom: calc(var(--spacing) * 40);
     }
   }
-  .lg\:text-left {
+  .lg\:text-start {
     @media (width >= 64rem) {
-      text-align: left;
+      text-align: start;
     }
   }
   .lg\:hover\:scale-105 {

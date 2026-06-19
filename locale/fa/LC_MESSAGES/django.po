@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 08:12+0000\n"
+"POT-Creation-Date: 2026-06-19 08:34+0000\n"
 "PO-Revision-Date: 2026-06-18 15:58+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -264,3 +264,129 @@ msgstr "معمولاً ظرف چند روز پاسخ می‌دهم."
 #: core/templates/core/contact.html:101
 msgid "Thanks for reaching out."
 msgstr "ممنون که پیام دادید."
+
+#: core/templates/core/home.html:18
+msgid "SplitTrip – Split travel"
+msgstr "SplitTrip – تقسیم هزینه‌های سفر"
+
+#: core/templates/core/home.html:19
+msgid "expenses with friends,"
+msgstr "با دوستان،"
+
+#: core/templates/core/home.html:20
+msgid "without the hassle."
+msgstr "بدون دردسر."
+
+#: core/templates/core/home.html:24
+msgid ""
+"Create a trip, invite your friends, add expenses, and let SplitTrip handle "
+"the balances."
+msgstr ""
+"یک سفر بسازید، دوستانتان را دعوت کنید، هزینه‌ها را ثبت کنید و بگذارید "
+"SplitTrip محاسبات را انجام دهد."
+
+#: core/templates/core/home.html:30
+msgid "Start a trip"
+msgstr "شروع یک سفر"
+
+#: core/templates/core/home.html:35
+msgid "See how it works"
+msgstr "ببینید چگونه کار می‌کند"
+
+#: core/templates/core/home.html:45
+msgid "SplitTrip Dashboard"
+msgstr "داشبورد SplitTrip"
+
+#: core/templates/core/home.html:62
+msgid "Stop arguing about money after trips"
+msgstr "بعد از سفر دیگر درباره پول بحث نکنید"
+
+#: core/templates/core/home.html:74
+msgid "No more messy spreadsheets"
+msgstr "دیگر خبری از فایل‌های اکسل شلوغ نیست"
+
+#: core/templates/core/home.html:85
+msgid "No more 'Who paid for dinner?'"
+msgstr "دیگر خبری از «چه کسی پول شام را داد؟» نیست"
+
+#: core/templates/core/home.html:96
+msgid "No more awkward calculations"
+msgstr "دیگر محاسبات گیج‌کننده ندارید"
+
+#: core/templates/core/home.html:103
+msgid "SplitTrip keeps everything clear and fair."
+msgstr "SplitTrip همه‌چیز را شفاف و منصفانه نگه می‌دارد."
+
+#: core/templates/core/home.html:116
+msgid "Simple Process"
+msgstr "فرایند ساده"
+
+#: core/templates/core/home.html:120
+msgid "How SplitTrip works"
+msgstr "SplitTrip چگونه کار می‌کند"
+
+#: core/templates/core/home.html:124
+msgid "Just three simple steps to manage your trip's finances."
+msgstr "فقط با سه مرحله ساده، هزینه‌های سفر خود را مدیریت کنید."
+
+#: core/templates/core/home.html:137
+msgid "Create or join a trip"
+msgstr "ایجاد یا پیوستن به یک سفر"
+
+#: core/templates/core/home.html:141
+msgid ""
+"Create a new trip event, or send a join request to existing trips your "
+"friends have created."
+msgstr ""
+"یک سفر جدید ایجاد کنید یا برای سفرهایی که دوستانتان ساخته‌اند درخواست پیوستن "
+"بفرستید."
+
+#: core/templates/core/home.html:152
+msgid "Add participants & expenses"
+msgstr "افزودن شرکت‌کنندگان و هزینه‌ها"
+
+#: core/templates/core/home.html:156
+msgid ""
+"If you're the event creator or an admin, add participants to the trip and "
+"log each expense as a separate entry."
+msgstr ""
+"اگر سازنده رویداد یا مدیر هستید، شرکت‌کنندگان را به سفر اضافه کنید و هر هزینه "
+"را به‌صورت یک مورد جداگانه ثبت کنید."
+
+#: core/templates/core/home.html:167
+msgid "See who paid what"
+msgstr "ببینید چه کسی چه مقدار پرداخت کرده"
+
+#: core/templates/core/home.html:171
+msgid "For every expense and every participant, SplitTrip shows:"
+msgstr "برای هر هزینه و هر شرکت‌کننده، SplitTrip نشان می‌دهد:"
+
+#: core/templates/core/home.html:174
+msgid "how much they paid,"
+msgstr "چه مقدار پرداخت کرده‌اند،"
+
+#: core/templates/core/home.html:175
+msgid "how much they should share,"
+msgstr "چه مقدار باید سهم بدهند،"
+
+#: core/templates/core/home.html:178
+msgid ""
+"so you can clearly see each person’s contribution across the whole trip."
+msgstr "تا بتوانید به‌وضوح سهم هر نفر را در کل سفر ببینید."
+
+#: core/templates/core/home.html:192
+msgid "Ready to simplify your next trip?"
+msgstr "آماده‌اید سفر بعدی‌تان را ساده‌تر کنید؟"
+
+#: core/templates/core/home.html:196
+msgid "Create your first trip in minutes and let SplitTrip handle the math."
+msgstr ""
+"اولین سفر خود را در چند دقیقه ایجاد کنید و محاسبات را به SplitTrip بسپارید."
+
+#: core/templates/core/home.html:203
+msgid "Open SplitTrip"
+msgstr "باز کردن SplitTrip"
+
+#: core/templates/core/home.html:208
+msgid "Learn more about the project →"
+msgstr "بیشتر درباره پروژه بدانید ←"
