@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 10:17+0000\n"
+"POT-Creation-Date: 2026-06-19 10:43+0000\n"
 "PO-Revision-Date: 2026-06-18 15:58+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -21,7 +21,7 @@ msgstr "انگلیسی"
 
 #: core/forms.py:9 core/templates/core/about.html:137
 #: core/templates/core/contact.html:86
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:31
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:32
 msgid "Email"
 msgstr "ایمیل"
 
@@ -449,6 +449,7 @@ msgstr "ارسال درخواست"
 
 #: events/templates/events/create_event.html:62
 #: events/templates/events/create_join_request.html:44
+#: events/templates/events/event_list.html:159
 msgid "Back to App Dashboard"
 msgstr "بازگشت به داشبورد اپ"
 
@@ -512,42 +513,91 @@ msgstr "رفتن به پیگیری هزینه‌ها"
 msgid "Back to Event"
 msgstr "بازگشت به رویداد"
 
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:11
+#: events/templates/events/event_list.html:14
+msgid "All Your Events"
+msgstr "همه رویدادهای شما"
+
+#: events/templates/events/event_list.html:28
+msgid "Event Title"
+msgstr "عنوان رویداد"
+
+#: events/templates/events/event_list.html:29
+msgid "Code"
+msgstr "کد"
+
+#: events/templates/events/event_list.html:30
+msgid "Role"
+msgstr "نقش"
+
+#: events/templates/events/event_list.html:31
+msgid "Joined"
+msgstr "زمان پیوستن"
+
+#: events/templates/events/event_list.html:55
+msgid "Owner"
+msgstr "مالک"
+
+#: events/templates/events/event_list.html:59
+msgid "Admin"
+msgstr "مدیر"
+
+#: events/templates/events/event_list.html:63
+msgid "Member"
+msgstr "عضو"
+
+#: events/templates/events/event_list.html:100
+msgid "No events found"
+msgstr "هیچ رویدادی پیدا نشد"
+
+
+#: events/templates/events/event_list.html:104
+msgid "You haven't joined or created any events yet."
+msgstr "می‌خواهید یک رویداد ایجاد کنید؟"
+
+#: events/templates/events/event_list.html:124
+msgid "Create a new event"
+msgstr "ایجاد رویداد جدید"
+
+#: events/templates/events/event_list.html:135
+msgid "Join an existing one"
+msgstr "پیوستن به یک رویداد"
+
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:12
 msgid "Pending Join Requests"
 msgstr "ارسال درخواست"
 
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:19
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:20
 msgid ""
 "These users have requested to join your event. You can accept or decline "
 "their requests."
 msgstr ""
-"این کاربران درخواست پیوستن به رویداد شما را داده‌اند. می‌توانید درخواست آن‌ها را بپذیرید یا رد کنید."
+"این کاربران درخواست پیوستن به رویداد شما را داده‌اند. می‌توانید درخواست آن‌ها "
+"را بپذیرید یا رد کنید."
 
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:30
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:31
 msgid "Name"
 msgstr "نام"
 
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:32
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:33
 msgid "Action"
 msgstr "اقدام"
 
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:33
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:34
 msgid "Requested"
 msgstr "زمان درخواست"
 
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:74
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:75
 msgid "Accept"
 msgstr "پذیرفتن"
 
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:93
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:94
 msgid "Decline"
 msgstr "رد کردن"
 
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:121
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:122
 msgid "Previous Page"
 msgstr "صفحه قبلی"
 
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:180
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:181
 msgid "Next Page"
 msgstr "صفحه بعدی"
-
