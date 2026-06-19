@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 15:21+0000\n"
+"POT-Creation-Date: 2026-06-19 15:30+0000\n"
 "PO-Revision-Date: 2026-06-18 15:58+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -512,6 +512,7 @@ msgstr "رفتن به پیگیری هزینه‌ها"
 #: events/templates/events/event_delete_failure.html:70
 #: events/templates/events/event_join_request_list.html:32
 #: events/templates/events/event_members_list.html:33
+#: events/templates/events/event_update.html:31
 msgid "Back to Event"
 msgstr "بازگشت به رویداد"
 
@@ -566,6 +567,18 @@ msgstr "ایجاد رویداد جدید"
 #: events/templates/events/event_list.html:135
 msgid "Join an existing one"
 msgstr "پیوستن به یک رویداد"
+
+#: events/templates/events/event_update.html:13
+msgid "Edit Event"
+msgstr "ویرایش رویداد"
+
+#: events/templates/events/event_update.html:14
+msgid "Update the event's name."
+msgstr "نام رویداد را بروز کنید"
+
+#: events/templates/events/event_update.html:26
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
 
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:12
 msgid "Pending Join Requests"

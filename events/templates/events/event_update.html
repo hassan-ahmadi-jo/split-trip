@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
 Edit Event |
@@ -7,22 +8,29 @@ Edit Event |
 {% block content %}
 <form method="post" class="form-box">
   {% csrf_token %}
+
   <section class="form-title">
-    <h2>Edit Event</h2>
-    <p>Update the event's name.</p>
+    <h2>{% trans "Edit Event" %}</h2>
+    <p>{% trans "Update the event's name." %}</p>
   </section>
+
   <div>
     <p>{{ form.title.label }}</p>
     {{ form.title }}
     {% if form.title.errors %}
-    {{ form.title.errors }}
+      {{ form.title.errors }}
     {% endif %}
   </div>
-  <button type="submit" class="form-button">Save Changes</button>
-  <footer class=>
+
+  <button type="submit" class="form-button">
+    {% trans "Save Changes" %}
+  </button>
+
+  <footer>
     <a href="{% url 'event' event_code=event.code %}">
-      Back to Event
+      {% trans "Back to Event" %}
     </a>
   </footer>
+
 </form>
 {% endblock %}
