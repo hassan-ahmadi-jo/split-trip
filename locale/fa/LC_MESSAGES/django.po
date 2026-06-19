@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 08:34+0000\n"
+"POT-Creation-Date: 2026-06-19 08:51+0000\n"
 "PO-Revision-Date: 2026-06-18 15:58+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -24,7 +24,7 @@ msgstr "انگلیسی"
 msgid "Email"
 msgstr "ایمیل"
 
-#: core/forms.py:16
+#: core/forms.py:16 events/forms.py:29
 msgid "This field is required."
 msgstr "پر کردن این فیلد الزامی است"
 
@@ -390,3 +390,56 @@ msgstr "باز کردن SplitTrip"
 #: core/templates/core/home.html:208
 msgid "Learn more about the project →"
 msgstr "بیشتر درباره پروژه بدانید ←"
+
+#: events/forms.py:17
+msgid "Event title"
+msgstr "عنوان رویداد"
+
+#: events/forms.py:23
+msgid "Enter your title"
+msgstr "عنوان را وارد کنید"
+
+#: events/forms.py:38
+msgid "Title must be at least 3 characters."
+msgstr "عنوان باید حداقل ۳ کاراکتر باشد."
+
+#: events/forms.py:40
+msgid "The title must not exceed 250 characters."
+msgstr "عنوان نباید بیش از ۲۵۰ کاراکتر باشد."
+
+#: events/forms.py:42
+msgid ""
+"You already have an event with this name. Please choose a different name."
+msgstr ""
+"شما قبلاً رویدادی با این نام دارید. لطفاً نام دیگری انتخاب کنید."
+
+#: events/templates/events/create_event.html:13
+msgid "Create a New Event"
+msgstr "ایجاد رویداد جدید"
+
+#: events/templates/events/create_event.html:15
+msgid "Give your trip or event a name to start splitting expenses."
+msgstr "برای شروع تقسیم هزینه‌ها، یک نام برای سفر یا رویداد خود انتخاب کنید."
+
+#: events/templates/events/create_event.html:29
+msgid "Create"
+msgstr "ایجاد"
+
+#: events/templates/events/create_event.html:34
+msgid ""
+"\n"
+"            Want to join an event?\n"
+"            "
+msgstr ""
+"\n"
+"            می‌خواهید به یک رویداد بپیوندید؟\n"
+"            "
+
+#: events/templates/events/create_event.html:38
+msgid "Send a request"
+msgstr "ارسال درخواست"
+
+#: events/templates/events/create_event.html:62
+msgid "Back to App Dashboard"
+msgstr "بازگشت به داشبورد اپ"
+

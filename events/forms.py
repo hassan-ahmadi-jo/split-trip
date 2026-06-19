@@ -1,5 +1,7 @@
 from django import forms
 from . import models
+from django.utils.translation import gettext_lazy as _
+
 
 class CreateEventForm(forms.ModelForm):
     def __init__(self, *args, user=None, update_form = False, event_old_title = None, **kwargs):
@@ -12,19 +14,19 @@ class CreateEventForm(forms.ModelForm):
         fields = ['title']
 
         labels = {
-            'title':'Event title'
+            'title':_('Event title')
         }
 
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter your title'
+                'placeholder': _('Enter your title')
             })
         }
 
         error_messages = {
             'title': {
-                'required': 'This field is required.',
+                'required': _('This field is required.'),
             }
         }
     def clean_title(self):
@@ -33,11 +35,11 @@ class CreateEventForm(forms.ModelForm):
         if self.event_old_title and self.event_old_title == title:
             return title
         if len(title) < 3:
-            raise forms.ValidationError('Title must be at least 3 characters.')
+            raise forms.ValidationError(_('Title must be at least 3 characters.'))
         elif len(title) > 250:
-            raise forms.ValidationError('The title must not exceed 250 characters.')
+            raise forms.ValidationError(_('The title must not exceed 250 characters.'))
         if user and user.memberships.filter(event__title__iexact = title).exists():
-            raise forms.ValidationError('You already have an event with this name. Please choose a different name.')
+            raise forms.ValidationError(_('You already have an event with this name. Please choose a different name.'))
         
         return title
     
