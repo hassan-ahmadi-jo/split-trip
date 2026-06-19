@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
   Apps |
@@ -7,15 +8,17 @@
 
 {% block content %}
 <div class="max-w-4xl mx-auto px-6 py-16 text-gray-300">
-    
+
     <!-- 1. Page Header -->
-    <header class="mb-16 text-center md:text-left">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Apps</h1>
+    <header class="mb-16 text-center md:text-start">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{% trans "Apps" %}</h1>
+
         <p class="text-lg md:text-xl text-cyan-400 font-medium mb-2">
-            Explore the applications available on SplitTrip.
+            {% trans "Explore the applications available on SplitTrip." %}
         </p>
+
         <p class="text-gray-400 text-lg leading-relaxed max-w-2xl">
-            Each app is designed to solve a specific problem and keep things simple.
+            {% trans "Each app is designed to solve a specific problem and keep things simple." %}
         </p>
     </header>
 
@@ -28,25 +31,28 @@
                     <div class="flex items-center gap-3 mb-3">
                         <!-- App Icon (Optional) -->
                         <div class="w-12 h-12 rounded-xl bg-cyan-900/50 text-cyan-400 flex items-center justify-center border border-cyan-800/50">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h2 class="text-3xl font-bold text-white">Expense Splitter</h2>
+
+                        <h2 class="text-3xl font-bold text-white">{% trans "Expense Splitter" %}</h2>
                     </div>
+
                     <p class="text-xl text-gray-300 mb-4 font-medium">
-                        Track and organize shared travel expenses with ease.
+                        {% trans "Track and organize shared travel expenses with ease." %}
                     </p>
+
                     <p class="text-gray-400 leading-relaxed max-w-2xl">
-                        Create trip events, add participants, record expenses, and clearly see how costs are shared among everyone. Perfect for group travels and avoiding awkward money conversations.
+                        {% trans "Create trip events, add participants, record expenses, and clearly see how costs are shared among everyone. Perfect for group travels and avoiding awkward money conversations." %}
                     </p>
                 </div>
-                
-                <div class="mt-4 md:mt-0 md:ml-6 shrink-0">
+
+                <div class="mt-4 md:mt-0 md:ms-6 shrink-0">
                     <!-- Update the URL to your actual expense splitter app url -->
                     <a href="{% url 'splitter_dashboard' %}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-gray-900 bg-cyan-400 hover:bg-cyan-300 shadow-lg shadow-cyan-400/20 transition-all duration-300">
-                        Open Expense Splitter
-                        <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {% trans "Open Expense Splitter" %}
+                        <svg class="ms-2 -me-1 w-5 h-5 rtl:scale-x-[-1]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </a>
@@ -58,49 +64,53 @@
     <!-- 3. Coming Soon Section -->
     <section class="mb-20">
         <div class="mb-8 border-b border-gray-800 pb-4">
-            <h3 class="text-2xl font-semibold text-white mb-2">More apps coming soon</h3>
+            <h3 class="text-2xl font-semibold text-white mb-2">{% trans "More apps coming soon" %}</h3>
             <p class="text-gray-400">
-                SplitTrip is designed as a platform that can host multiple small applications. New tools and utilities will be added over time.
+                {% trans "SplitTrip is designed as a platform that can host multiple small applications. New tools and utilities will be added over time." %}
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Coming Soon Card: Trip Planner -->
             <div class="bg-gray-800/30 rounded-2xl border-2 border-dashed border-gray-700 p-6 relative overflow-hidden group">
-                <div class="absolute top-4 right-4">
+                <div class="absolute top-4 end-4">
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-700 text-gray-300">
-                        Coming Soon
+                        {% trans "Coming Soon" %}
                     </span>
                 </div>
+
                 <div class="flex items-center gap-3 mb-3 opacity-60">
                     <div class="w-10 h-10 rounded-lg bg-gray-700 flex items-center justify-center text-gray-400">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h4 class="text-xl font-bold text-gray-300">Trip Planner</h4>
+
+                    <h4 class="text-xl font-bold text-gray-300">{% trans "Trip Planner" %}</h4>
                 </div>
+
                 <p class="text-gray-500 opacity-80">
-                    Plan itineraries, manage daily schedules, and organize activities for your upcoming trips.
+                    {% trans "Plan itineraries, manage daily schedules, and organize activities for your upcoming trips." %}
                 </p>
             </div>
-            
+
             <!-- You can add more placeholder cards here if needed -->
         </div>
     </section>
 
     <!-- 4. Optional Bottom CTA -->
-    <section class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl border border-gray-700 p-8 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+    <section class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl border border-gray-700 p-8 text-center md:text-start flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
         <div class="max-w-xl">
-            <h3 class="text-2xl font-bold text-white mb-2">Start using Expense Splitter</h3>
+            <h3 class="text-2xl font-bold text-white mb-2">{% trans "Start using Expense Splitter" %}</h3>
             <p class="text-gray-400">
-                Create your first trip event and keep track of every shared expense in one place. No more messy spreadsheets!
+                {% trans "Create your first trip event and keep track of every shared expense in one place. No more messy spreadsheets!" %}
             </p>
         </div>
+
         <div class="shrink-0">
             <!-- Update the URL to your actual expense splitter app url -->
             <a href="{% url 'splitter_dashboard' %}" class="inline-flex items-center justify-center px-6 py-3 border border-gray-600 text-base font-medium rounded-lg text-white bg-gray-700 hover:bg-gray-600 hover:text-cyan-400 transition-all duration-300">
-                Open the app
+                {% trans "Open the app" %}
             </a>
         </div>
     </section>
