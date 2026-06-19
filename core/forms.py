@@ -9,7 +9,7 @@ class ContactMessageForm(forms.ModelForm):
         label= _('Email'),
         max_length=30,
         widget=forms.EmailInput(attrs={
-            'class': 'contant-form-email',
+            'class': 'contact-form-email',
             'placeholder': 'you@example.com'
         }),
         error_messages={
@@ -25,7 +25,7 @@ class ContactMessageForm(forms.ModelForm):
         }
         widgets = {
             'message': forms.Textarea(attrs={
-                'class': 'contant-form-textarea',
+                'class': 'contact-form-textarea',
                 'placeholder': _('Write your message here...')
             })
         }
