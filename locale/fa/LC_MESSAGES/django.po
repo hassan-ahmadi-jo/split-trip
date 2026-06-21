@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 08:18+0000\n"
+"POT-Creation-Date: 2026-06-21 09:31+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -487,6 +487,7 @@ msgid "Edit Event"
 msgstr "ویرایش رویداد"
 
 #: events/templates/events/event.html:44
+#: expenses/templates/expenses/expense_detail.html:44
 msgid "Edit"
 msgstr "ویرایش"
 
@@ -495,6 +496,7 @@ msgid "Delete Event"
 msgstr "حذف رویداد"
 
 #: events/templates/events/event.html:69
+#: expenses/templates/expenses/expense_detail.html:57
 msgid "Delete"
 msgstr "حذف"
 
@@ -952,6 +954,74 @@ msgstr "عنوان واحد پول را وارد کنید"
 #: expenses/templates/expenses/currency_unit_create.html:32
 msgid "Cancel"
 msgstr "انصراف"
+
+#: expenses/templates/expenses/expense_detail.html:24
+msgid "Expense Details"
+msgstr "جزئیات هزینه"
+
+#: expenses/templates/expenses/expense_detail.html:30
+msgid "Total Cost:"
+msgstr "هزینه کل:"
+
+#: expenses/templates/expenses/expense_detail.html:39
+msgid "Edit Expense"
+msgstr "ویرایش هزینه"
+
+#: expenses/templates/expenses/expense_detail.html:52
+msgid "Delete Expense"
+msgstr "حذف هزینه"
+
+#: expenses/templates/expenses/expense_detail.html:67
+msgid "Description"
+msgstr "توضیحات"
+
+#: expenses/templates/expenses/expense_detail.html:74
+msgid "No description provided for this expense."
+msgstr "برای این هزینه توضیحی ثبت نشده است."
+
+#: expenses/templates/expenses/expense_detail.html:81
+msgid "Expense Date"
+msgstr "تاریخ هزینه"
+
+#: expenses/templates/expenses/expense_detail.html:90
+msgid "Created At"
+msgstr "ایجاد شده در"
+
+#: expenses/templates/expenses/expense_detail.html:99
+msgid "Last Updated"
+msgstr "آخرین بروزرسانی"
+
+#: expenses/templates/expenses/expense_detail.html:120
+msgid "Participants Breakdown"
+msgstr "جزئیات سهم شرکت‌کنندگان"
+
+#: expenses/templates/expenses/expense_detail.html:142
+msgid "PAYER"
+msgstr "پرداخت‌کننده"
+
+#: expenses/templates/expenses/expense_detail.html:158
+msgid "Share Amount"
+msgstr "مبلغ سهم"
+
+#: expenses/templates/expenses/expense_detail.html:185
+msgid "Paid Amount"
+msgstr "مبلغ پرداخت‌شده"
+
+#: expenses/templates/expenses/expense_detail.html:214
+msgid "Comment"
+msgstr "نظر"
+
+#: expenses/templates/expenses/expense_detail.html:221
+msgid "No specific comment for this participant."
+msgstr "برای این شرکت‌کننده نظری ثبت نشده است."
+
+#: expenses/templates/expenses/expense_detail.html:229
+msgid "No participants recorded for this expense."
+msgstr "هیچ شرکت‌کننده‌ای برای این هزینه ثبت نشده است."
+
+#: expenses/templates/expenses/expense_detail.html:246
+msgid "Back to Tracker"
+msgstr "بازگشت به پیگیری هزینه‌ها"
 
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"
