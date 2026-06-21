@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 09:31+0000\n"
+"POT-Creation-Date: 2026-06-21 11:35+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -897,6 +897,46 @@ msgstr ""
 #: events/templates/events/splitter_dashboard.html:74
 msgid "Show All Events"
 msgstr "نمایش همه رویدادها"
+#: expenses/forms.py:52
+msgid "What was this expense for?"
+msgstr "این هزینه بابت چیست؟"
+
+#: expenses/forms.py:53
+msgid "Additional Notes"
+msgstr "توضیحات تکمیلی"
+
+#: expenses/forms.py:54
+msgid "When did you pay?"
+msgstr "چه زمانی پرداخت کردید؟"
+
+#: expenses/forms.py:59
+msgid "e.g., Dinner at Milad Tower, Taxi to airport..."
+msgstr "مثلاً: شام در برج میلاد، تاکسی به فرودگاه..."
+
+#: expenses/forms.py:63
+msgid "Any extra details about this expense? (Optional)"
+msgstr "آیا جزئیات بیشتری درباره این هزینه دارید؟ (اختیاری)"
+
+#: expenses/forms.py:72
+msgid "Please tell us what this expense was for."
+msgstr "لطفاً مشخص کنید این هزینه بابت چیست."
+
+#: expenses/forms.py:73
+msgid "Please select a date."
+msgstr "لطفاً تاریخ را انتخاب کنید."
+
+
+#: expenses/forms.py:88
+msgid "Title must be at least 3 characters"
+msgstr "عنوان باید حداقل ۳ کاراکتر باشد."
+
+#: expenses/forms.py:90
+msgid "The title must be no more than 50 characters"
+msgstr "عنوان نباید بیش از ۵۰ کاراکتر باشد."
+
+#: expenses/forms.py:92
+msgid "The description must be no more than 5000 characters"
+msgstr "عنوان نباید بیش از 5000 کاراکتر باشد."
 
 #: expenses/forms.py:146
 msgid "Title"
@@ -952,10 +992,12 @@ msgid "Enter the currency unit title"
 msgstr "عنوان واحد پول را وارد کنید"
 
 #: expenses/templates/expenses/currency_unit_create.html:32
+#: expenses/templates/expenses/expenses_create.html:122
 msgid "Cancel"
 msgstr "انصراف"
 
 #: expenses/templates/expenses/expense_detail.html:24
+#: expenses/templates/expenses/expenses_create.html:19
 msgid "Expense Details"
 msgstr "جزئیات هزینه"
 
@@ -1022,6 +1064,23 @@ msgstr "هیچ شرکت‌کننده‌ای برای این هزینه ثبت ن
 #: expenses/templates/expenses/expense_detail.html:246
 msgid "Back to Tracker"
 msgstr "بازگشت به پیگیری هزینه‌ها"
+
+#: expenses/templates/expenses/expenses_create.html:30
+msgid "Split Amounts"
+msgstr "تقسیم مبالغ"
+
+#: expenses/templates/expenses/expenses_create.html:53
+msgid "Add Expense"
+msgstr "افزودن هزینه"
+
+#: expenses/templates/expenses/expenses_create.html:58
+msgid "Step 1: Define the basics of this expense before splitting it."
+msgstr "مرحله ۱: پیش از تقسیم، جزئیات اصلی این هزینه را تعریف کنید."
+
+#: expenses/templates/expenses/expenses_create.html:130
+msgid "Next: Split Amounts"
+msgstr "بعدی: تقسیم مبالغ"
+
 
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"

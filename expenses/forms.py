@@ -49,18 +49,18 @@ class ExpensesForm(forms.ModelForm):
         model = models.Expenses
         fields = ['title', 'expense_date', 'description']
         labels = {
-            'title': 'What was this expense for?',
-            'description': 'Additional Notes',
-            'expense_date': 'When did you pay?',
+            'title': _('What was this expense for?'),
+            'description': _('Additional Notes'),
+            'expense_date': _('When did you pay?'),
         }
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'wizard-input',
-                'placeholder': 'e.g., Dinner at Milad Tower, Taxi to airport...'
+                'placeholder': _('e.g., Dinner at Milad Tower, Taxi to airport...')
             }),
             'description': forms.Textarea(attrs={
                 'class': 'wizard-input',
-                'placeholder': 'Any extra details about this expense? (Optional)',
+                'placeholder': _('Any extra details about this expense? (Optional)'),
                 'rows':'3'
             }),
             'expense_date': forms.DateInput(attrs={
@@ -69,8 +69,8 @@ class ExpensesForm(forms.ModelForm):
             }),
         }
         error_messages = {
-            'title': {'required': 'Please tell us what this expense was for.'},
-            'expense_date': {'required': 'Please select a date.'},
+            'title': {'required': _('Please tell us what this expense was for.')},
+            'expense_date': {'required': _('Please select a date.')},
         }
     def save(self, commit = True):
         instance = super().save(False)
@@ -85,11 +85,11 @@ class ExpensesForm(forms.ModelForm):
         title = self.cleaned_data.get('title')
         description = self.cleaned_data.get('description')
         if len(title) < 3:
-            self.add_error('title', 'Title must be at least 3 characters')
+            self.add_error('title', _('Title must be at least 3 characters'))
         elif len(title) > 50:
-            self.add_error('title', 'The title must be no more than 50 characters')
+            self.add_error('title', _('The title must be no more than 50 characters'))
         if len(description) > 5000:
-            self.add_error('description', 'The description must be no more than 5000 characters')
+            self.add_error('description', _('The description must be no more than 5000 characters'))
         return data
 
 class ParticipantExpenseForm(forms.ModelForm):
