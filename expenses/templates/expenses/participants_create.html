@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
 Create Participant |
@@ -7,22 +8,35 @@ Create Participant |
 {% block content %}
 <form method="post" class="form-box">
   {% csrf_token %}
+
   <section class="form-title">
-    <h2>Add Participant</h2>
-    <p>Enter the participant's name.</p>
+    <h2>{% trans "Add Participant" %}</h2>
+    <p>{% trans "Enter the participant's name." %}</p>
   </section>
+
   <div>
-    <p>{{ form.full_name.label }}</p>
+    <label for="{{ form.full_name.id_for_label }}">
+      {{ form.full_name.label }}
+    </label>
+
     {{ form.full_name }}
+
     {% if form.full_name.errors %}
-    {{ form.full_name.errors }}
+      <div class="form-error">
+        {{ form.full_name.errors }}
+      </div>
     {% endif %}
   </div>
-  <button type="submit" class="form-button">Add Participant</button>
-  <footer class=>
+
+  <button type="submit" class="form-button">
+    {% trans "Add Participant" %}
+  </button>
+
+  <footer>
     <a href="{% url 'tracker' event_code=event.code %}">
-      Back to Tracker
+      {% trans "Back to Tracker" %}
     </a>
   </footer>
+
 </form>
 {% endblock %}

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 12:37+0000\n"
+"POT-Creation-Date: 2026-06-21 17:37+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -718,6 +718,7 @@ msgid "Update the event's name."
 msgstr "نام رویداد را بروز کنید"
 
 #: events/templates/events/event_update.html:26
+#: expenses/templates/expenses/participants_update.html:29
 msgid "Save Changes"
 msgstr "ذخیره تغییرات"
 
@@ -907,6 +908,26 @@ msgstr ""
 msgid "Show All Events"
 msgstr "نمایش همه رویدادها"
 
+#: expenses/forms.py:14
+msgid "Full name"
+msgstr "نام"
+
+#: expenses/forms.py:19
+msgid "Sara"
+msgstr "سارا"
+
+#: expenses/forms.py:27
+msgid "The name must be at least 3 characters."
+msgstr "نام باید حداقل ۳ کاراکتر باشد."
+
+#: expenses/forms.py:29
+msgid "The name must be no more than 20 characters."
+msgstr "نام نباید بیش از 20 کاراکتر باشد."
+
+#: expenses/forms.py:31
+msgid "This participant already exists."
+msgstr "این شرکت‌کننده از قبل وجود دارد."
+
 #: expenses/forms.py:52
 msgid "What was this expense for?"
 msgstr "این هزینه بابت چیست؟"
@@ -1079,6 +1100,8 @@ msgstr "هیچ شرکت‌کننده‌ای برای این هزینه ثبت ن
 #: expenses/templates/expenses/expenses_list.html:26
 #: expenses/templates/expenses/participant.html:428
 #: expenses/templates/expenses/participant_list.html:26
+#: expenses/templates/expenses/participants_create.html:37
+#: expenses/templates/expenses/participants_update.html:32
 msgid "Back to Tracker"
 msgstr "بازگشت به پیگیری هزینه‌ها"
 
@@ -1170,6 +1193,8 @@ msgstr ""
 "لحاظ شوند."
 
 #: expenses/templates/expenses/includes/participant_list/participants.html:40
+#: expenses/templates/expenses/participants_create.html:13
+#: expenses/templates/expenses/participants_create.html:32
 msgid "Add Participant"
 msgstr "افزودن شرکت‌کننده"
 
@@ -1190,6 +1215,7 @@ msgstr "حذف شرکت‌کننده"
 
 #: expenses/templates/expenses/includes/participant_list/participants.html:199
 #: expenses/templates/expenses/participant.html:38
+#: expenses/templates/expenses/participants_update.html:13
 msgid "Edit Participant"
 msgstr "ویرایش شرکت‌کننده"
 
@@ -1208,6 +1234,7 @@ msgstr ""
 #: expenses/templates/expenses/includes/participant_list/participants.html:260
 msgid "Create your first participant"
 msgstr "افزودن اولین شرکت‌کننده"
+
 #: expenses/templates/expenses/participant.html:27
 msgid "Participant Overview"
 msgstr "نمای کلی شرکت‌کننده"
@@ -1232,6 +1259,13 @@ msgstr "تاریخچه پرداخت‌ها"
 msgid "Expense amount"
 msgstr "مبلغ هزینه"
 
+#: expenses/templates/expenses/participants_create.html:14
+msgid "Enter the participant's name."
+msgstr "نام شرکت‌کننده را وارد کنید."
+
+#: expenses/templates/expenses/participants_update.html:15
+msgid "Update the participant's name."
+msgstr "نام شرکت‌کننده را به‌روزرسانی کنید."
 
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"

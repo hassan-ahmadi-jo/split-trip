@@ -11,12 +11,12 @@ class ParticipantsForm(forms.ModelForm):
         model = models.Participants
         fields = ['full_name']
         labels = {
-            'full_name': 'Full name'
+            'full_name': _('Full name')
         }
         widgets = {
             'full_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter a participant name'
+                'placeholder': _('Sara')
             })
         }
 
@@ -24,11 +24,11 @@ class ParticipantsForm(forms.ModelForm):
         data = self.cleaned_data["full_name"]
         event = self.event
         if len(data) < 3:
-            raise forms.ValidationError('The name must be at least 3 characters.')
+            raise forms.ValidationError(_('The name must be at least 3 characters.'))
         elif len(data) > 20:
-            raise forms.ValidationError('The name must be no more than 20 characters.')
+            raise forms.ValidationError(_('The name must be no more than 20 characters.'))
         elif event and event.participants.filter(full_name__iexact=data).exclude(pk=self.instance.pk).exists():
-            raise forms.ValidationError('This participant already exists.')
+            raise forms.ValidationError(_('This participant already exists.'))
         return data
     
     def save(self, commit = True):
