@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 11:35+0000\n"
+"POT-Creation-Date: 2026-06-21 11:58+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -897,6 +897,7 @@ msgstr ""
 #: events/templates/events/splitter_dashboard.html:74
 msgid "Show All Events"
 msgstr "نمایش همه رویدادها"
+
 #: expenses/forms.py:52
 msgid "What was this expense for?"
 msgstr "این هزینه بابت چیست؟"
@@ -924,7 +925,6 @@ msgstr "لطفاً مشخص کنید این هزینه بابت چیست."
 #: expenses/forms.py:73
 msgid "Please select a date."
 msgstr "لطفاً تاریخ را انتخاب کنید."
-
 
 #: expenses/forms.py:88
 msgid "Title must be at least 3 characters"
@@ -993,11 +993,13 @@ msgstr "عنوان واحد پول را وارد کنید"
 
 #: expenses/templates/expenses/currency_unit_create.html:32
 #: expenses/templates/expenses/expenses_create.html:122
+#: expenses/templates/expenses/expenses_edit.html:83
 msgid "Cancel"
 msgstr "انصراف"
 
 #: expenses/templates/expenses/expense_detail.html:24
 #: expenses/templates/expenses/expenses_create.html:19
+#: expenses/templates/expenses/expenses_edit.html:15
 msgid "Expense Details"
 msgstr "جزئیات هزینه"
 
@@ -1006,6 +1008,7 @@ msgid "Total Cost:"
 msgstr "هزینه کل:"
 
 #: expenses/templates/expenses/expense_detail.html:39
+#: expenses/templates/expenses/expenses_edit.html:38
 msgid "Edit Expense"
 msgstr "ویرایش هزینه"
 
@@ -1066,6 +1069,7 @@ msgid "Back to Tracker"
 msgstr "بازگشت به پیگیری هزینه‌ها"
 
 #: expenses/templates/expenses/expenses_create.html:30
+#: expenses/templates/expenses/expenses_edit.html:23
 msgid "Split Amounts"
 msgstr "تقسیم مبالغ"
 
@@ -1074,13 +1078,14 @@ msgid "Add Expense"
 msgstr "افزودن هزینه"
 
 #: expenses/templates/expenses/expenses_create.html:58
+#: expenses/templates/expenses/expenses_edit.html:42
 msgid "Step 1: Define the basics of this expense before splitting it."
 msgstr "مرحله ۱: پیش از تقسیم، جزئیات اصلی این هزینه را تعریف کنید."
 
 #: expenses/templates/expenses/expenses_create.html:130
+#: expenses/templates/expenses/expenses_edit.html:86
 msgid "Next: Split Amounts"
 msgstr "بعدی: تقسیم مبالغ"
-
 
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"
