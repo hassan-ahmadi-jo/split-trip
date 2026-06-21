@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 18:44+0000\n"
+"POT-Creation-Date: 2026-06-21 05:09+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -452,6 +452,7 @@ msgstr "ارسال درخواست"
 #: events/templates/events/create_join_request.html:44
 #: events/templates/events/event.html:355
 #: events/templates/events/event_list.html:159
+#: events/templates/events/join_request_list.html:29
 msgid "Back to App Dashboard"
 msgstr "بازگشت به داشبورد اپ"
 
@@ -551,6 +552,7 @@ msgstr "نقش شما:"
 #: events/templates/events/event_list.html:55
 #: events/templates/events/includes/event/members.html:54
 #: events/templates/events/includes/event_members_list/members.html:52
+#: events/templates/events/includes/join_request_list/join_requests.html:32
 msgid "Owner"
 msgstr "مالک"
 
@@ -653,10 +655,12 @@ msgid "All Your Events"
 msgstr "همه رویدادهای شما"
 
 #: events/templates/events/event_list.html:28
+#: events/templates/events/includes/join_request_list/join_requests.html:30
 msgid "Event Title"
 msgstr "عنوان رویداد"
 
 #: events/templates/events/event_list.html:29
+#: events/templates/events/includes/join_request_list/join_requests.html:31
 msgid "Code"
 msgstr "کد"
 
@@ -722,6 +726,7 @@ msgstr "اقدام"
 
 #: events/templates/events/includes/event/event_join_requests.html:39
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:34
+#: events/templates/events/includes/join_request_list/join_requests.html:33
 msgid "Requested"
 msgstr "زمان درخواست"
 
@@ -813,7 +818,20 @@ msgstr "صفحه قبلی"
 msgid "Next Page"
 msgstr "صفحه بعدی"
 
-#, fuzzy
-#~| msgid "Create one"
+#: events/templates/events/includes/join_request_list/join_requests.html:9
+msgid "Your Join Requests"
+msgstr "درخواست‌های پیوستن شما"
+
+#: events/templates/events/includes/join_request_list/join_requests.html:17
+msgid ""
+"These are the requests you have sent to join events and are still waiting "
+"for a response."
+msgstr "این‌ها درخواست‌هایی هستند که برای پیوستن به رویدادها ارسال کرده‌اید و هنوز در انتظار پاسخ هستند."
+
+
+#: events/templates/events/includes/join_request_list/join_requests.html:58
+msgid "Remove Request"
+msgstr "حذف درخواست"
+
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"
