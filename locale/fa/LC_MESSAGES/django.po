@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 12:05+0000\n"
+"POT-Creation-Date: 2026-06-21 12:28+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -489,6 +489,7 @@ msgstr "ویرایش رویداد"
 #: events/templates/events/event.html:44
 #: expenses/templates/expenses/expense_detail.html:44
 #: expenses/templates/expenses/includes/expenses_list/expenses.html:169
+#: expenses/templates/expenses/includes/participant_list/participants.html:215
 msgid "Edit"
 msgstr "ویرایش"
 
@@ -736,6 +737,7 @@ msgstr ""
 #: events/templates/events/includes/event/members.html:24
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:31
 #: events/templates/events/includes/event_members_list/members.html:25
+#: expenses/templates/expenses/includes/participant_list/participants.html:60
 msgid "Name"
 msgstr "نام"
 
@@ -832,10 +834,12 @@ msgid "View expenses without making changes."
 msgstr "مشاهده هزینه‌ها بدون امکان ایجاد تغییر."
 
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:122
+#: expenses/templates/expenses/includes/participant_list/participants.html:286
 msgid "Previous Page"
 msgstr "صفحه قبلی"
 
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:181
+#: expenses/templates/expenses/includes/participant_list/participants.html:363
 msgid "Next Page"
 msgstr "صفحه بعدی"
 
@@ -1068,6 +1072,7 @@ msgstr "هیچ شرکت‌کننده‌ای برای این هزینه ثبت ن
 
 #: expenses/templates/expenses/expense_detail.html:246
 #: expenses/templates/expenses/expenses_list.html:26
+#: expenses/templates/expenses/participant_list.html:26
 msgid "Back to Tracker"
 msgstr "بازگشت به پیگیری هزینه‌ها"
 
@@ -1090,6 +1095,7 @@ msgstr "مرحله ۱: پیش از تقسیم، جزئیات اصلی این ه�
 #: expenses/templates/expenses/expenses_edit.html:86
 msgid "Next: Split Amounts"
 msgstr "بعدی: تقسیم مبالغ"
+
 #: expenses/templates/expenses/includes/expenses_list/expenses.html:10
 msgid "Expenses"
 msgstr "هزینه‌ها"
@@ -1099,6 +1105,7 @@ msgid "These are the expenses for this trip."
 msgstr "این‌ها هزینه‌های ثبت‌شده برای این سفر هستند."
 
 #: expenses/templates/expenses/includes/expenses_list/expenses.html:57
+#: expenses/templates/expenses/includes/participant_list/participants.html:56
 msgid "Row"
 msgstr "ردیف"
 
@@ -1111,6 +1118,7 @@ msgid "Total expense"
 msgstr "هزینه کل"
 
 #: expenses/templates/expenses/includes/expenses_list/expenses.html:79
+#: expenses/templates/expenses/includes/participant_list/participants.html:80
 msgid "Actions"
 msgstr "عملیات"
 
@@ -1130,11 +1138,57 @@ msgstr "هنوز هزینه‌ای ثبت نشده"
 msgid ""
 "No expenses have been added to this event yet. Add your first expense to get "
 "started."
-msgstr "هنوز هیچ هزینه‌ای برای این رویداد اضافه نشده است. برای شروع، اولین هزینه را ثبت کنید."
+msgstr ""
+"هنوز هیچ هزینه‌ای برای این رویداد اضافه نشده است. برای شروع، اولین هزینه را "
+"ثبت کنید."
 
 #: expenses/templates/expenses/includes/expenses_list/expenses.html:212
 msgid "Create your first expense"
 msgstr "ثبت اولین هزینه"
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:10
+msgid "Participants"
+msgstr "شرکت‌کنندگان"
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:18
+msgid ""
+"These are the people who took part in this trip and may be included in "
+"expense splitting."
+msgstr "این‌ها افرادی هستند که در این سفر شرکت کرده‌اند و ممکن است در تقسیم هزینه‌ها لحاظ شوند."
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:40
+msgid "Add Participant"
+msgstr "افزودن شرکت‌کننده"
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:64
+msgid "Paid"
+msgstr "پرداخت‌شده"
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:72
+msgid "Share"
+msgstr "سهم"
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:178
+msgid "Remove Participant"
+msgstr "حذف شرکت‌کننده"
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:199
+msgid "Edit Participant"
+msgstr "ویرایش شرکت‌کننده"
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:248
+msgid "No Participants Yet"
+msgstr "هنوز شرکت‌کننده‌ای وجود ندارد"
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:252
+msgid ""
+"You haven't added anyone to this event. Start by adding participants to "
+"split expenses."
+msgstr "شما هنوز کسی را به این رویداد اضافه نکرده‌اید. با افزودن شرکت‌کنندگان، تقسیم هزینه‌ها را شروع کنید."
+
+#: expenses/templates/expenses/includes/participant_list/participants.html:260
+msgid "Create your first participant"
+msgstr "افزودن اولین شرکت‌کننده"
 
 
 #~ msgid "Created on"
