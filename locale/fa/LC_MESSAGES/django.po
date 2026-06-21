@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 05:34+0000\n"
+"POT-Creation-Date: 2026-06-21 07:50+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -572,6 +572,7 @@ msgstr "مدیر"
 #: events/templates/events/includes/event/members.html:75
 #: events/templates/events/includes/event_members_list/members.html:101
 #: events/templates/events/splitter_dashboard.html:90
+#: expenses/templates/expenses/access_restricted.html:32
 msgid "Member"
 msgstr "عضو"
 
@@ -849,7 +850,6 @@ msgstr ""
 "این‌ها درخواست‌هایی هستند که برای پیوستن به رویدادها ارسال کرده‌اید و هنوز در "
 "انتظار پاسخ هستند."
 
-
 #: events/templates/events/includes/join_request_list/join_requests.html:58
 #: events/templates/events/includes/splitter_dashboard/join_requests.html:70
 msgid "Remove Request"
@@ -895,6 +895,41 @@ msgstr ""
 #: events/templates/events/splitter_dashboard.html:74
 msgid "Show All Events"
 msgstr "نمایش همه رویدادها"
+#: expenses/templates/expenses/access_restricted.html:26
+msgid "Access Restricted"
+msgstr "دسترسی محدود شده"
+
+#: expenses/templates/expenses/access_restricted.html:30
+msgid "Current Role:"
+msgstr "نقش فعلی:"
+
+#: expenses/templates/expenses/access_restricted.html:37
+msgid ""
+"You do not have the necessary permissions to view or edit this section. To "
+"gain access, your role must be upgraded to\n"
+"        <span class=\"text-cyan-400 font-semibold\">Admin</span>."
+msgstr ""
+"شما مجوز لازم برای مشاهده یا ویرایش این بخش را ندارید. برای دسترسی به این "
+"بخش، نقش شما باید به\n"
+"        <span class=\"text-cyan-400 font-semibold\">مدیر</span> ارتقا داده شود."
+
+#: expenses/templates/expenses/access_restricted.html:42
+#, python-format
+msgid ""
+"Please contact the owner\n"
+"        <strong class=\"text-white bg-gray-800 px-2 py-0.5 rounded border "
+"border-gray-700 mx-1\">%(owner)s</strong>\n"
+"        to request this change."
+msgstr ""
+"برای درخواست این تغییر، لطفاً با مالک\n"
+"        <strong class=\"text-white bg-gray-800 px-2 py-0.5 rounded border "
+"border-gray-700 mx-1\">%(owner)s</strong>\n"
+"        تماس بگیرید."
+
+#: expenses/templates/expenses/access_restricted.html:54
+msgid "Go Back"
+msgstr "بازگشت"
+
 
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"
