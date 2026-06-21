@@ -3582,7 +3582,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 input[type=number] {
   -moz-appearance: textfield;
 }
-.submit-button-active {
+.sunmit-button-active {
   width: 100%;
   transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   cursor: pointer;
@@ -3627,7 +3627,7 @@ input[type=number] {
     width: auto;
   }
 }
-.submit-button-not-active {
+.sunmit-button-not-active {
   width: 100%;
   transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   cursor: not-allowed;
@@ -3686,7 +3686,7 @@ input[type=number] {
     }
   }
 }
-.remove-button-disabled {
+.remove-botton-disabled {
   display: flex;
   cursor: not-allowed;
   align-items: center;
