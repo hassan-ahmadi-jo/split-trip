@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 07:50+0000\n"
+"POT-Creation-Date: 2026-06-21 08:18+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -895,6 +895,15 @@ msgstr ""
 #: events/templates/events/splitter_dashboard.html:74
 msgid "Show All Events"
 msgstr "نمایش همه رویدادها"
+
+#: expenses/forms.py:146
+msgid "Title"
+msgstr "عنوان"
+
+#: expenses/forms.py:151
+msgid "USD"
+msgstr "تومان"
+
 #: expenses/templates/expenses/access_restricted.html:26
 msgid "Access Restricted"
 msgstr "دسترسی محدود شده"
@@ -911,7 +920,8 @@ msgid ""
 msgstr ""
 "شما مجوز لازم برای مشاهده یا ویرایش این بخش را ندارید. برای دسترسی به این "
 "بخش، نقش شما باید به\n"
-"        <span class=\"text-cyan-400 font-semibold\">مدیر</span> ارتقا داده شود."
+"        <span class=\"text-cyan-400 font-semibold\">مدیر</span> ارتقا داده "
+"شود."
 
 #: expenses/templates/expenses/access_restricted.html:42
 #, python-format
@@ -930,6 +940,18 @@ msgstr ""
 msgid "Go Back"
 msgstr "بازگشت"
 
+#: expenses/templates/expenses/currency_unit_create.html:13
+#: expenses/templates/expenses/currency_unit_create.html:29
+msgid "Add Currency Unit"
+msgstr "افزودن واحد پول"
+
+#: expenses/templates/expenses/currency_unit_create.html:15
+msgid "Enter the currency unit title"
+msgstr "عنوان واحد پول را وارد کنید"
+
+#: expenses/templates/expenses/currency_unit_create.html:32
+msgid "Cancel"
+msgstr "انصراف"
 
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"

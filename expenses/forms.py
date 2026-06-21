@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from . import models
 
 class ParticipantsForm(forms.ModelForm):
@@ -142,12 +143,12 @@ class CurrencyUnitCreateForm(forms.ModelForm):
         model = models.CurrencyUnit
         fields = ['title']
         labels = {
-            'title': 'Title'
+            'title': _('Title')
         }
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter a currency title'
+                'placeholder': _('USD')
             })
         }
 
