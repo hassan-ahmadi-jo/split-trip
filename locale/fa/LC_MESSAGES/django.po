@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 05:09+0000\n"
+"POT-Creation-Date: 2026-06-21 05:34+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -178,6 +178,7 @@ msgid ""
 msgstr "هر اپلیکیشن برای حل یک مشکل مشخص طراحی شده تا همه‌چیز ساده بماند."
 
 #: core/templates/core/apps.html:39
+#: events/templates/events/splitter_dashboard.html:12
 msgid "Expense Splitter"
 msgstr "تقسیم هزینه"
 
@@ -553,6 +554,8 @@ msgstr "نقش شما:"
 #: events/templates/events/includes/event/members.html:54
 #: events/templates/events/includes/event_members_list/members.html:52
 #: events/templates/events/includes/join_request_list/join_requests.html:32
+#: events/templates/events/includes/splitter_dashboard/join_requests.html:32
+#: events/templates/events/splitter_dashboard.html:86
 msgid "Owner"
 msgstr "مالک"
 
@@ -560,6 +563,7 @@ msgstr "مالک"
 #: events/templates/events/event_list.html:59
 #: events/templates/events/includes/event/members.html:60
 #: events/templates/events/includes/event_members_list/members.html:63
+#: events/templates/events/splitter_dashboard.html:88
 msgid "Admin"
 msgstr "مدیر"
 
@@ -567,6 +571,7 @@ msgstr "مدیر"
 #: events/templates/events/event_list.html:63
 #: events/templates/events/includes/event/members.html:75
 #: events/templates/events/includes/event_members_list/members.html:101
+#: events/templates/events/splitter_dashboard.html:90
 msgid "Member"
 msgstr "عضو"
 
@@ -656,37 +661,48 @@ msgstr "همه رویدادهای شما"
 
 #: events/templates/events/event_list.html:28
 #: events/templates/events/includes/join_request_list/join_requests.html:30
+#: events/templates/events/includes/splitter_dashboard/join_requests.html:30
+#: events/templates/events/splitter_dashboard.html:54
 msgid "Event Title"
 msgstr "عنوان رویداد"
 
 #: events/templates/events/event_list.html:29
 #: events/templates/events/includes/join_request_list/join_requests.html:31
+#: events/templates/events/includes/splitter_dashboard/join_requests.html:31
+#: events/templates/events/splitter_dashboard.html:58
 msgid "Code"
 msgstr "کد"
 
 #: events/templates/events/event_list.html:30
+#: events/templates/events/splitter_dashboard.html:62
 msgid "Role"
 msgstr "نقش"
 
 #: events/templates/events/event_list.html:31
 #: events/templates/events/includes/event/members.html:33
 #: events/templates/events/includes/event_members_list/members.html:28
+#: events/templates/events/splitter_dashboard.html:66
 msgid "Joined"
 msgstr "زمان پیوستن"
 
 #: events/templates/events/event_list.html:100
+#: events/templates/events/splitter_dashboard.html:113
 msgid "No events found"
 msgstr "هیچ رویدادی پیدا نشد"
 
 #: events/templates/events/event_list.html:104
+#: events/templates/events/splitter_dashboard.html:116
 msgid "You haven't joined or created any events yet."
 msgstr "هنوز هیچ رویدادی ایجاد نکرده‌اید یا به رویدادی نپیوسته‌اید."
 
 #: events/templates/events/event_list.html:124
+#: events/templates/events/splitter_dashboard.html:23
+#: events/templates/events/splitter_dashboard.html:132
 msgid "Create a new event"
 msgstr "ایجاد رویداد جدید"
 
 #: events/templates/events/event_list.html:135
+#: events/templates/events/splitter_dashboard.html:140
 msgid "Join an existing one"
 msgstr "پیوستن به یک رویداد"
 
@@ -727,6 +743,7 @@ msgstr "اقدام"
 #: events/templates/events/includes/event/event_join_requests.html:39
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:34
 #: events/templates/events/includes/join_request_list/join_requests.html:33
+#: events/templates/events/includes/splitter_dashboard/join_requests.html:33
 msgid "Requested"
 msgstr "زمان درخواست"
 
@@ -819,19 +836,65 @@ msgid "Next Page"
 msgstr "صفحه بعدی"
 
 #: events/templates/events/includes/join_request_list/join_requests.html:9
+#: events/templates/events/includes/splitter_dashboard/join_requests.html:9
 msgid "Your Join Requests"
 msgstr "درخواست‌های پیوستن شما"
 
 #: events/templates/events/includes/join_request_list/join_requests.html:17
+#: events/templates/events/includes/splitter_dashboard/join_requests.html:17
 msgid ""
 "These are the requests you have sent to join events and are still waiting "
 "for a response."
-msgstr "این‌ها درخواست‌هایی هستند که برای پیوستن به رویدادها ارسال کرده‌اید و هنوز در انتظار پاسخ هستند."
+msgstr ""
+"این‌ها درخواست‌هایی هستند که برای پیوستن به رویدادها ارسال کرده‌اید و هنوز در "
+"انتظار پاسخ هستند."
 
 
 #: events/templates/events/includes/join_request_list/join_requests.html:58
+#: events/templates/events/includes/splitter_dashboard/join_requests.html:70
 msgid "Remove Request"
 msgstr "حذف درخواست"
+
+#: events/templates/events/includes/splitter_dashboard/join_requests.html:48
+msgid "Show All Join Requests"
+msgstr "نمایش همه درخواست‌های پیوستن"
+
+#: events/templates/events/splitter_dashboard.html:15
+#, python-format
+msgid "Welcome %(name)s 👋"
+msgstr "خوش آمدی %(name)s 👋"
+
+#: events/templates/events/splitter_dashboard.html:19
+msgid "Easily split travel or event expenses with your friends."
+msgstr "به‌راحتی هزینه‌های سفر یا رویداد را با دوستانتان تقسیم کنید."
+
+#: events/templates/events/splitter_dashboard.html:25
+msgid "or"
+msgstr "یا"
+
+#: events/templates/events/splitter_dashboard.html:27
+msgid "join an existing one"
+msgstr "پیوستن به یک رویداد"
+
+#: events/templates/events/splitter_dashboard.html:29
+msgid "to get started."
+msgstr "تا شروع کنید."
+
+#: events/templates/events/splitter_dashboard.html:37
+msgid "Your Events"
+msgstr "رویدادهای شما"
+
+#: events/templates/events/splitter_dashboard.html:43
+msgid ""
+"These are the events you are part of. Select one to view details and manage "
+"expenses."
+msgstr ""
+"این‌ها رویدادهایی هستند که در آن‌ها عضو هستید. یکی را انتخاب کنید تا جزئیات را "
+"ببینید و هزینه‌ها را مدیریت کنید."
+
+#: events/templates/events/splitter_dashboard.html:74
+msgid "Show All Events"
+msgstr "نمایش همه رویدادها"
 
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"
