@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-22 07:46+0000\n"
+"POT-Creation-Date: 2026-06-22 17:22+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -18,6 +18,42 @@ msgstr "فارسی"
 #: SplitTrip/settings.py:132 SplitTrip/settings.py:142
 msgid "English"
 msgstr "انگلیسی"
+
+#: accounts/forms.py:190
+msgid "Old password"
+msgstr "رمز عبور فعلی"
+
+#: accounts/forms.py:198
+msgid "New password"
+msgstr "رمز عبور جدید"
+
+#: accounts/forms.py:205
+msgid "Enter your new password"
+msgstr "رمز عبور جدید خود را وارد کنید"
+
+#: accounts/forms.py:208
+msgid "Repeat the new password"
+msgstr "تکرار رمز عبور"
+
+#: accounts/forms.py:212
+msgid "Enter the same password as before, for verification."
+msgstr "برای تایید، همان رمز عبور قبلی را وارد کنید."
+
+#: accounts/templates/accounts/change_password.html:12
+msgid "Change Password"
+msgstr "تغییر رمز عبور"
+
+#: accounts/templates/accounts/change_password.html:13
+msgid "Enter your current password and choose a new one."
+msgstr "رمز عبور فعلی خود را وارد کرده و یک رمز جدید انتخاب کنید."
+
+#: accounts/templates/accounts/change_password.html:36
+msgid "Update Password"
+msgstr "به‌روزرسانی رمز عبور"
+
+#: accounts/templates/accounts/change_password.html:46
+msgid "Back to Home"
+msgstr "بازگشت به صفحه اصلی"
 
 #: core/forms.py:9 core/templates/core/about.html:137
 #: core/templates/core/contact.html:86
@@ -1120,9 +1156,10 @@ msgstr "تقسیم مبالغ"
 
 #: expenses/templates/expenses/expenses_create.html:53
 #: expenses/templates/expenses/includes/expenses_list/expenses.html:40
-#: expenses/templates/expenses/tracker.html:182
-msgid "Add"
-msgstr "افزودن"
+#, fuzzy
+#| msgid "Edit Expense"
+msgid "Add Expense"
+msgstr "ویرایش هزینه"
 
 #: expenses/templates/expenses/expenses_create.html:58
 #: expenses/templates/expenses/expenses_edit.html:42
@@ -1391,6 +1428,7 @@ msgid "Manage"
 msgstr "مدیریت"
 
 #: expenses/templates/expenses/tracker.html:69
+#: expenses/templates/expenses/tracker.html:182
 msgid "Add"
 msgstr "افزودن"
 

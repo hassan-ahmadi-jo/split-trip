@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, Set
 from . import models, services
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 class SignUpForm(forms.ModelForm):
     repeat_password = forms.CharField(
@@ -186,7 +187,7 @@ class ProfileUpdateForm(forms.Form):
 
 class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
-        label="Old password",
+        label=_("Old password"),
         strip=False,
         widget=forms.PasswordInput(
             attrs={"autocomplete": "current-password", "autofocus": True, 'class': 'form-control',}
@@ -194,19 +195,19 @@ class UserPasswordChangeForm(PasswordChangeForm):
     )
 
     new_password1 = forms.CharField(
-            label='New password',
+            label= _('New password'),
             required=True,
             strip=False,
             widget=forms.PasswordInput(attrs={
                 "autocomplete": "new-password",
                 'class': 'form-control',
                 }),
-            help_text="Enter your new password",
+            help_text=_("Enter your new password"),
         )
     new_password2 = forms.CharField(
-        label='Repeat the new password',
+        label=_('Repeat the new password'),
         required=True,
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password", 'class': 'form-control',}),
         strip=False,
-        help_text="Enter the same password as before, for verification.",
+        help_text= _("Enter the same password as before, for verification."),
     )
