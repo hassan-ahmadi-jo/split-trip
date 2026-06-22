@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 17:37+0000\n"
+"POT-Creation-Date: 2026-06-21 17:51+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -1073,14 +1073,17 @@ msgid "Participants Breakdown"
 msgstr "جزئیات سهم شرکت‌کنندگان"
 
 #: expenses/templates/expenses/expense_detail.html:142
+#: expenses/templates/expenses/split_payment.html:91
 msgid "PAYER"
 msgstr "پرداخت‌کننده"
 
 #: expenses/templates/expenses/expense_detail.html:158
+#: expenses/templates/expenses/split_payment.html:111
 msgid "Share Amount"
 msgstr "مبلغ سهم"
 
 #: expenses/templates/expenses/expense_detail.html:185
+#: expenses/templates/expenses/split_payment.html:122
 msgid "Paid Amount"
 msgstr "مبلغ پرداخت‌شده"
 
@@ -1107,6 +1110,7 @@ msgstr "بازگشت به پیگیری هزینه‌ها"
 
 #: expenses/templates/expenses/expenses_create.html:30
 #: expenses/templates/expenses/expenses_edit.html:23
+#: expenses/templates/expenses/split_payment.html:28
 msgid "Split Amounts"
 msgstr "تقسیم مبالغ"
 
@@ -1220,6 +1224,7 @@ msgid "Edit Participant"
 msgstr "ویرایش شرکت‌کننده"
 
 #: expenses/templates/expenses/includes/participant_list/participants.html:248
+#: expenses/templates/expenses/split_payment.html:149
 msgid "No Participants Yet"
 msgstr "هنوز شرکت‌کننده‌ای وجود ندارد"
 
@@ -1232,6 +1237,7 @@ msgstr ""
 "هزینه‌ها را شروع کنید."
 
 #: expenses/templates/expenses/includes/participant_list/participants.html:260
+#: expenses/templates/expenses/split_payment.html:157
 msgid "Create your first participant"
 msgstr "افزودن اولین شرکت‌کننده"
 
@@ -1240,6 +1246,7 @@ msgid "Participant Overview"
 msgstr "نمای کلی شرکت‌کننده"
 
 #: expenses/templates/expenses/participant.html:109
+#: expenses/templates/expenses/split_payment.html:66
 msgid "Total Paid"
 msgstr "مجموع پرداختی"
 
@@ -1266,6 +1273,65 @@ msgstr "نام شرکت‌کننده را وارد کنید."
 #: expenses/templates/expenses/participants_update.html:15
 msgid "Update the participant's name."
 msgstr "نام شرکت‌کننده را به‌روزرسانی کنید."
+
+#: expenses/templates/expenses/split_payment.html:20
+msgid "Details"
+msgstr "جزئیات"
+
+#: expenses/templates/expenses/split_payment.html:42
+msgid "Split Your Trip"
+msgstr "تقسیم هزینه‌های سفر"
+
+#: expenses/templates/expenses/split_payment.html:46
+msgid "Step 02: Assign amounts to each participant."
+msgstr "گام ۲: تعیین سهم برای هر شرکت‌کننده."
+
+#: expenses/templates/expenses/split_payment.html:54
+msgid "Total Shares"
+msgstr "مجموع سهم‌ها"
+
+#: expenses/templates/expenses/split_payment.html:78
+msgid "Not Balanced"
+msgstr "متوازن نیست"
+
+#: expenses/templates/expenses/split_payment.html:103
+msgid "Payer"
+msgstr "پرداخت‌کننده"
+
+#: expenses/templates/expenses/split_payment.html:105
+msgid "Non-Payer"
+msgstr "غیرپرداخت‌کننده"
+
+#: expenses/templates/expenses/split_payment.html:131
+msgid "Enter the amount this person actually paid."
+msgstr "مبلغی که این شخص واقعاً پرداخت کرده را وارد کنید."
+
+#: expenses/templates/expenses/split_payment.html:138
+msgid "+ Add Comment"
+msgstr "+ افزودن توضیحات"
+
+#: expenses/templates/expenses/split_payment.html:152
+msgid ""
+"You haven’t added anyone to this event yet. Start by adding participants to "
+"split expenses."
+msgstr "هنوز کسی را به این رویداد اضافه نکرده‌اید. برای تقسیم هزینه‌ها، ابتدا شرکت‌کنندگان را اضافه کنید."
+
+#: expenses/templates/expenses/split_payment.html:170
+msgid "Back to Details"
+msgstr "بازگشت به جزئیات"
+
+#: expenses/templates/expenses/split_payment.html:173
+msgid "Finalize & Save Expense"
+msgstr "نهایی‌سازی و ذخیره هزینه"
+
+#: expenses/templates/expenses/split_payment.html:178
+msgid "Total Shares and Total Paid must be equal."
+msgstr "مجموع سهم‌ها و مجموع پرداختی باید برابر باشند."
+
+#: expenses/templates/expenses/split_payment.html:182
+msgid "You need to select one or more payers."
+msgstr "باید حداقل یک پرداخت‌کننده انتخاب کنید."
+
 
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"
