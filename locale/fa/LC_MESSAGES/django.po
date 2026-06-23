@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 11:04+0000\n"
+"POT-Creation-Date: 2026-06-23 11:45+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -43,6 +43,10 @@ msgstr "رمز عبور"
 #: accounts/forms.py:111
 msgid "Enter your password"
 msgstr "رمز عبور خود را وارد کنید"
+
+#: accounts/forms.py:117
+msgid "Email address"
+msgstr "آدرس ایمیل"
 
 #: accounts/forms.py:128 accounts/forms.py:198
 msgid "New password"
@@ -169,6 +173,26 @@ msgstr "ثبت‌نام"
 msgid "Password changed successfully"
 msgstr "رمز عبور با موفقیت تغییر کرد"
 
+#: accounts/templates/accounts/password_reset.html:12
+#: accounts/templates/accounts/password_reset_confirm.html:12
+msgid "Password reset"
+msgstr "بازنشانی رمز عبور"
+
+#: accounts/templates/accounts/password_reset.html:13
+msgid ""
+"Forgotten your password? Enter your email address below, and we’ll email "
+"instructions for setting a new one."
+msgstr "رمز عبور خود را فراموش کرده‌اید؟ آدرس ایمیل خود را در زیر وارد کنید تا دستورالعمل‌های لازم برای تعیین رمز عبور جدید را برایتان ایمیل کنیم."
+
+#: accounts/templates/accounts/password_reset.html:22
+#: accounts/templates/accounts/password_reset_confirm.html:29
+msgid "Reset my password"
+msgstr "بازنشانی رمز عبور"
+
+#: accounts/templates/accounts/password_reset.html:25
+msgid "Back to login"
+msgstr "بازگشت به صفحه ورود"
+
 #: accounts/templates/accounts/password_reset_complete.html:12
 msgid ""
 "If an account is associated with this email, the password has been "
@@ -181,17 +205,9 @@ msgstr ""
 msgid "Login page"
 msgstr "صفحه ورود"
 
-#: accounts/templates/accounts/password_reset_confirm.html:12
-msgid "Password reset"
-msgstr "بازنشانی رمز عبور"
-
 #: accounts/templates/accounts/password_reset_confirm.html:13
 msgid "Enter your new password below and confirm it."
 msgstr "رمز عبور جدید خود را در زیر وارد کرده و آن را تأیید کنید."
-
-#: accounts/templates/accounts/password_reset_confirm.html:29
-msgid "Reset my password"
-msgstr "بازنشانی رمز عبور"
 
 #: accounts/templates/accounts/password_reset_done.html:11
 msgid "Email Sent"

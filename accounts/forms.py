@@ -114,12 +114,12 @@ class UserLoginForm(AuthenticationForm):
 
 class PasswordResetForm(PasswordResetForm):
     email = forms.EmailField(
-        label="Email address",
+        label= _("Email address"),
         max_length=254,
         widget=forms.EmailInput(attrs={
             "autocomplete": "email",
             'class': 'form-control',
-            'placeholder': 'Enter your email address',
+            'placeholder': 'YourEmail@gmail.com',
             }),
     )
 
