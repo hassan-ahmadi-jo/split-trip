@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 10:44+0000\n"
+"POT-Creation-Date: 2026-06-23 11:04+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -165,8 +165,21 @@ msgid "Sign up"
 msgstr "ثبت‌نام"
 
 #: accounts/templates/accounts/password_changed_successfully.html:11
+#: accounts/templates/accounts/password_reset_complete.html:11
 msgid "Password changed successfully"
 msgstr "رمز عبور با موفقیت تغییر کرد"
+
+#: accounts/templates/accounts/password_reset_complete.html:12
+msgid ""
+"If an account is associated with this email, the password has been "
+"successfully updated."
+msgstr ""
+"اگر حسابی با این ایمیل مرتبط باشد، رمز عبور با موفقیت به‌روزرسانی شده است."
+
+#: accounts/templates/accounts/password_reset_complete.html:14
+#: accounts/templates/accounts/password_reset_done.html:14
+msgid "Login page"
+msgstr "صفحه ورود"
 
 #: accounts/templates/accounts/password_reset_confirm.html:12
 msgid "Password reset"
@@ -179,6 +192,16 @@ msgstr "رمز عبور جدید خود را در زیر وارد کرده و آ
 #: accounts/templates/accounts/password_reset_confirm.html:29
 msgid "Reset my password"
 msgstr "بازنشانی رمز عبور"
+
+#: accounts/templates/accounts/password_reset_done.html:11
+msgid "Email Sent"
+msgstr "ایمیل ارسال شد"
+
+#: accounts/templates/accounts/password_reset_done.html:12
+msgid ""
+"If an account with that email exists, a password reset link has been sent."
+msgstr ""
+"اگر حسابی با این ایمیل وجود داشته باشد، لینک بازنشانی رمز عبور ارسال شده است."
 
 #: core/forms.py:24
 msgid "Message"
