@@ -125,18 +125,18 @@ class PasswordResetForm(PasswordResetForm):
 
 class PasswordResetConfirmForm(SetPasswordForm):
     new_password1 = forms.CharField(
-        label='Password:',
+        label= _('New password'),
         widget=forms.PasswordInput(
                 attrs={
                 'class': 'form-control',
-                'placeholder': 'New password'
+                'placeholder': _('Enter your new password')
             }))
     new_password2 = forms.CharField(
-        label='Repeat the password:',
+        label= _('Confirm password'),
         widget=forms.PasswordInput(
                 attrs={
                 'class': 'form-control',
-                'placeholder': 'Repeat new password'
+                'placeholder': _('Enter the password againd')
             }))
     
 class ProfileUpdateForm(forms.Form):

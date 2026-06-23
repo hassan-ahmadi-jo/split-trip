@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 06:51+0000\n"
+"POT-Creation-Date: 2026-06-23 10:44+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -44,17 +44,25 @@ msgstr "رمز عبور"
 msgid "Enter your password"
 msgstr "رمز عبور خود را وارد کنید"
 
-#: accounts/forms.py:190
-msgid "Old password"
-msgstr "رمز عبور فعلی"
-
-#: accounts/forms.py:198
+#: accounts/forms.py:128 accounts/forms.py:198
 msgid "New password"
 msgstr "رمز عبور جدید"
 
-#: accounts/forms.py:205
+#: accounts/forms.py:132 accounts/forms.py:205
 msgid "Enter your new password"
 msgstr "رمز عبور جدید خود را وارد کنید"
+
+#: accounts/forms.py:135
+msgid "Confirm password"
+msgstr "تکرار رمز عبور"
+
+#: accounts/forms.py:139
+msgid "Enter the password againd"
+msgstr "رمز عبور را مجدد وارد کنید"
+
+#: accounts/forms.py:190
+msgid "Old password"
+msgstr "رمز عبور فعلی"
 
 #: accounts/forms.py:208
 msgid "Repeat the new password"
@@ -159,6 +167,18 @@ msgstr "ثبت‌نام"
 #: accounts/templates/accounts/password_changed_successfully.html:11
 msgid "Password changed successfully"
 msgstr "رمز عبور با موفقیت تغییر کرد"
+
+#: accounts/templates/accounts/password_reset_confirm.html:12
+msgid "Password reset"
+msgstr "بازنشانی رمز عبور"
+
+#: accounts/templates/accounts/password_reset_confirm.html:13
+msgid "Enter your new password below and confirm it."
+msgstr "رمز عبور جدید خود را در زیر وارد کرده و آن را تأیید کنید."
+
+#: accounts/templates/accounts/password_reset_confirm.html:29
+msgid "Reset my password"
+msgstr "بازنشانی رمز عبور"
 
 #: core/forms.py:24
 msgid "Message"
@@ -1248,10 +1268,8 @@ msgstr "تقسیم مبالغ"
 
 #: expenses/templates/expenses/expenses_create.html:53
 #: expenses/templates/expenses/includes/expenses_list/expenses.html:40
-#, fuzzy
-#| msgid "Edit Expense"
 msgid "Add Expense"
-msgstr "ویرایش هزینه"
+msgstr "افزودن هزینه"
 
 #: expenses/templates/expenses/expenses_create.html:58
 #: expenses/templates/expenses/expenses_edit.html:42
