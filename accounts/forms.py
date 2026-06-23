@@ -73,14 +73,14 @@ class SignUpForm(forms.ModelForm):
 
 class EmailActivationForm(forms.Form):
     verification_code = forms.CharField(
-        label='Verification code:',
+        label= _('Verification code:'),
         max_length=20,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Enter the verification code'
+            'placeholder': '123456'
         }),
         error_messages={
-            'required': 'This field is required.'
+            'required': _('This field is required.')
         }
     )
 

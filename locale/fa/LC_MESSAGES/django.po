@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-22 17:22+0000\n"
+"POT-Creation-Date: 2026-06-23 05:15+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -18,6 +18,14 @@ msgstr "فارسی"
 #: SplitTrip/settings.py:132 SplitTrip/settings.py:142
 msgid "English"
 msgstr "انگلیسی"
+
+#: accounts/forms.py:76
+msgid "Verification code:"
+msgstr "کد تأیید"
+
+#: accounts/forms.py:83 core/forms.py:16 events/forms.py:29 events/forms.py:67
+msgid "This field is required."
+msgstr "پر کردن این فیلد الزامی است"
 
 #: accounts/forms.py:190
 msgid "Old password"
@@ -52,8 +60,45 @@ msgid "Update Password"
 msgstr "به‌روزرسانی رمز عبور"
 
 #: accounts/templates/accounts/change_password.html:46
+#: accounts/templates/accounts/edit_email.html:59
 msgid "Back to Home"
 msgstr "بازگشت به صفحه اصلی"
+
+#: accounts/templates/accounts/edit_email.html:13
+msgid "Verify Your New Email"
+msgstr "تأیید ایمیل جدید"
+
+#: accounts/templates/accounts/edit_email.html:15
+msgid "We've sent a verification code to your new email address."
+msgstr "یک کد تأیید به آدرس ایمیل جدید شما ارسال کردیم."
+
+#: accounts/templates/accounts/edit_email.html:15
+msgid "Enter the code below to confirm the change."
+msgstr "برای تأیید تغییر، کد را وارد کنید."
+
+#: accounts/templates/accounts/edit_email.html:27
+msgid "Verify Email"
+msgstr "تأیید ایمیل"
+
+#: accounts/templates/accounts/edit_email.html:32
+msgid "This is a demo version of SplitTrip. you can use the verification code"
+msgstr "این یک نسخه دمو از SplitTrip است. می‌توانید از کد تأیید"
+
+#: accounts/templates/accounts/edit_email.html:34
+msgid "to activate your account."
+msgstr "برای فعال‌سازی حساب خود استفاده کنید."
+
+#: accounts/templates/accounts/edit_email.html:41
+msgid "Didn't receive the code?"
+msgstr "کد را دریافت نکردید؟"
+
+#: accounts/templates/accounts/edit_email.html:42
+msgid "Resend Email"
+msgstr "ارسال مجدد ایمیل"
+
+#: accounts/templates/accounts/edit_email.html:47
+msgid "Resend available in"
+msgstr "امکان ارسال مجدد پس از"
 
 #: core/forms.py:9 core/templates/core/about.html:137
 #: core/templates/core/contact.html:86
@@ -63,10 +108,6 @@ msgstr "بازگشت به صفحه اصلی"
 #: events/templates/events/includes/event_members_list/members.html:26
 msgid "Email"
 msgstr "ایمیل"
-
-#: core/forms.py:16 events/forms.py:29 events/forms.py:67
-msgid "This field is required."
-msgstr "پر کردن این فیلد الزامی است"
 
 #: core/forms.py:24
 msgid "Message"
