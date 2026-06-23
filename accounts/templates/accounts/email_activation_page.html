@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
   Active Email |
@@ -9,8 +10,8 @@
   <form method="post" class="form-box">
     {% csrf_token %}
     <section class="form-title">
-      <h2>Active Email</h2>
-      <p>Enter the verification code sent to your email:</p>
+      <h2>{% trans "Active Email" %}</h2>
+      <p>{% trans "Enter the verification code sent to your email" %}</p>
       <p>{{ user_email }}</p>
     </section>
     <div>
@@ -21,28 +22,28 @@
       {% endif %}
     </div>
     <div>{{ form.resend_cooldown }}</div>
-    <button type="submit" name="action" value="submit" class="form-button">Active</button>
+    <button type="submit" name="action" value="submit" class="form-button">{% trans "Active" %}</button>
 
     <!-- Demo Version Notice -->
     {% if USE_FIXED_EMAIL_ACTIVATION_CODE %}
       <div class="mt-6 p-4 bg-blue-900/20 border border-blue-800/50 rounded-lg text-sm text-gray-300 text-center">
         <p>
-          This is a demo version of SplitTrip. you can use the verification code
+          {% trans "This is a demo version of SplitTrip. you can use the verification code" %}
           <span class="font-bold text-cyan-400 tracking-widest mx-1">{{ FIXED_EMAIL_ACTIVATION_CODE }}</span>
-          to activate your account.
+          {% trans "to activate your account." %}
         </p>
       </div>
     {% else %}
       <!-- Resend Email -->
       <div class="mt-4 text-center flex flex-col items-center gap-1">
         <div id="resend-btn" class="text-sm text-gray-400 mt-4">
-          Didn't receive the code?
-          <button type="submit" name="action" value="resend-email" formnovalidate class="text-cyan-500 hover:text-cyan-400 transition-colors duration-200 underline underline-offset-2 cursor-pointer focus:outline-none">Resend Email</button>
+          {% trans "Didn't receive the code?" %}
+          <button type="submit" name="action" value="resend-email" formnovalidate class="text-cyan-500 hover:text-cyan-400 transition-colors duration-200 underline underline-offset-2 cursor-pointer focus:outline-none">{% trans "Resend Email" %}</button>
         </div>
 
         <!-- hidden -->
         <p id="resend-timer" class="hidden text-sm text-gray-500">
-          Resend available in <span id="resend-countdown-text" class="font-bold text-gray-400"></span>
+          {% trans "Resend available in" %}<span id="resend-countdown-text" class="mx-1 font-bold text-gray-400"></span>
         </p>
       </div>
     {% endif %}

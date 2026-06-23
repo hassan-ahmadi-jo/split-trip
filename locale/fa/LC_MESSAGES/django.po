@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 05:15+0000\n"
+"POT-Creation-Date: 2026-06-23 05:36+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -81,24 +81,41 @@ msgid "Verify Email"
 msgstr "تأیید ایمیل"
 
 #: accounts/templates/accounts/edit_email.html:32
+#: accounts/templates/accounts/email_activation_page.html:31
 msgid "This is a demo version of SplitTrip. you can use the verification code"
 msgstr "این یک نسخه دمو از SplitTrip است. می‌توانید از کد تأیید"
 
 #: accounts/templates/accounts/edit_email.html:34
+#: accounts/templates/accounts/email_activation_page.html:33
 msgid "to activate your account."
 msgstr "برای فعال‌سازی حساب خود استفاده کنید."
 
 #: accounts/templates/accounts/edit_email.html:41
+#: accounts/templates/accounts/email_activation_page.html:40
 msgid "Didn't receive the code?"
 msgstr "کد را دریافت نکردید؟"
 
 #: accounts/templates/accounts/edit_email.html:42
+#: accounts/templates/accounts/email_activation_page.html:41
 msgid "Resend Email"
 msgstr "ارسال مجدد ایمیل"
 
 #: accounts/templates/accounts/edit_email.html:47
+#: accounts/templates/accounts/email_activation_page.html:46
 msgid "Resend available in"
 msgstr "امکان ارسال مجدد پس از"
+
+#: accounts/templates/accounts/email_activation_page.html:13
+msgid "Active Email"
+msgstr "فعال‌سازی ایمیل"
+
+#: accounts/templates/accounts/email_activation_page.html:14
+msgid "Enter the verification code sent to your email"
+msgstr "کد فعال‌سازی ارسال شده به ایمیل خود را وارد کنید"
+
+#: accounts/templates/accounts/email_activation_page.html:25
+msgid "Active"
+msgstr "فعال‌سازی"
 
 #: core/forms.py:9 core/templates/core/about.html:137
 #: core/templates/core/contact.html:86
