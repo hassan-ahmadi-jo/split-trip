@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 11:45+0000\n"
+"POT-Creation-Date: 2026-06-23 12:04+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -19,16 +19,26 @@ msgstr "فارسی"
 msgid "English"
 msgstr "انگلیسی"
 
-#: accounts/forms.py:76
-msgid "Verification code:"
-msgstr "کد تأیید"
+#: accounts/forms.py:10 accounts/forms.py:135
+msgid "Confirm password"
+msgstr "تکرار رمز عبور"
 
-#: accounts/forms.py:83 core/forms.py:16 events/forms.py:29 events/forms.py:67
-msgid "This field is required."
-msgstr "پر کردن این فیلد الزامی است"
+#: accounts/forms.py:14 accounts/forms.py:139
+msgid "Enter the password againd"
+msgstr "رمز عبور را مجدد وارد کنید"
 
-#: accounts/forms.py:98 core/forms.py:9 core/templates/core/about.html:137
-#: core/templates/core/contact.html:86
+#: accounts/forms.py:22
+#: events/templates/events/includes/event/event_join_requests.html:30
+#: events/templates/events/includes/event/members.html:24
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:31
+#: events/templates/events/includes/event_members_list/members.html:25
+#: expenses/templates/expenses/includes/participant_list/participants.html:60
+#: expenses/templates/expenses/tracker.html:84
+msgid "Name"
+msgstr "نام"
+
+#: accounts/forms.py:23 accounts/forms.py:98 core/forms.py:9
+#: core/templates/core/about.html:137 core/templates/core/contact.html:86
 #: events/templates/events/includes/event/event_join_requests.html:33
 #: events/templates/events/includes/event/members.html:27
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:32
@@ -36,13 +46,34 @@ msgstr "پر کردن این فیلد الزامی است"
 msgid "Email"
 msgstr "ایمیل"
 
-#: accounts/forms.py:106
+#: accounts/forms.py:24 accounts/forms.py:106
 msgid "Password"
 msgstr "رمز عبور"
 
-#: accounts/forms.py:111
+#: accounts/forms.py:30 expenses/forms.py:19
+msgid "Sara"
+msgstr "سارا"
+
+#: accounts/forms.py:40 accounts/forms.py:111
 msgid "Enter your password"
 msgstr "رمز عبور خود را وارد کنید"
+
+#: accounts/forms.py:45 accounts/forms.py:46 accounts/forms.py:47
+#: accounts/forms.py:83 core/forms.py:16 events/forms.py:29 events/forms.py:67
+msgid "This field is required."
+msgstr "پر کردن این فیلد الزامی است"
+
+#: accounts/forms.py:56
+msgid "Name must be at least 3 characters."
+msgstr "نام باید حداقل ۳ کاراکتر باشد."
+
+#: accounts/forms.py:58
+msgid "The password and the repeat password do not match."
+msgstr "رمز عبور و تکرار آن مطابقت ندارند."
+
+#: accounts/forms.py:76
+msgid "Verification code:"
+msgstr "کد تأیید"
 
 #: accounts/forms.py:117
 msgid "Email address"
@@ -55,14 +86,6 @@ msgstr "رمز عبور جدید"
 #: accounts/forms.py:132 accounts/forms.py:205
 msgid "Enter your new password"
 msgstr "رمز عبور جدید خود را وارد کنید"
-
-#: accounts/forms.py:135
-msgid "Confirm password"
-msgstr "تکرار رمز عبور"
-
-#: accounts/forms.py:139
-msgid "Enter the password againd"
-msgstr "رمز عبور را مجدد وارد کنید"
 
 #: accounts/forms.py:190
 msgid "Old password"
@@ -165,6 +188,7 @@ msgid "Don't have an account?"
 msgstr "حساب کاربری ندارید؟"
 
 #: accounts/templates/accounts/login_page.html:38
+#: accounts/templates/accounts/sign_up_page.html:43
 msgid "Sign up"
 msgstr "ثبت‌نام"
 
@@ -182,7 +206,9 @@ msgstr "بازنشانی رمز عبور"
 msgid ""
 "Forgotten your password? Enter your email address below, and we’ll email "
 "instructions for setting a new one."
-msgstr "رمز عبور خود را فراموش کرده‌اید؟ آدرس ایمیل خود را در زیر وارد کنید تا دستورالعمل‌های لازم برای تعیین رمز عبور جدید را برایتان ایمیل کنیم."
+msgstr ""
+"رمز عبور خود را فراموش کرده‌اید؟ آدرس ایمیل خود را در زیر وارد کنید تا "
+"دستورالعمل‌های لازم برای تعیین رمز عبور جدید را برایتان ایمیل کنیم."
 
 #: accounts/templates/accounts/password_reset.html:22
 #: accounts/templates/accounts/password_reset_confirm.html:29
@@ -218,6 +244,22 @@ msgid ""
 "If an account with that email exists, a password reset link has been sent."
 msgstr ""
 "اگر حسابی با این ایمیل وجود داشته باشد، لینک بازنشانی رمز عبور ارسال شده است."
+
+#: accounts/templates/accounts/sign_up_page.html:12
+msgid "Create Your Account"
+msgstr "حساب کاربری خود را ایجاد کنید"
+
+#: accounts/templates/accounts/sign_up_page.html:13
+msgid "Create a new account to get started."
+msgstr "برای شروع، ابتدا یک حساب کاربری ایجاد کنید."
+
+#: accounts/templates/accounts/sign_up_page.html:46
+msgid "Already have an account?"
+msgstr "حساب کاربری دارید؟"
+
+#: accounts/templates/accounts/sign_up_page.html:47
+msgid "Log in"
+msgstr "ورود"
 
 #: core/forms.py:24
 msgid "Message"
@@ -924,15 +966,6 @@ msgstr ""
 "این کاربران درخواست پیوستن به رویداد شما را داده‌اند. می‌توانید درخواست آن‌ها "
 "را بپذیرید یا رد کنید."
 
-#: events/templates/events/includes/event/event_join_requests.html:30
-#: events/templates/events/includes/event/members.html:24
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:31
-#: events/templates/events/includes/event_members_list/members.html:25
-#: expenses/templates/expenses/includes/participant_list/participants.html:60
-#: expenses/templates/expenses/tracker.html:84
-msgid "Name"
-msgstr "نام"
-
 #: events/templates/events/includes/event/event_join_requests.html:36
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:33
 msgid "Action"
@@ -1100,10 +1133,6 @@ msgstr "نمایش همه رویدادها"
 #: expenses/forms.py:14
 msgid "Full name"
 msgstr "نام"
-
-#: expenses/forms.py:19
-msgid "Sara"
-msgstr "سارا"
 
 #: expenses/forms.py:27
 msgid "The name must be at least 3 characters."

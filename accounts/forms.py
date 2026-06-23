@@ -7,11 +7,11 @@ from django.utils.translation import gettext_lazy as _
 
 class SignUpForm(forms.ModelForm):
     repeat_password = forms.CharField(
-        label='Repeat the password:',
+        label= _('Confirm password'),
         widget=forms.PasswordInput(
                 attrs={
                 'class': 'form-control',
-                'placeholder': 'Repeat password'
+                'placeholder': _('Enter the password againd')
             }))
 
     class Meta:
@@ -19,32 +19,32 @@ class SignUpForm(forms.ModelForm):
         fields = ['first_name', 'email', 'password']
 
         labels = {
-            'first_name': 'Name:',
-            'email': 'Email:',
-            'password': 'Password:'
+            'first_name': _('Name'),
+            'email': _('Email'),
+            'password': _('Password')
         }
 
         widgets = {
             'first_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter your name'
+                'placeholder': _('Sara')
             }),
 
             'email': forms.EmailInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Email address'
+                'placeholder': 'YourEmail@gmail.com'
             }),
 
             'password': forms.PasswordInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Password'
+                'placeholder': _('Enter your password')
             })
         }
 
         error_messages = {
-            'first_name': {'required': 'This field is required.'},
-            'email': {'required': 'This field is required.'},
-            'password': {'required': 'This field is required.'},
+            'first_name': {'required': _('This field is required.')},
+            'email': {'required': _('This field is required.')},
+            'password': {'required': _('This field is required.')},
         }
     
     def clean(self):
@@ -53,9 +53,9 @@ class SignUpForm(forms.ModelForm):
         repeat_password = cleaned_data.get('repeat_password')
         name = cleaned_data.get('first_name')
         if len(name) < 3:
-            self.add_error('first_name', 'Name must be at least 3 characters')
+            self.add_error('first_name', _('Name must be at least 3 characters.'))
         elif password != repeat_password:
-            self.add_error('repeat_password', 'The password and the repeat password do not match.')
+            self.add_error('repeat_password', _('The password and the repeat password do not match.'))
         if password:
             try:
                 validate_password(password, self.instance)

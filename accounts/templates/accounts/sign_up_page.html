@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
 Sing Up | 
@@ -8,8 +9,8 @@ Sing Up |
   <form method="post" class="form-box">
     {% csrf_token %}
     <section class="form-title">
-      <h2>Create Your Account</h2>
-      <p>Create a new account to get started.</p>
+      <h2>{% trans "Create Your Account" %}</h2>
+      <p>{% trans "Create a new account to get started." %}</p>
     </section>
     <div>
       <p>{{ form.first_name.label }}</p>
@@ -39,11 +40,11 @@ Sing Up |
         {{ form.repeat_password.errors }}
       {% endif %}
     </div>
-    <button type="submit" class="form-button">Sign up</button>
+    <button type="submit" class="form-button">{% trans "Sign up" %}</button>
     <footer>
       <p>
-        Already have an account?
-        <a href="{% url "login" %}" class="text-cyan-500">Log in</a>
+        {% trans "Already have an account?" %}
+        <a href="{% url "login" %}" class="text-cyan-500">{% trans "Log in" %}</a>
       </p>
     </footer>
   </form>
