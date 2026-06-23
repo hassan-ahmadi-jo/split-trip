@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
 Login |
@@ -8,8 +9,8 @@ Login |
 <form method="post" class="form-box">
   {% csrf_token %}
   <section class="form-title">
-    <h2>Login</h2>
-    <p>Please log in to use the site.</p>
+    <h2>{% trans "Login" %}</h2>
+    <p>{% trans "Please log in to use the site." %}</p>
   </section>
   <div>
     <p>{{ form.username.label }}</p>
@@ -25,20 +26,16 @@ Login |
     {{ form.password.errors }}
     {% endif %}
   </div>
-  <button type="submit" class="form-button">Login</button>
-  <!-- <section class="w-full flex justify-between px-2 mt-10">
-    <a href="{% url 'password_reset' %}">Reset Password</a>
-    <a href="{% url 'sign_up_page' %}">Sign up</a>
-  </section> -->
+  <button type="submit" class="form-button">{% trans "Login" %}</button>
   <footer class="!justify-between">
     <a href="{% url 'password_reset' %}">
-      Forgot password?
+      {% trans "Forgot password?" %}
     </a>
 
     <p>
-      Don't have an account?
+      {% trans "Don't have an account?" %}
       <a href="{% url 'sign_up_page' %}" class="text-cyan-500">
-        Sign up
+        {% trans "Sign up" %}
       </a>
     </p>
   </footer>

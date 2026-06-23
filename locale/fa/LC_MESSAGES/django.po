@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 05:36+0000\n"
+"POT-Creation-Date: 2026-06-23 05:47+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -26,6 +26,23 @@ msgstr "کد تأیید"
 #: accounts/forms.py:83 core/forms.py:16 events/forms.py:29 events/forms.py:67
 msgid "This field is required."
 msgstr "پر کردن این فیلد الزامی است"
+
+#: accounts/forms.py:98 core/forms.py:9 core/templates/core/about.html:137
+#: core/templates/core/contact.html:86
+#: events/templates/events/includes/event/event_join_requests.html:33
+#: events/templates/events/includes/event/members.html:27
+#: events/templates/events/includes/event_join_request_list/event_join_requests.html:32
+#: events/templates/events/includes/event_members_list/members.html:26
+msgid "Email"
+msgstr "ایمیل"
+
+#: accounts/forms.py:106
+msgid "Password"
+msgstr "رمز عبور"
+
+#: accounts/forms.py:111
+msgid "Enter your password"
+msgstr "رمز عبور خود را وارد کنید"
 
 #: accounts/forms.py:190
 msgid "Old password"
@@ -117,14 +134,26 @@ msgstr "کد فعال‌سازی ارسال شده به ایمیل خود را �
 msgid "Active"
 msgstr "فعال‌سازی"
 
-#: core/forms.py:9 core/templates/core/about.html:137
-#: core/templates/core/contact.html:86
-#: events/templates/events/includes/event/event_join_requests.html:33
-#: events/templates/events/includes/event/members.html:27
-#: events/templates/events/includes/event_join_request_list/event_join_requests.html:32
-#: events/templates/events/includes/event_members_list/members.html:26
-msgid "Email"
-msgstr "ایمیل"
+#: accounts/templates/accounts/login_page.html:12
+#: accounts/templates/accounts/login_page.html:29
+msgid "Login"
+msgstr "ورود"
+
+#: accounts/templates/accounts/login_page.html:13
+msgid "Please log in to use the site."
+msgstr "لطفاً برای استفاده از سایت وارد شوید."
+
+#: accounts/templates/accounts/login_page.html:32
+msgid "Forgot password?"
+msgstr "رمز عبور را فراموش کرده‌اید؟"
+
+#: accounts/templates/accounts/login_page.html:36
+msgid "Don't have an account?"
+msgstr "حساب کاربری ندارید؟"
+
+#: accounts/templates/accounts/login_page.html:38
+msgid "Sign up"
+msgstr "ثبت‌نام"
 
 #: core/forms.py:24
 msgid "Message"

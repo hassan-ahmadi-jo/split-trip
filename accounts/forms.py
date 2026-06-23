@@ -95,20 +95,20 @@ class EmailActivationForm(forms.Form):
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=150,
-        label='Email',
+        label= _('Email'),
         widget=forms.EmailInput(attrs={
             "autofocus": True,
             'class': 'form-control',
-            'placeholder': 'Email',
+            'placeholder': 'YourEmail@gmail.com',
             }))
     password = forms.CharField(
         max_length=150,
-        label="Password",
+        label= _("Password"),
         strip=False,
         widget=forms.PasswordInput(attrs={
             "autocomplete": "current-password",
             'class': 'form-control',
-            'placeholder': 'Password',
+            'placeholder': _("Enter your password"),
             }),
     )
 
