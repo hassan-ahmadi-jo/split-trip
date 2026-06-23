@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 05:47+0000\n"
+"POT-Creation-Date: 2026-06-23 06:51+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -78,6 +78,7 @@ msgstr "به‌روزرسانی رمز عبور"
 
 #: accounts/templates/accounts/change_password.html:46
 #: accounts/templates/accounts/edit_email.html:59
+#: accounts/templates/accounts/password_changed_successfully.html:22
 msgid "Back to Home"
 msgstr "بازگشت به صفحه اصلی"
 
@@ -154,6 +155,10 @@ msgstr "حساب کاربری ندارید؟"
 #: accounts/templates/accounts/login_page.html:38
 msgid "Sign up"
 msgstr "ثبت‌نام"
+
+#: accounts/templates/accounts/password_changed_successfully.html:11
+msgid "Password changed successfully"
+msgstr "رمز عبور با موفقیت تغییر کرد"
 
 #: core/forms.py:24
 msgid "Message"
