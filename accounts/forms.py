@@ -147,26 +147,26 @@ class ProfileUpdateForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     first_name = forms.CharField(
-        label='Name:',
+        label= _('Name'),
         max_length=130,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Hassan Ahmadi'
+            'placeholder': _('Sara')
         }),
         error_messages={
-            'required': 'This field is required.'
+            'required': _('This field is required.')
         }
     )
 
     email = forms.EmailField(
-        label='Email:',
+        label= _('Email'),
         max_length=120,
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
             'placeholder': 'YourEmail@gmail.com'
         }),
         error_messages={
-            'required': 'This field is required.'
+            'required': _('This field is required.')
         }
     )
 

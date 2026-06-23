@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 12:04+0000\n"
+"POT-Creation-Date: 2026-06-23 18:55+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -27,7 +27,7 @@ msgstr "تکرار رمز عبور"
 msgid "Enter the password againd"
 msgstr "رمز عبور را مجدد وارد کنید"
 
-#: accounts/forms.py:22
+#: accounts/forms.py:22 accounts/forms.py:150
 #: events/templates/events/includes/event/event_join_requests.html:30
 #: events/templates/events/includes/event/members.html:24
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:31
@@ -37,8 +37,9 @@ msgstr "رمز عبور را مجدد وارد کنید"
 msgid "Name"
 msgstr "نام"
 
-#: accounts/forms.py:23 accounts/forms.py:98 core/forms.py:9
-#: core/templates/core/about.html:137 core/templates/core/contact.html:86
+#: accounts/forms.py:23 accounts/forms.py:98 accounts/forms.py:162
+#: core/forms.py:9 core/templates/core/about.html:137
+#: core/templates/core/contact.html:86
 #: events/templates/events/includes/event/event_join_requests.html:33
 #: events/templates/events/includes/event/members.html:27
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:32
@@ -50,7 +51,7 @@ msgstr "ایمیل"
 msgid "Password"
 msgstr "رمز عبور"
 
-#: accounts/forms.py:30 expenses/forms.py:19
+#: accounts/forms.py:30 accounts/forms.py:154 expenses/forms.py:19
 msgid "Sara"
 msgstr "سارا"
 
@@ -59,7 +60,8 @@ msgid "Enter your password"
 msgstr "رمز عبور خود را وارد کنید"
 
 #: accounts/forms.py:45 accounts/forms.py:46 accounts/forms.py:47
-#: accounts/forms.py:83 core/forms.py:16 events/forms.py:29 events/forms.py:67
+#: accounts/forms.py:83 accounts/forms.py:157 accounts/forms.py:169
+#: core/forms.py:16 events/forms.py:29 events/forms.py:67
 msgid "This field is required."
 msgstr "پر کردن این فیلد الزامی است"
 
@@ -100,6 +102,7 @@ msgid "Enter the same password as before, for verification."
 msgstr "برای تایید، همان رمز عبور قبلی را وارد کنید."
 
 #: accounts/templates/accounts/change_password.html:12
+#: accounts/templates/accounts/profile.html:52
 msgid "Change Password"
 msgstr "تغییر رمز عبور"
 
@@ -114,6 +117,8 @@ msgstr "به‌روزرسانی رمز عبور"
 #: accounts/templates/accounts/change_password.html:46
 #: accounts/templates/accounts/edit_email.html:59
 #: accounts/templates/accounts/password_changed_successfully.html:22
+#: accounts/templates/accounts/profile.html:65
+#: accounts/templates/accounts/profile_update.html:39
 msgid "Back to Home"
 msgstr "بازگشت به صفحه اصلی"
 
@@ -244,6 +249,25 @@ msgid ""
 "If an account with that email exists, a password reset link has been sent."
 msgstr ""
 "اگر حسابی با این ایمیل وجود داشته باشد، لینک بازنشانی رمز عبور ارسال شده است."
+
+#: accounts/templates/accounts/profile.html:38
+msgid "Member since"
+msgstr "عضو از"
+
+#: accounts/templates/accounts/profile.html:46
+#: accounts/templates/accounts/profile_update.html:12
+msgid "Edit Profile"
+msgstr "ویرایش پروفایل"
+
+#: accounts/templates/accounts/profile_update.html:13
+msgid "Update your information."
+msgstr "اطلاعات خود را به‌روزرسانی کنید."
+
+#: accounts/templates/accounts/profile_update.html:29
+#: events/templates/events/event_update.html:26
+#: expenses/templates/expenses/participants_update.html:29
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
 
 #: accounts/templates/accounts/sign_up_page.html:12
 msgid "Create Your Account"
@@ -946,11 +970,6 @@ msgstr "پیوستن به یک رویداد"
 #: events/templates/events/event_update.html:14
 msgid "Update the event's name."
 msgstr "نام رویداد را بروز کنید"
-
-#: events/templates/events/event_update.html:26
-#: expenses/templates/expenses/participants_update.html:29
-msgid "Save Changes"
-msgstr "ذخیره تغییرات"
 
 #: events/templates/events/includes/event/event_join_requests.html:13
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:12
