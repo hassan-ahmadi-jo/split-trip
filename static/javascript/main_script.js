@@ -1,4 +1,6 @@
 const priceEls = document.querySelectorAll('.js-price')
+const langMenuEl = document.getElementById('lang-menu');
+const toggleButtonEl = langMenuEl.querySelector('button');
 
 const formatPrice = function (price) {
     let number = String(price).replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');
@@ -42,4 +44,14 @@ const formatPrice = function (price) {
 
 // priceEls.forEach(element => element.value = formatPrice(element.value));
 priceEls.forEach(element => element.textContent = formatPrice(element.textContent));
+
+toggleButtonEl.addEventListener('click', function() {
+    langMenuEl.classList.toggle('active-box');    
+});
+document.addEventListener('click', (event) => {
+    if (!langMenuEl.contains(event.target)) {
+        langMenuEl.classList.remove('active-box');
+    }
+});
+
 

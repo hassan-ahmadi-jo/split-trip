@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 18:55+0000\n"
+"POT-Creation-Date: 2026-06-24 07:28+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -176,7 +176,8 @@ msgid "Active"
 msgstr "فعال‌سازی"
 
 #: accounts/templates/accounts/login_page.html:12
-#: accounts/templates/accounts/login_page.html:29
+#: accounts/templates/accounts/login_page.html:29 templates/base.html:112
+#: templates/base.html:183
 msgid "Login"
 msgstr "ورود"
 
@@ -417,7 +418,9 @@ msgstr "لینکدین"
 msgid "GitHub"
 msgstr "گیت‌هاب"
 
-#: core/templates/core/apps.html:14
+#: core/templates/core/apps.html:14 templates/base.html:158
+#: templates/includes/footer_nav_items.html:26
+#: templates/includes/header_nav_items.html:25
 msgid "Apps"
 msgstr "اپ‌ها"
 
@@ -497,7 +500,9 @@ msgstr ""
 msgid "Open the app"
 msgstr "باز کردن برنامه"
 
-#: core/templates/core/contact.html:15
+#: core/templates/core/contact.html:15 templates/base.html:170
+#: templates/includes/footer_nav_items.html:74
+#: templates/includes/header_nav_items.html:70
 msgid "Contact"
 msgstr "تماس"
 
@@ -1656,6 +1661,49 @@ msgstr "ثبت اولین هزینه"
 #: expenses/templates/expenses/tracker.html:245
 msgid "View All Expenses"
 msgstr "مشاهده همه هزینه‌ها"
+
+#: templates/base.html:95 templates/base.html:176
+msgid "My Profile"
+msgstr "پروفایل من"
+
+#: templates/base.html:113 templates/base.html:187
+msgid "Sign Up"
+msgstr "ثبت‌نام"
+
+#: templates/base.html:141
+msgid ""
+"The easiest way to plan group trips, track expenses, and split costs "
+"effortlessly."
+msgstr "ساده‌ترین روش برای برنامه‌ریزی سفرهای گروهی، پیگیری هزینه‌ها و تقسیم آسان مخارج."
+
+#: templates/base.html:146
+msgid "Quick Links"
+msgstr "لینک‌های سریع"
+
+#: templates/base.html:152 templates/includes/footer_nav_items.html:14
+#: templates/includes/header_nav_items.html:14
+msgid "Home"
+msgstr "خانه"
+
+#: templates/base.html:164 templates/includes/footer_nav_items.html:62
+#: templates/includes/header_nav_items.html:59
+msgid "About"
+msgstr "درباره ما"
+
+#: templates/base.html:195
+msgid "Connect"
+msgstr "ارتباط"
+
+#: templates/includes/footer_nav_items.html:38
+#: templates/includes/header_nav_items.html:37
+msgid "Docs"
+msgstr "مستندات"
+
+#: templates/includes/footer_nav_items.html:50
+#: templates/includes/header_nav_items.html:48
+msgid "Blog"
+msgstr "وبلاگ"
+
 
 #~ msgid "Created on"
 #~ msgstr "یک رویداد ایجاد کنید"

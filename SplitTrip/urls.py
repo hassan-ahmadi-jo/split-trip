@@ -40,7 +40,10 @@ urlpatterns += i18n_patterns(
     path('api-auth/', include('rest_framework.urls')),
 
     # ROSETTA
-    path('rosetta/', include('rosetta.urls'))
+    path('rosetta/', include('rosetta.urls')),
+
+    # I18N
+    path('i18n/', include('django.conf.urls.i18n')),
 )
 
 
