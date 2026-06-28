@@ -26,12 +26,14 @@
             </div>
           </div>
 
-          <div class="flex items-baseline gap-2 text-cyan-400 bg-cyan-950/30 w-max px-4 py-2 rounded-xl border border-cyan-900/50">
-            <span class="text-sm font-bold text-gray-400 uppercase tracking-wider">{% trans 'Total Cost:' %}</span>
+          <div class="flex flex-col sm:flex-row items-baseline gap-2 text-cyan-400 bg-cyan-950/30 w-max px-4 py-2 rounded-xl border border-cyan-900/50">
+            <span class="text-sm text-start w-full font-bold text-gray-400 uppercase tracking-wider">{% trans 'Total Cost:' %}</span>
 
-            <span class="text-3xl font-black font-mono js-price js-share">{{ expense.total_amount }}</span>
+            <div class="flex gap-2 items-center">
+              <span class="text-3xl font-black font-mono js-price js-share">{{ expense.total_amount }}</span>
 
-            <span class="text-xs font-bold opacity-70">{{ currency_unit|upper }}</span>
+              <span class="text-xs font-bold opacity-70">{{ currency_unit|upper }}</span>
+            </div>
           </div>
         </div>
 
@@ -121,18 +123,22 @@
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {% for payment in payments %}
           <div class="bg-gray-900/60 border {% if payment.paid_amount > 0 %}
+              
               
               
               border-emerald-500/30 shadow-[0_4px_20px_rgba(16,185,129,0.05)]
 
 
+
             {% else %}
               
               
+              
               border-gray-700/50
+
 
 
             {% endif %}
@@ -151,7 +157,7 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <!-- Share Amount -->
               <div class="bg-gray-950/50 rounded-xl p-3 border border-gray-800/80">
                 <p class="text-[10px] font-bold text-gray-500 uppercase mb-1 tracking-wider">
@@ -171,13 +177,17 @@
                 {% if payment.paid_amount > 0 %}
                     
                     
+                    
                     text-emerald-500
+
 
 
                   {% else %}
                     
                     
+                    
                     text-gray-500
+
 
 
                   {% endif %}
@@ -189,13 +199,17 @@
                 {% if payment.paid_amount > 0 %}
                     
                     
+                    
                     text-emerald-400
+
 
 
                   {% else %}
                     
                     
+                    
                     text-gray-500
+
 
 
                   {% endif %}">

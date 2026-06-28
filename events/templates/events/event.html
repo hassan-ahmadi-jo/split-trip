@@ -7,317 +7,190 @@
 {% endblock %}
 
 {% block content %}
-<!-- Main Container -->
-<section class="w-11/12 max-w-6xl mx-auto my-10 space-y-8">
+  <!-- Main Container -->
+  <section class="w-11/12 max-w-6xl mx-auto my-10 space-y-8">
+    <!-- Header Section -->
+    <header class="border-b flex flex-col md:flex-row border-gray-700/80 pb-6 justify-between items-center">
+      <div class="order-2 md:order-1 me-auto">
+        <h1 class="font-black text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2 tracking-tight">{{ membership.event.title|title }}</h1>
 
-  <!-- Header Section -->
-  <header class="border-b border-gray-700/80 pb-6 flex justify-between items-center">
-    <div>
-      <h1 class="font-black text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2 tracking-tight">
-        {{ membership.event.title|title }}
-      </h1>
+        <p class="text-gray-400 text-sm md:text-base">
+          {% trans 'Event Dashboard & Details' %}
+        </p>
+      </div>
 
-      <p class="text-gray-400 text-sm md:text-base">
-        {% trans "Event Dashboard & Details" %}
-      </p>
-    </div>
+      {% if event.creator == user %}
+        <div class="w-full order-1 md:order-2 md:w-fit mb-3">
+          <div class="flex ms-auto w-fit items-center bg-gray-800 gap-2 p-1.5 h-14 rounded-2xl border border-gray-700/80 shadow-inner">
+            <a href="{% url 'event_edit' event_code=event.code %}" class="js-access-restricted group/edit px-5 py-2.5 rounded-xl text-sm font-bold text-cyan-400 hover:text-white hover:bg-cyan-600 transition-all flex items-center gap-2" title="{% trans 'Edit Event' %}">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
 
-    {% if event.creator == user %}
+              {% trans 'Edit' %}
+            </a>
 
-    <div class="flex items-center bg-gray-800 gap-2 p-1.5 h-14 rounded-2xl border border-gray-700/80 shadow-inner">
+            <div class="w-px h-6 bg-gray-700"></div>
 
-      <a href="{% url 'event_edit' event_code=event.code %}"
-         class="js-access-restricted group/edit px-5 py-2.5 rounded-xl text-sm font-bold text-cyan-400 hover:text-white hover:bg-cyan-600 transition-all flex items-center gap-2"
-         title="{% trans 'Edit Event' %}">
+            <form action="{% url 'event_delete' event_code=event.code %}" method="post" class="m-0 p-0">
+              {% csrf_token %}
 
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="w-4 h-4"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke="currentColor"
-             stroke-width="2"
-             aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round"
-          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-        </svg>
+              <button name="delete_event" value="{{ event.id }}" type="submit" class="js-access-restricted group/delete cursor-pointer px-5 py-2.5 rounded-xl text-sm font-bold text-red-400 hover:text-white hover:bg-red-600 transition-all flex items-center gap-2" title="{% trans 'Delete Event' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover/delete:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
 
-        {% trans "Edit" %}
-      </a>
+                {% trans 'Delete' %}
+              </button>
+            </form>
+          </div>
+        </div>
+      {% else %}
+        <div class="flex items-center bg-gray-800 gap-2 p-1.5 h-14 rounded-2xl border border-gray-700/80 shadow-inner">
+          <form action="{% url 'leave_event' event_code=event.code %}" method="post" class="m-0 p-0">
+            {% csrf_token %}
 
-      <div class="w-px h-6 bg-gray-700"></div>
+            <button type="submit" class="group/leave cursor-pointer px-5 py-2.5 rounded-xl text-sm font-bold text-orange-400 hover:text-white hover:bg-orange-500 transition-all flex items-center gap-2" title="{% trans 'Leave Event' %}">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 rtl:scale-x-[-1] transform group-hover/leave:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
 
-      <form action="{% url 'event_delete' event_code=event.code %}" method="post" class="m-0 p-0">
-        {% csrf_token %}
+              {% trans 'Leave Event' %}
+            </button>
+          </form>
+        </div>
+      {% endif %}
+    </header>
 
-        <button name="delete_event"
-                value="{{ event.id }}"
-                type="submit"
-                class="js-access-restricted group/delete cursor-pointer px-5 py-2.5 rounded-xl text-sm font-bold text-red-400 hover:text-white hover:bg-red-600 transition-all flex items-center gap-2"
-                title="{% trans 'Delete Event' %}">
-
-          <svg xmlns="http://www.w3.org/2000/svg"
-               class="w-4 h-4 group-hover/delete:scale-110 transition-transform"
-               fill="none"
-               viewBox="0 0 24 24"
-               stroke="currentColor"
-               stroke-width="2"
-               aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round"
-            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-          </svg>
-
-          {% trans "Delete" %}
-        </button>
-
-      </form>
-
-    </div>
-
-    {% else %}
-
-    <div class="flex items-center bg-gray-800 gap-2 p-1.5 h-14 rounded-2xl border border-gray-700/80 shadow-inner">
-
-      <form action="{% url 'leave_event' event_code=event.code %}" method="post" class="m-0 p-0">
-        {% csrf_token %}
-
-        <button type="submit"
-                class="group/leave cursor-pointer px-5 py-2.5 rounded-xl text-sm font-bold text-orange-400 hover:text-white hover:bg-orange-500 transition-all flex items-center gap-2"
-                title="{% trans 'Leave Event' %}">
-
-          <svg xmlns="http://www.w3.org/2000/svg"
-               class="w-4 h-4 rtl:scale-x-[-1] transform group-hover/leave:translate-x-1 transition-transform duration-200"
-               fill="none"
-               viewBox="0 0 24 24"
-               stroke="currentColor"
-               stroke-width="2"
-               aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round"
-            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-          </svg>
-
-          {% trans "Leave Event" %}
-        </button>
-
-      </form>
-
-    </div>
-
-    {% endif %}
-  </header>
-
-
-  <!-- Content Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-    <!-- Event Info -->
-    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg flex flex-col">
-
-      <h2 class="text-lg font-semibold text-gray-100 mb-5 flex items-center gap-2">
-
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Content Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Event Info -->
+      <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg flex flex-col">
+        <h2 class="text-lg font-semibold text-gray-100 mb-5 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="16" x2="12" y2="12"></line>
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
           </svg>
 
-        {% trans "Event Details" %}
-      </h2>
+          {% trans 'Event Details' %}
+        </h2>
 
+        <div class="space-y-4 flex-grow">
+          <!-- Event Code -->
+          <div class="flex items-center justify-between bg-gray-900/50 p-3 rounded-lg border border-gray-700/50">
+            <span class="text-gray-400 text-sm font-medium">{% trans 'Invitation Code' %}</span>
 
-      <div class="space-y-4 flex-grow">
-
-        <!-- Event Code -->
-        <div class="flex items-center justify-between bg-gray-900/50 p-3 rounded-lg border border-gray-700/50">
-          <span class="text-gray-400 text-sm font-medium">
-            {% trans "Invitation Code" %}
-          </span>
-
-          <span class="font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded text-sm tracking-wider border border-cyan-500/20 select-all">
-            {{ membership.event.code }}
-          </span>
-        </div>
-
-
-        <!-- Creator -->
-        <div class="flex items-start gap-3 text-gray-300 pt-2">
-
-          <svg xmlns="http://www.w3.org/2000/svg"
-               class="w-5 h-5 text-gray-500 mt-0.5"
-               viewBox="0 0 24 24"
-               fill="none"
-               stroke="currentColor"
-               stroke-width="2"
-               aria-hidden="true">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-
-          <div>
-            <p class="text-sm text-gray-400">{% trans "Created by" %}</p>
-            <p class="font-medium">{{ membership.event.creator.first_name|title }}</p>
-            <p class="text-sm text-gray-500 mt-0.5 hover:text-cyan-400 transition-colors cursor-pointer">
-              {{ membership.event.creator.email }}
-            </p>
+            <span class="font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded text-sm tracking-wider border border-cyan-500/20 select-all">{{ membership.event.code }}</span>
           </div>
 
+          <!-- Creator -->
+          <div class="flex items-start gap-3 text-gray-300 pt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+
+            <div>
+              <p class="text-sm text-gray-400">
+                {% trans 'Created by' %}
+              </p>
+              <p class="font-medium">{{ membership.event.creator.first_name|title }}</p>
+              <p class="text-sm text-gray-500 mt-0.5 hover:text-cyan-400 transition-colors cursor-pointer">{{ membership.event.creator.email }}</p>
+            </div>
+          </div>
+
+          <!-- Creation Date -->
+          <div class="flex items-center gap-3 text-gray-400 pt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+
+            <span class="text-sm">
+              {% blocktrans with date=membership.event.created_at|date:'F j, Y' %}Created on <span class="text-gray-300">{{ date }}</span>
+              {% endblocktrans %}
+            </span>
+          </div>
         </div>
-
-
-        <!-- Creation Date -->
-        <div class="flex items-center gap-3 text-gray-400 pt-2">
-
-          <svg xmlns="http://www.w3.org/2000/svg"
-               class="w-5 h-5 text-gray-500"
-               viewBox="0 0 24 24"
-               fill="none"
-               stroke="currentColor"
-               stroke-width="2"
-               aria-hidden="true">
-            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-
-          <span class="text-sm">
-            {% blocktrans with date=membership.event.created_at|date:'F j, Y' %}
-            Created on <span class="text-gray-300">{{ date }}</span>
-            {% endblocktrans %}
-          </span>
-
-        </div>
-
       </div>
-    </div>
 
+      <!-- User Role -->
+      <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg flex flex-col">
+        <h2 class="text-lg font-semibold text-gray-100 mb-5 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
 
-    <!-- User Role -->
-    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg flex flex-col">
+          {% trans 'Your Access Level' %}
+        </h2>
 
-      <h2 class="text-lg font-semibold text-gray-100 mb-5 flex items-center gap-2">
-
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="w-5 h-5 text-cyan-500"
-             viewBox="0 0 24 24"
-             fill="none"
-             stroke="currentColor"
-             stroke-width="2"
-             aria-hidden="true">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-
-        {% trans "Your Access Level" %}
-      </h2>
-
-      <div class="space-y-5 flex-grow">
-
-        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-          {% blocktrans with name=user.first_name|default:user.username|title date=membership.joined_at|date:'F j, Y' %}
-          Hello <span class="font-medium text-gray-100">{{ name }}</span>, you joined this event on
-          <span class="font-medium text-cyan-400">{{ date }}</span>.
-          {% endblocktrans %}
-        </p>
-
-        <div class="bg-gray-900/60 rounded-lg p-5 border border-gray-700/60 mt-4">
-
-          <div class="flex items-center gap-3 mb-3">
-            <span class="text-gray-400 text-sm font-medium">{% trans "Your Role:" %}</span>
-
-            {% if membership.event.creator == user %}
-              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                {% trans "Owner" %}
-              </span>
-            {% elif membership.can_edit_event_info %}
-              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                {% trans "Admin" %}
-              </span>
-            {% else %}
-              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-600/20 text-gray-300 border border-gray-600/30">
-                {% trans "Member" %}
-              </span>
-            {% endif %}
-          </div>
-
-          <p class="text-sm text-gray-400 leading-relaxed border-t border-gray-700/50 pt-3">
-
-            {% if membership.event.creator == user %}
-              {% trans "You have full access. You can manage users, change event settings, and create or edit expenses." %}
-            {% elif membership.can_edit_event_info %}
-              {% trans "You have administrative access. You can create or edit expenses within this event." %}
-            {% else %}
-              {% trans "You have view-only access. You can observe the expenses but cannot make modifications." %}
-            {% endif %}
-
+        <div class="space-y-5 flex-grow">
+          <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+            {% blocktrans with name=user.first_name|default:user.username|title date=membership.joined_at|date:'F j, Y' %}Hello <span class="font-medium text-gray-100">{{ name }}</span>, you joined this event on
+            <span class="font-medium text-cyan-400">{{ date }}</span>.{% endblocktrans %}
           </p>
 
+          <div class="bg-gray-900/60 rounded-lg p-5 border border-gray-700/60 mt-4">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-gray-400 text-sm font-medium">{% trans 'Your Role:' %}</span>
+
+              {% if membership.event.creator == user %}
+                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">{% trans 'Owner' %}</span>
+              {% elif membership.can_edit_event_info %}
+                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">{% trans 'Admin' %}</span>
+              {% else %}
+                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-600/20 text-gray-300 border border-gray-600/30">{% trans 'Member' %}</span>
+              {% endif %}
+            </div>
+
+            <p class="text-sm text-gray-400 leading-relaxed border-t border-gray-700/50 pt-3">
+              {% if membership.event.creator == user %}
+                {% trans 'You have full access. You can manage users, change event settings, and create or edit expenses.' %}
+              {% elif membership.can_edit_event_info %}
+                {% trans 'You have administrative access. You can create or edit expenses within this event.' %}
+              {% else %}
+                {% trans 'You have view-only access. You can observe the expenses but cannot make modifications.' %}
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPENSE TRACKER LINK -->
+  <section class="w-11/12 max-w-6xl mx-auto my-10">
+    <a href="{% url 'tracker' event_code=event.code %}" class="group relative flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-indigo-900 to-gray-800 border border-indigo-500/30 hover:border-indigo-400/60 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-indigo-500/20 overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+      <div class="relative flex items-center gap-5 z-10">
+        <div class="p-4 hidden min-[400px]:!block bg-indigo-500/20 rounded-xl text-indigo-400 group-hover:text-indigo-300 group-hover:scale-110 transition-all duration-300 shadow-inner">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
         </div>
 
+        <div>
+          <h3 class="text-xl font-bold tracking-wide text-gray-100 group-hover:text-white transition-colors">{% trans 'Manage Expenses & Splits' %}</h3>
+
+          <p class="text-sm text-gray-400 mt-1 max-w-lg">
+            {% trans 'Go to the dedicated tracker to record costs, add specific participants, and calculate who owes what.' %}
+          </p>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
 
+      <div class="relative z-10 flex items-center gap-2 text-indigo-400 font-semibold group-hover:text-indigo-300 transition-colors mt-4 sm:mt-0 bg-gray-900/50 px-4 py-2 rounded-lg border border-indigo-500/20">
+        <span class="tracking-wide uppercase text-sm">{% trans 'Open Tracker' %}</span>
 
-<!-- EXPENSE TRACKER LINK -->
-<section class="w-11/12 max-w-6xl mx-auto my-10">
-
-  <a href="{% url 'tracker' event_code=event.code %}"
-     class="group relative flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-indigo-900 to-gray-800 border border-indigo-500/30 hover:border-indigo-400/60 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-indigo-500/20 overflow-hidden">
-
-    <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-    <div class="relative flex items-center gap-5 z-10">
-
-      <div class="p-4 bg-indigo-500/20 rounded-xl text-indigo-400 group-hover:text-indigo-300 group-hover:scale-110 transition-all duration-300 shadow-inner">
-
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="w-8 h-8"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke="currentColor"
-             stroke-width="2"
-             aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round"
-          d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 rtl:scale-x-[-1] transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
-
       </div>
-
-      <div>
-        <h3 class="text-xl font-bold tracking-wide text-gray-100 group-hover:text-white transition-colors">
-          {% trans "Manage Expenses & Splits" %}
-        </h3>
-
-        <p class="text-sm text-gray-400 mt-1 max-w-lg">
-          {% trans "Go to the dedicated tracker to record costs, add specific participants, and calculate who owes what." %}
-        </p>
-      </div>
-
-    </div>
-
-
-    <div class="relative z-10 flex items-center gap-2 text-indigo-400 font-semibold group-hover:text-indigo-300 transition-colors mt-4 sm:mt-0 bg-gray-900/50 px-4 py-2 rounded-lg border border-indigo-500/20">
-
-      <span class="tracking-wide uppercase text-sm">
-        {% trans "Open Tracker" %}
-      </span>
-
-      <svg xmlns="http://www.w3.org/2000/svg"
-           class="w-5 h-5 rtl:scale-x-[-1] transform group-hover:translate-x-1 transition-transform"
-           fill="none"
-           viewBox="0 0 24 24"
-           stroke="currentColor"
-           stroke-width="2"
-           aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round"
-        d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-      </svg>
-
-    </div>
-
-  </a>
-
-</section>
+    </a>
+  </section>
 
   <!-- 🟢 MEMBERS SECTION -->
   <div class="js-ajax-container">
@@ -330,25 +203,16 @@
   </div>
 
   <!-- 🟢 BACK TO splitter_dashboard BUTTON -->
-<div class="w-full flex justify-center mt-4 mb-16">
-    <a href="{% url 'splitter_dashboard' %}"
-       class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
+  <div class="w-full flex justify-center mt-4 mb-16">
+    <a href="{% url 'splitter_dashboard' %}" class="group flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/30 hover:bg-gray-800 border border-gray-700/80 hover:border-cyan-500/50 rounded-full text-sm font-medium text-gray-400 hover:text-cyan-400 transition-all duration-300 backdrop-blur-sm shadow-sm hover:shadow-cyan-500/10">
+      <!-- Arrow Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 rtl:scale-x-[-1] transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
 
-        <!-- Arrow Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="w-4 h-4 transform group-hover:-translate-x-1 rtl:scale-x-[-1] transition-transform duration-300"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke="currentColor"
-             stroke-width="2"
-             aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-
-        {% trans "Back to App Dashboard" %}
+      {% trans 'Back to App Dashboard' %}
     </a>
-</div>
+  </div>
 {% endblock %}
 
 {% block script %}
