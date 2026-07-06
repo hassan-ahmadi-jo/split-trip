@@ -10,7 +10,7 @@ from rest_framework.exceptions import NotFound
 from django.db import transaction
 from rest_framework.exceptions import PermissionDenied
 
-class HomeAPI(APIView):
+class SplitterDashboardAPI(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request: Request):
         user = request.user

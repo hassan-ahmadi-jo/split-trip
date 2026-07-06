@@ -18,7 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
-urlpatterns = []
+urlpatterns = [
+    # --- API
+        # --- App
+    path('api/apps/splitter/', include('events.urls.api_urls')),
+]
 
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
@@ -30,8 +34,6 @@ urlpatterns += i18n_patterns(
     path('apps/splitter/', include('events.urls.web_urls')),
     path('apps/splitter/events/<str:event_code>/tracker/', include('expenses.urls')),
 
-    # --- API
-    path('api/events/', include('events.urls.api_urls')),
 
     # --- Accounts
     path('accounts/', include('accounts.urls')),
