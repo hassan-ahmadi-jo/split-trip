@@ -110,8 +110,7 @@
             </svg>
 
             <span class="text-sm">
-              {% blocktrans with date=membership.event.created_at|date:'F j, Y' %}Created on <span class="text-gray-300">{{ date }}</span>
-              {% endblocktrans %}
+              {% trans "Created on" %} <span class="text-gray-300">{{ membership.event.created_at|date:'F j, Y' }}</span>
             </span>
           </div>
         </div>
@@ -129,8 +128,8 @@
 
         <div class="space-y-5 flex-grow">
           <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-            {% blocktrans with name=user.first_name|default:user.username|title date=membership.joined_at|date:'F j, Y' %}Hello <span class="font-medium text-gray-100">{{ name }}</span>, you joined this event on
-            <span class="font-medium text-cyan-400">{{ date }}</span>.{% endblocktrans %}
+            {% trans "Hello" %} <span class="font-medium text-gray-100">{{ user.first_name|default:user.username|title }}</span>, {% trans "you joined this event on" %}
+            <span class="font-medium text-cyan-400">{{ membership.joined_at|date:'F j, Y' }}</span>.
           </p>
 
           <div class="bg-gray-900/60 rounded-lg p-5 border border-gray-700/60 mt-4">

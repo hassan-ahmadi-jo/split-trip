@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-24 07:28+0000\n"
+"POT-Creation-Date: 2026-07-06 06:43+0000\n"
 "PO-Revision-Date: 2026-06-19 18:28+0000\n"
 "Last-Translator: Admin  <ha522562@gmail.com>\n"
 "Language: fa\n"
@@ -21,10 +21,10 @@ msgstr "انگلیسی"
 
 #: accounts/forms.py:10 accounts/forms.py:135
 msgid "Confirm password"
-msgstr "تکرار رمز عبور"
+msgstr "تأیید رمز عبور"
 
 #: accounts/forms.py:14 accounts/forms.py:139
-msgid "Enter the password againd"
+msgid "Enter the password again"
 msgstr "رمز عبور را مجدد وارد کنید"
 
 #: accounts/forms.py:22 accounts/forms.py:150
@@ -63,7 +63,7 @@ msgstr "رمز عبور خود را وارد کنید"
 #: accounts/forms.py:83 accounts/forms.py:157 accounts/forms.py:169
 #: core/forms.py:16 events/forms.py:29 events/forms.py:67
 msgid "This field is required."
-msgstr "پر کردن این فیلد الزامی است"
+msgstr "پر کردن این فیلد الزامی است."
 
 #: accounts/forms.py:56
 msgid "Name must be at least 3 characters."
@@ -173,11 +173,11 @@ msgstr "کد فعال‌سازی ارسال شده به ایمیل خود را �
 
 #: accounts/templates/accounts/email_activation_page.html:25
 msgid "Active"
-msgstr "فعال‌سازی"
+msgstr "فعال کردن"
 
 #: accounts/templates/accounts/login_page.html:12
-#: accounts/templates/accounts/login_page.html:29 templates/base.html:112
-#: templates/base.html:183
+#: accounts/templates/accounts/login_page.html:29 templates/base.html:124
+#: templates/base.html:197
 msgid "Login"
 msgstr "ورود"
 
@@ -393,7 +393,7 @@ msgid ""
 "project focused on building practical web applications and experimenting "
 "with scalable Django architecture."
 msgstr ""
-"SplitTrip توسط <strong>Hasan Ahmadi</strong> به‌عنوان یک پروژه شخصی توسعه "
+"SplitTrip توسط <strong>حسن احمدی</strong> به‌عنوان یک پروژه شخصی توسعه "
 "داده شده که تمرکز آن بر ساخت وب‌اپلیکیشن‌های کاربردی و آزمایش معماری مقیاس‌پذیر "
 "Django است."
 
@@ -418,8 +418,8 @@ msgstr "لینکدین"
 msgid "GitHub"
 msgstr "گیت‌هاب"
 
-#: core/templates/core/apps.html:14 templates/base.html:158
-#: templates/includes/footer_nav_items.html:26
+#: core/templates/core/apps.html:14 templates/base.html:172
+#: templates/includes/footer_nav_items.html:27
 #: templates/includes/header_nav_items.html:25
 msgid "Apps"
 msgstr "اپ‌ها"
@@ -500,8 +500,8 @@ msgstr ""
 msgid "Open the app"
 msgstr "باز کردن برنامه"
 
-#: core/templates/core/contact.html:15 templates/base.html:170
-#: templates/includes/footer_nav_items.html:74
+#: core/templates/core/contact.html:15 templates/base.html:184
+#: templates/includes/footer_nav_items.html:75
 #: templates/includes/header_nav_items.html:70
 msgid "Contact"
 msgstr "تماس"
@@ -599,7 +599,7 @@ msgid ""
 "Create a new trip event, or send a join request to existing trips your "
 "friends have created."
 msgstr ""
-"یک سفر جدید ایجاد کنید یا برای سفرهایی که دوستانتان ساخته‌اند درخواست پیوستن "
+"یک سفر گروهی جدید ایجاد کنید، یا برای سفرهایی که دوستانتان ساخته‌اند درخواست پیوستن "
 "بفرستید."
 
 #: core/templates/core/home.html:152
@@ -709,7 +709,7 @@ msgstr "ارسال درخواست"
 
 #: events/templates/events/create_event.html:62
 #: events/templates/events/create_join_request.html:44
-#: events/templates/events/event.html:355
+#: events/templates/events/event.html:212
 #: events/templates/events/event_list.html:159
 #: events/templates/events/join_request_list.html:29
 msgid "Back to App Dashboard"
@@ -735,85 +735,70 @@ msgstr "می‌خواهید یک رویداد ایجاد کنید؟"
 msgid "Create one"
 msgstr "یک رویداد ایجاد کنید"
 
-#: events/templates/events/event.html:21
+#: events/templates/events/event.html:18
 msgid "Event Dashboard & Details"
 msgstr "داشبورد و جزئیات رویداد"
 
-#: events/templates/events/event.html:31
+#: events/templates/events/event.html:25
 #: events/templates/events/event_update.html:13
 msgid "Edit Event"
 msgstr "ویرایش رویداد"
 
-#: events/templates/events/event.html:44
-#: expenses/templates/expenses/expense_detail.html:44
+#: events/templates/events/event.html:30
+#: expenses/templates/expenses/expense_detail.html:46
 #: expenses/templates/expenses/includes/expenses_list/expenses.html:169
 #: expenses/templates/expenses/includes/participant_list/participants.html:215
 #: expenses/templates/expenses/participant.html:53
 msgid "Edit"
 msgstr "ویرایش"
 
-#: events/templates/events/event.html:56
+#: events/templates/events/event.html:38
 msgid "Delete Event"
 msgstr "حذف رویداد"
 
-#: events/templates/events/event.html:69
-#: expenses/templates/expenses/expense_detail.html:57
+#: events/templates/events/event.html:43
+#: expenses/templates/expenses/expense_detail.html:59
 #: expenses/templates/expenses/participant.html:83
 msgid "Delete"
 msgstr "حذف"
 
-#: events/templates/events/event.html:85 events/templates/events/event.html:98
+#: events/templates/events/event.html:53 events/templates/events/event.html:58
 msgid "Leave Event"
 msgstr "ترک رویداد"
 
-#: events/templates/events/event.html:129
+#: events/templates/events/event.html:76
 msgid "Event Details"
-msgstr "عنوان رویداد"
+msgstr "جزئیات رویداد"
 
-#: events/templates/events/event.html:138
+#: events/templates/events/event.html:82
 msgid "Invitation Code"
 msgstr "کد دعوت"
 
-#: events/templates/events/event.html:162
+#: events/templates/events/event.html:96
 msgid "Created by"
 msgstr "سازنده"
 
-#: events/templates/events/event.html:189
-#, python-format
-msgid ""
-"\n"
-"            Created on <span class=\"text-gray-300\">%(date)s</span>\n"
-"            "
-msgstr ""
-"\n"
-"            ایجاد شده در <span class=\"text-gray-300\">%(date)s</span>\n"
-"            "
+#: events/templates/events/event.html:113
+msgid "Created on"
+msgstr "ایجاد شده در"
 
-#: events/templates/events/event.html:215
+#: events/templates/events/event.html:126
 msgid "Your Access Level"
 msgstr "سطح دسترسی شما"
 
-#: events/templates/events/event.html:221
-#, python-format
-msgid ""
-"\n"
-"          Hello <span class=\"font-medium text-gray-100\">%(name)s</span>, "
-"you joined this event on\n"
-"          <span class=\"font-medium text-cyan-400\">%(date)s</span>.\n"
-"          "
-msgstr ""
-"\n"
-"          سلام <span class=\"font-medium text-gray-100\">%(name)s</span>، "
-"شما در\n"
-"          <span class=\"font-medium text-cyan-400\">%(date)s</span> به این "
-"رویداد پیوسته‌اید.\n"
-"          "
+#: events/templates/events/event.html:131
+msgid "Hello"
+msgstr "سلام"
 
-#: events/templates/events/event.html:230
+#: events/templates/events/event.html:131
+msgid "you joined this event on"
+msgstr "تاریخ پیوستن شما به رویداد"
+
+#: events/templates/events/event.html:137
 msgid "Your Role:"
 msgstr "نقش شما:"
 
-#: events/templates/events/event.html:234
+#: events/templates/events/event.html:140
 #: events/templates/events/event_list.html:55
 #: events/templates/events/includes/event/members.html:54
 #: events/templates/events/includes/event_members_list/members.html:52
@@ -823,7 +808,7 @@ msgstr "نقش شما:"
 msgid "Owner"
 msgstr "مالک"
 
-#: events/templates/events/event.html:238
+#: events/templates/events/event.html:142
 #: events/templates/events/event_list.html:59
 #: events/templates/events/includes/event/members.html:60
 #: events/templates/events/includes/event_members_list/members.html:63
@@ -831,7 +816,7 @@ msgstr "مالک"
 msgid "Admin"
 msgstr "مدیر"
 
-#: events/templates/events/event.html:242
+#: events/templates/events/event.html:144
 #: events/templates/events/event_list.html:63
 #: events/templates/events/includes/event/members.html:75
 #: events/templates/events/includes/event_members_list/members.html:101
@@ -840,13 +825,13 @@ msgstr "مدیر"
 msgid "Member"
 msgstr "عضو"
 
-#: events/templates/events/event.html:250
+#: events/templates/events/event.html:150
 msgid ""
 "You have full access. You can manage users, change event settings, and "
 "create or edit expenses."
-msgstr "مدیریت کاربران، تغییر تنظیمات و ویرایش هزینه‌ها."
+msgstr "شما دسترسی کامل دارید. می‌توانید کاربران را مدیریت کنید، تنظیمات رویداد را تغییر دهید و هزینه‌ها را ایجاد یا ویرایش کنید."
 
-#: events/templates/events/event.html:252
+#: events/templates/events/event.html:152
 msgid ""
 "You have administrative access. You can create or edit expenses within this "
 "event."
@@ -854,7 +839,7 @@ msgstr ""
 "شما دسترسی مدیریتی دارید. می‌توانید هزینه‌های این رویداد را ایجاد یا ویرایش "
 "کنید."
 
-#: events/templates/events/event.html:254
+#: events/templates/events/event.html:154
 msgid ""
 "You have view-only access. You can observe the expenses but cannot make "
 "modifications."
@@ -862,11 +847,11 @@ msgstr ""
 "شما فقط دسترسی مشاهده دارید. می‌توانید هزینه‌ها را ببینید اما امکان ایجاد "
 "تغییر در آن‌ها را ندارید."
 
-#: events/templates/events/event.html:294
+#: events/templates/events/event.html:176
 msgid "Manage Expenses & Splits"
 msgstr "مدیریت هزینه‌ها و تسویه‌ها"
 
-#: events/templates/events/event.html:298
+#: events/templates/events/event.html:179
 msgid ""
 "Go to the dedicated tracker to record costs, add specific participants, and "
 "calculate who owes what."
@@ -874,7 +859,7 @@ msgstr ""
 "به بخش پیگیری بروید تا هزینه‌ها را ثبت کنید، افراد مشخصی را اضافه کنید و "
 "محاسبه کنید چه کسی چه مقدار بدهکار است."
 
-#: events/templates/events/event.html:308
+#: events/templates/events/event.html:185
 msgid "Open Tracker"
 msgstr "رفتن به پیگیری هزینه‌ها"
 
@@ -974,7 +959,7 @@ msgstr "پیوستن به یک رویداد"
 
 #: events/templates/events/event_update.html:14
 msgid "Update the event's name."
-msgstr "نام رویداد را بروز کنید"
+msgstr "نام رویداد را به‌روزرسانی کنید"
 
 #: events/templates/events/includes/event/event_join_requests.html:13
 #: events/templates/events/includes/event_join_request_list/event_join_requests.html:12
@@ -1208,7 +1193,7 @@ msgstr "عنوان نباید بیش از ۵۰ کاراکتر باشد."
 
 #: expenses/forms.py:92
 msgid "The description must be no more than 5000 characters"
-msgstr "عنوان نباید بیش از 5000 کاراکتر باشد."
+msgstr "توضیحات نباید بیش از 5000 کاراکتر باشد."
 
 #: expenses/forms.py:146
 #: expenses/templates/expenses/includes/expenses_list/expenses.html:61
@@ -1283,67 +1268,67 @@ msgstr "جزئیات هزینه"
 msgid "Total Cost:"
 msgstr "هزینه کل:"
 
-#: expenses/templates/expenses/expense_detail.html:39
+#: expenses/templates/expenses/expense_detail.html:41
 #: expenses/templates/expenses/expenses_edit.html:38
 msgid "Edit Expense"
 msgstr "ویرایش هزینه"
 
-#: expenses/templates/expenses/expense_detail.html:52
+#: expenses/templates/expenses/expense_detail.html:54
 msgid "Delete Expense"
 msgstr "حذف هزینه"
 
-#: expenses/templates/expenses/expense_detail.html:67
+#: expenses/templates/expenses/expense_detail.html:69
 msgid "Description"
 msgstr "توضیحات"
 
-#: expenses/templates/expenses/expense_detail.html:74
+#: expenses/templates/expenses/expense_detail.html:76
 msgid "No description provided for this expense."
 msgstr "برای این هزینه توضیحی ثبت نشده است."
 
-#: expenses/templates/expenses/expense_detail.html:81
+#: expenses/templates/expenses/expense_detail.html:83
 msgid "Expense Date"
 msgstr "تاریخ هزینه"
 
-#: expenses/templates/expenses/expense_detail.html:90
+#: expenses/templates/expenses/expense_detail.html:92
 msgid "Created At"
 msgstr "ایجاد شده در"
 
-#: expenses/templates/expenses/expense_detail.html:99
+#: expenses/templates/expenses/expense_detail.html:101
 msgid "Last Updated"
 msgstr "آخرین بروزرسانی"
 
-#: expenses/templates/expenses/expense_detail.html:120
+#: expenses/templates/expenses/expense_detail.html:122
 msgid "Participants Breakdown"
 msgstr "جزئیات سهم شرکت‌کنندگان"
 
-#: expenses/templates/expenses/expense_detail.html:142
+#: expenses/templates/expenses/expense_detail.html:148
 #: expenses/templates/expenses/split_payment.html:95
 msgid "PAYER"
 msgstr "پرداخت‌کننده"
 
-#: expenses/templates/expenses/expense_detail.html:158
+#: expenses/templates/expenses/expense_detail.html:164
 #: expenses/templates/expenses/split_payment.html:115
 msgid "Share Amount"
 msgstr "مبلغ سهم"
 
-#: expenses/templates/expenses/expense_detail.html:185
+#: expenses/templates/expenses/expense_detail.html:195
 #: expenses/templates/expenses/split_payment.html:127
 msgid "Paid Amount"
 msgstr "مبلغ پرداخت‌شده"
 
-#: expenses/templates/expenses/expense_detail.html:214
+#: expenses/templates/expenses/expense_detail.html:228
 msgid "Comment"
 msgstr "نظر"
 
-#: expenses/templates/expenses/expense_detail.html:221
+#: expenses/templates/expenses/expense_detail.html:235
 msgid "No specific comment for this participant."
 msgstr "برای این شرکت‌کننده نظری ثبت نشده است."
 
-#: expenses/templates/expenses/expense_detail.html:229
+#: expenses/templates/expenses/expense_detail.html:243
 msgid "No participants recorded for this expense."
 msgstr "هیچ شرکت‌کننده‌ای برای این هزینه ثبت نشده است."
 
-#: expenses/templates/expenses/expense_detail.html:246
+#: expenses/templates/expenses/expense_detail.html:260
 #: expenses/templates/expenses/expenses_list.html:26
 #: expenses/templates/expenses/participant.html:428
 #: expenses/templates/expenses/participant_list.html:26
@@ -1590,6 +1575,8 @@ msgid ""
 "Your expense has been saved. After adding participants, you can edit it and "
 "assign the amount paid by each person."
 msgstr ""
+"هزینه شما ذخیره شد. پس از افزودن شرکت‌کنندگان، می‌توانید آن را ویرایش کرده و "
+"سهم پرداخت‌شده توسط هر فرد را مشخص کنید."
 
 #: expenses/templates/expenses/split_payment.html:180
 msgid "Back to Details"
@@ -1662,48 +1649,45 @@ msgstr "ثبت اولین هزینه"
 msgid "View All Expenses"
 msgstr "مشاهده همه هزینه‌ها"
 
-#: templates/base.html:95 templates/base.html:176
+#: templates/base.html:106 templates/base.html:190
 msgid "My Profile"
 msgstr "پروفایل من"
 
-#: templates/base.html:113 templates/base.html:187
+#: templates/base.html:125 templates/base.html:201
 msgid "Sign Up"
 msgstr "ثبت‌نام"
 
-#: templates/base.html:141
+#: templates/base.html:154
 msgid ""
 "The easiest way to plan group trips, track expenses, and split costs "
 "effortlessly."
-msgstr "ساده‌ترین روش برای برنامه‌ریزی سفرهای گروهی، پیگیری هزینه‌ها و تقسیم آسان مخارج."
+msgstr ""
+"ساده‌ترین روش برای برنامه‌ریزی سفرهای گروهی، پیگیری هزینه‌ها و تقسیم آسان مخارج."
 
-#: templates/base.html:146
+#: templates/base.html:160
 msgid "Quick Links"
 msgstr "لینک‌های سریع"
 
-#: templates/base.html:152 templates/includes/footer_nav_items.html:14
+#: templates/base.html:166 templates/includes/footer_nav_items.html:15
 #: templates/includes/header_nav_items.html:14
 msgid "Home"
 msgstr "خانه"
 
-#: templates/base.html:164 templates/includes/footer_nav_items.html:62
+#: templates/base.html:178 templates/includes/footer_nav_items.html:63
 #: templates/includes/header_nav_items.html:59
 msgid "About"
-msgstr "درباره ما"
+msgstr "درباره"
 
-#: templates/base.html:195
+#: templates/base.html:209
 msgid "Connect"
 msgstr "ارتباط"
 
-#: templates/includes/footer_nav_items.html:38
+#: templates/includes/footer_nav_items.html:39
 #: templates/includes/header_nav_items.html:37
 msgid "Docs"
 msgstr "مستندات"
 
-#: templates/includes/footer_nav_items.html:50
+#: templates/includes/footer_nav_items.html:51
 #: templates/includes/header_nav_items.html:48
 msgid "Blog"
 msgstr "وبلاگ"
-
-
-#~ msgid "Created on"
-#~ msgstr "یک رویداد ایجاد کنید"

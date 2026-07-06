@@ -11,7 +11,7 @@ class SignUpForm(forms.ModelForm):
         widget=forms.PasswordInput(
                 attrs={
                 'class': 'form-control',
-                'placeholder': _('Enter the password againd')
+                'placeholder': _('Enter the password again')
             }))
 
     class Meta:
