@@ -1,0 +1,5 @@
+Django==6.0.2
+django-rosetta==0.10.3
+djangorestframework==3.17.1
+python-dotenv==1.2.1
+psycopg==3.3.4
