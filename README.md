@@ -201,7 +201,7 @@ The project includes a REST API built on Django REST Framework:
 1. **Clone the repository**
 ```bash
 git clone https://github.com/hassan-ahmadi-jo/split-trip.git
-cd splittrip
+cd split-trip
 
 2. **Create and activate virtual environment**
 
@@ -232,11 +232,18 @@ env
 SECRET_KEY=your_django_secret_key
 DEBUG=True
 
+DB_ENGINE='django.db.backends.postgresql'
 DB_NAME=splittrip
 DB_USER=your_db_user
 DB_PASSWORD=your_db_password
 DB_HOST=localhost
 DB_PORT=5432
+
+DJANGO_DEBUG=True
+DJANGO_ALLOWED_HOSTS=127.0.0.1 localhost
+
+USE_FIXED_EMAIL_ACTIVATION_CODE=True
+FIXED_EMAIL_ACTIVATION_CODE='123456'
 
 5. **Apply migrations**
 
@@ -248,7 +255,15 @@ python manage.py migrate
 bash
 python manage.py createsuperuser
 
-7. **Run the development server**
+7. Compile translations
+
+Compile the translation files so Django can load the translated interface:
+
+```bash
+python manage.py compilemessages
+
+
+8. **Run the development server**
 
 bash
 python manage.py runserver
