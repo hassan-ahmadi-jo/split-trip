@@ -192,7 +192,7 @@
   </section>
 
   <!-- 🟢 MEMBERS SECTION -->
-  <div class="js-ajax-container">
+  <div data-url="{% url 'event_membership' event_code=event.code %}" id="event-members" class="js-ajax-container">
     {% include 'events/includes/event/members.html' %}
   </div>
 
@@ -216,4 +216,5 @@
 
 {% block script %}
   <script src="{% static 'javascript/ajax_handler.js' %}"></script>
+  <script src="{% static 'javascript/event_dashboard_handler.js' %}"></script>
 {% endblock %}

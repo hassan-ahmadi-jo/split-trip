@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
+from django.db import transaction
 from django.http import HttpRequest
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
@@ -177,21 +178,22 @@ class JoinRequestHandlerView(LoginRequiredMixin, View):
 
 class EventMembershipHandlerView(LoginRequiredMixin, View):
     def post(self, request:HttpRequest, member_id):
-        membership = get_object_or_404(models.EventMembership, id = member_id)
-        event = membership.event
-        context = {}
-        context['event'] = event
-        if event.creator == request.user and membership.user != event.creator:
-            btn_action = request.POST.get('btn_action')
-            page = request.POST.get('page')
-            if btn_action == 'admin':
-                membership.can_edit_event_info = True
-                membership.save()
-            elif btn_action == 'member':
-                membership.can_edit_event_info = False
-                membership.save()
-            elif btn_action == 'remove':
-                membership.delete()
+        membership = get_object_or_404(models.EventMembership.objects.select_related('event'), id = member_id)
+        with transaction.atomic():
+            event = get_object_or_404(models.Event.objects.select_for_update(), code = membership.event.code)
+            context = {}
+            context['event'] = event
+            if event.creator == request.user and membership.user != event.creator:
+                btn_action = request.POST.get('btn_action')
+                page = request.POST.get('page')
+                if btn_action == 'admin':
+                    membership.can_edit_event_info = True
+                    membership.save()
+                elif btn_action == 'member':
+                    membership.can_edit_event_info = False
+                    membership.save()
+                elif btn_action == 'remove':
+                    membership.delete()
             
             if page == 'event':
                 context['members_list'] = event.memberships.all().order_by('joined_at')[:6]
@@ -200,6 +202,17 @@ class EventMembershipHandlerView(LoginRequiredMixin, View):
             elif page == 'event_members_list':
                 context['members_list'] = event.memberships.all().order_by('joined_at')
                 return render(request, 'events/includes/event_members_list/members.html', context = context)
+
+class EventMembershipView(LoginRequiredMixin, TemplateView):
+    template_name = 'events/includes/event/members.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event_code = self.kwargs.get('event_code')
+        event = get_object_or_404(models.Event.objects.prefetch_related('memberships'), code = event_code, creator = self.request.user)
+        context['event'] = event
+        context['members_list'] = event.memberships.all().order_by('joined_at')[:6]
+        return context
 
 class EventListView(LoginRequiredMixin, ListView):
     template_name = 'events/event_list.html'

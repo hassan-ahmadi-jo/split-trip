@@ -22,6 +22,7 @@ urlpatterns = [
 
     # --- Membership
     path('members/<int:member_id>/handler/', views.EventMembershipHandlerView.as_view(), name ='event_membership_handler'),
+    path('members/data/<str:event_code>/', views.EventMembershipView.as_view(), name = 'event_membership'),
     path('events/<str:event_code>/members/', views.EventMembersListView.as_view(), name ='event_members_list'),
     
 
