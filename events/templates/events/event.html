@@ -46,7 +46,7 @@
           </div>
         </div>
       {% else %}
-        <div class="flex items-center bg-gray-800 gap-2 p-1.5 h-14 rounded-2xl border border-gray-700/80 shadow-inner">
+        <div class="w-full order-1 md:order-2 md:w-fit mb-3 flex items-center bg-gray-800 gap-2 p-1.5 h-14 rounded-2xl border border-gray-700/80 shadow-inner">
           <form action="{% url 'leave_event' event_code=event.code %}" method="post" class="m-0 p-0">
             {% csrf_token %}
 
