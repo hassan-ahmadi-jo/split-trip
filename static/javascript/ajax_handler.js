@@ -1,3 +1,4 @@
+import { showErrorAlert } from "./alert_messages.js";
 // AJAX
 const ajaxContainerEls = document.querySelectorAll('.js-ajax-container');
 
@@ -39,9 +40,11 @@ ajaxContainerEls.forEach(function (container) {
             
             if (htmlData) {
                 container.innerHTML = htmlData;
+
             }
         } catch (error) {
             console.error('AJAX submission failed:', error);
+            showErrorAlert();
         }
     });
 });
