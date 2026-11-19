@@ -2,36 +2,47 @@
 const ajaxContainerEls = document.querySelectorAll('.js-ajax-container');
 
 ajaxContainerEls.forEach(function (container) {
-    const ajaxForms = container.querySelectorAll('.js-ajax-form');
-    const joinRequestFormHandler = function (element) {
+    container.addEventListener('submit', async function (event) {
+        const form = event.target.closest('.js-ajax-form');
+        
+        if (!form || !container.contains(form)) return;
 
-        element.addEventListener('submit', function (el) {
-            el.preventDefault();
-            formData = new FormData(this);
-            formData.append(el.submitter.name, el.submitter.value);
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        event.preventDefault();
 
-            url = this.action;
-            fetch(url, {
+        const formData = new FormData(form);
+        
+        if (event.submitter && event.submitter.name) {
+            formData.append(event.submitter.name, event.submitter.value);
+        }
+
+        const csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (!csrfInput) {
+            console.error('CSRF token not found!');
+            return;
+        }
+        
+        const csrfToken = csrfInput.value;
+        const url = form.action;
+
+        try {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: { "X-CSRFToken": csrfToken },
                 body: formData
-            }).then(
-                response => response.text()
-            ).then(
-                htmlData => {
-                    container.innerHTML = htmlData;
+            });
+            
+            if (!response.ok) {
+                throw new Error('HTTP error ' + response.status);
+            }
 
-                    const newajaxForms = document.querySelectorAll('.js-ajax-form');
-                    newajaxForms.forEach(form => joinRequestFormHandler(form));
-                }
-            )
-        });
-    };
-
-    ajaxForms.forEach(form => joinRequestFormHandler(form));
-
+            const htmlData = await response.text();
+            
+            if (htmlData) {
+                container.innerHTML = htmlData;
+            }
+        } catch (error) {
+            console.error('AJAX submission failed:', error);
+        }
+    });
 });
-
-
 
