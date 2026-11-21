@@ -21,7 +21,6 @@ urlpatterns = [
     
     # Split payment for a specific expense
     path('expenses/<int:expense_id>/split-payment/', views.SplitPaymentView.as_view(), name='split_payment'),
-    path('expenses/<int:expense_id>/split-payment/success/', views.SplitPaymentSuccessView.as_view(), name='split_payment_Success'),
 
     # Currency
     path('currency/handler/', views.CurrencyHandlerView.as_view(), name='currency_handler'),

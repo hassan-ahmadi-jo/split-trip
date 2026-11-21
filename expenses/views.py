@@ -7,7 +7,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from events.models import Event, EventMembership
+from django.contrib import messages
+from events.models import Event
 from django.db import transaction
 from django.template.loader import render_to_string
 from . import forms, models
@@ -240,6 +241,7 @@ class ExpensesUpdateView(EventMemberRequiredMixin, AccessRestrictedMixin, Update
     def get_success_url(self):
         event = self.get_event()
         id = self.kwargs.get('id')
+        messages.success(self.request, 'success')
         return reverse_lazy('split_payment', kwargs = {'event_code': event.code, 'expense_id': id})
     
     def get_queryset(self):
@@ -309,15 +311,11 @@ class SplitPaymentView(PaymentMixin, AccessRestrictedMixin, View):
             self.save_all_forms(forms_by_participant)
             event = self.get_event()
             expense = self.get_expense()
-            return redirect('split_payment_Success', event_code = event.code, expense_id = expense.id)
+            messages.success(request, 'success')
+            return redirect('expense_detail', event_code = event.code, expense_id = expense.id)
 
         return render(request, 'expenses/split_payment.html', context = context)
 
-class SplitPaymentSuccessView(PaymentMixin, TemplateView):
-    template_name = 'expenses/split_payment_success.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 class ExpensesListView(EventMemberRequiredMixin, ListView):
     template_name = 'expenses/expenses_list.html'
@@ -341,6 +339,7 @@ class ExpensesDeleteView(PaymentMixin, AccessRestrictedMixin, View):
     def delet_expense(self):
         expense = self.get_expense()
         if expense.total_amount == 0:
+            messages.success(self.request, 'success')
             expense.delete()
     def post(self, request, event_code, expense_id):
         self.delet_expense()

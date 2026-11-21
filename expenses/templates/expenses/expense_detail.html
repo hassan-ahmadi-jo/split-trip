@@ -261,6 +261,14 @@
     </a>
   </div>
 
+  {% for message in messages %}
+    {% if 'success' in message.tags %}
+      <span hidden class="js-flash-message" data-alert-type="success"></span>
+    {% elif 'error' in message.tags %}
+      <span hidden class="js-flash-message" data-alert-type="error"></span>
+    {% endif %}
+  {% endfor %}
+
   <!-- Access Restricted Data -->
   {{ can_edit_event_info|json_script:'can_edit_event_info' }}
 {% endblock %}
@@ -268,4 +276,5 @@
 {% block script %}
   <script src="{% static 'javascript/expenses_lists.js' %}"></script>
   <script src="{% static 'javascript/access_restricted.js' %}"></script>
+  <script type="module" src="{% static 'javascript/show_flash_messages.js' %}"></script>
 {% endblock %}
