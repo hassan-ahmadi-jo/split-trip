@@ -28,16 +28,13 @@ class SplitterDashboardView(LoginRequiredMixin, TemplateView):
 class CreateEventView(LoginRequiredMixin, CreateView):
     form_class = forms.CreateEventForm
     template_name = 'events/create_event.html'
+    success_url = reverse_lazy('splitter_dashboard')
     
-    def get_success_url(self):
-        return reverse_lazy(
-            'create_event_success',
-            kwargs={'event_code': self.object.code}
-        )
 
     def form_valid(self, form):
         user = self.request.user
         form.instance.creator = user
+        messages.success(self.request, 'success')
         return super().form_valid(form)
     
     def get_form_kwargs(self):
@@ -91,8 +88,8 @@ class CreateJoinRequestView(LoginRequiredMixin, View):
                 
                 event = models.Event.objects.filter(code=event_code).first()
                 models.EventJoinRequest.objects.create(user=user, event=event)
-
-                return redirect('create_join_request_success', event_title = event.title)
+                messages.success(request, 'success')
+                return redirect('splitter_dashboard')
             
             elif retry_available_at > now: # If the retry delay changes, it will be stored in the session and the user cannot retry for a while.
                 self.request.session['retry_available_at'] = retry_available_at.timestamp()
@@ -296,24 +293,6 @@ class EventMembersListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     def handle_no_permission(self):
         return redirect('splitter_dashboard')
 
-class CreateEventSuccessView(LoginRequiredMixin, TemplateView): 
-    template_name = 'events/create_event_success.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        event_code = self.kwargs.get('event_code')
-        event = get_object_or_404(models.Event, code=event_code)
-        context["event"] = event
-        return context
-
-class CreateJoinRequestSuccessView(LoginRequiredMixin, TemplateView):
-    template_name = 'events/create_join_request_success.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["event_title"] = self.kwargs.get('event_title')
-        return context
-
 class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'events/event_update.html'
     model = models.Event
@@ -322,7 +301,8 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         event = self.get_event()
-        return reverse_lazy('event_edit_success', kwargs = {'event_code': event.code})
+        messages.success(self.request, 'success')
+        return reverse_lazy('event', kwargs = {'event_code': event.code})
 
     def get_event(self):
         if hasattr(self, '_event'):
@@ -347,13 +327,6 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         kwargs['event_old_title'] = self.get_event().title
         return kwargs
     
-class EventUpdateSuccessView(LoginRequiredMixin, TemplateView):
-    template_name = 'events/event_update_success.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['event'] = models.Event.objects.filter(code = self.kwargs.get('event_code')).first()
-        return context
 
 class EventDeleteView(LoginRequiredMixin, View):
     def post(self, request:HttpRequest, event_code):
@@ -365,10 +338,8 @@ class EventDeleteView(LoginRequiredMixin, View):
             return redirect('event_delete_failure', event_code = event_code)
         
         event.delete()
-        return redirect('event_delete_success')
-
-class EventDeleteSuccess(LoginRequiredMixin, TemplateView):
-    template_name = 'events/event_delete_success.html'
+        messages.success(request, 'success')
+        return redirect('splitter_dashboard')
 
 class EventDeleteFailure(LoginRequiredMixin,UserPassesTestMixin, TemplateView):
     template_name = 'events/event_delete_failure.html'
@@ -398,12 +369,5 @@ class LeaveEventView(LoginRequiredMixin, TemplateView):
         if event.creator != request.user and is_user_member:
             membership = event.memberships.select_related('user').filter(user = request.user).first()
             membership.delete()
+            messages.success(request, 'success')
         return redirect('splitter_dashboard')
-
-# events = models.Event.objects.all()
-# for event in events:
-#     print(event.title)
-#     print(event.code)
-#     print(event.creator.first_name)
-#     print('------------------------------------')
-#     # event.delete()

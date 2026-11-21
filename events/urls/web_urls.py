@@ -14,12 +14,6 @@ urlpatterns = [
     path('events/<str:event_code>/delete/', views.EventDeleteView.as_view(), name ='event_delete'),
     path('events/<str:event_code>/delete/failure/', views.EventDeleteFailure.as_view(), name ='event_delete_failure'),
 
-    # --- Event Temporary
-    path('events/<str:event_code>/edit/success/', views.EventUpdateSuccessView.as_view(), name ='event_edit_success'),
-    path('events/<str:event_code>/create/success/', views.CreateEventSuccessView.as_view(), name ='create_event_success'),
-    path('events/delete-success/', views.EventDeleteSuccess.as_view(), name ='event_delete_success'),
-
-
     # --- Membership
     path('members/<int:member_id>/handler/', views.EventMembershipHandlerView.as_view(), name ='event_membership_handler'),
     path('members/data/<str:event_code>/', views.EventMembershipView.as_view(), name = 'event_membership'),
@@ -31,8 +25,4 @@ urlpatterns = [
     path('join-requests/create/', views.CreateJoinRequestView.as_view(), name ='create_join_request'),
     path('join-requests/handler/<int:request_id>/', views.JoinRequestHandlerView.as_view(), name ='join_request_handler'),
     path('events/<str:event_code>/join-requests/', views.EventJoinRequestListView.as_view(), name ='event_join_request_list'),
-
-
-    # --- Join Requests Temporary
-    path('join-requests/create/success/<str:event_title>/', views.CreateJoinRequestSuccessView.as_view(), name ='create_join_request_success'),
 ]

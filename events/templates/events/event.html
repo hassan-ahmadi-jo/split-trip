@@ -212,9 +212,18 @@
       {% trans 'Back to App Dashboard' %}
     </a>
   </div>
+
+  {% for message in messages %}
+    {% if 'success' in message.tags %}
+      <span hidden class="js-flash-message" data-alert-type="success"></span>
+    {% elif 'error' in message.tags %}
+      <span hidden class="js-flash-message" data-alert-type="error"></span>
+    {% endif %}
+  {% endfor %}
 {% endblock %}
 
 {% block script %}
   <script type="module" src="{% static 'javascript/ajax_handler.js' %}"></script>
   <script type="module" src="{% static 'javascript/event_dashboard_handler.js' %}"></script>
+  <script type="module" src="{% static 'javascript/show_flash_messages.js' %}"></script>
 {% endblock %}
